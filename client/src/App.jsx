@@ -1,15 +1,29 @@
-import "./App.css";
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import './App.css';
+import StudentCorner from './components/student-corner/StudentCorner';
+import Home from './components/home/Home';
+import Layout from './Layout';
 
-function App() {
-  return (
-    <>
-      <h1>AcademiaConnect - Your One Stop Solution for Academics</h1>
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/student-corner",
+        element: <StudentCorner />,
+      },
+    ],
+  },
+]);
 
-      <p>Under Construction....</p>
-
-      <p>Visit us soon!</p>
-    </>
-  );
-}
+const App = () => {
+  return <RouterProvider router={router} />;
+};
 
 export default App;
