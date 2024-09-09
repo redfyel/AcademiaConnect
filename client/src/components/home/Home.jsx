@@ -1,50 +1,68 @@
-import animation from "../../assets/animations/education_animation.webm";
-import './Home.css';
+import animationData from "../../assets/animations/education_animation.json";
+import Lottie from "react-lottie";
+import "./Home.css";
 
 function Home() {
+  const features = [
+    {
+      name: "Exam Corner",
+      description: "",
+    },
+    {
+      name: "Student Corner",
+      description: "",
+    },
+    {
+      name: "Attendance Tracker",
+      description: "",
+    },
+    {
+      name: "Events and Competitions",
+      description: "",
+    },
+    {
+      name: "Stationary Status",
+      description: "",
+    },
+  ];
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
   return (
     <div className="container">
       <div className="row">
         <div className="col-md-6 left">
-          <video src={animation} type="video/webm" autoPlay loop muted>
-            Animation
-          </video>
+
+        <Lottie 
+	    options={defaultOptions}
+        height={600}
+        width={600}
+      />
+          
         </div>
         <div className="col-md-6 right">
           <h1>Welcome to AcademiaConnect</h1>
         </div>
       </div>
 
-      <div className="container d-flex flex-wrap justify-content-center mt-5 gap-5">
+      <div className="cards-container d-flex gap-5 flex-wrap justify-content-center">
+        {features.map((feature) => (
           <div className="card p-5">
-            <div className="card-body">
-              <h5>Exam Corner</h5>
+            <div className="card-inner">
+              <div className="card-front">
+                <h5>{feature.name}</h5>
+              </div>
+              <div className="card-back">
+                <p>{feature.description}</p>
+              </div>
             </div>
           </div>
-          
-          <div className="card p-5">
-            <div className="card-body">
-              <h5>Student Corner</h5>
-            </div>
-          </div>
-
-          <div className="card p-5">
-            <div className="card-body">
-              <h5>Attendance Tracker</h5>
-            </div>
-          </div>
-
-          <div className="card p-5">
-            <div className="card-body">
-              <h5>Events</h5>
-            </div>
-          </div>
-
-          <div className="card p-5">
-            <div className="card-body">
-              <h5>Stationary Status</h5>
-            </div>
-          </div>
+        ))}
       </div>
     </div>
   );
