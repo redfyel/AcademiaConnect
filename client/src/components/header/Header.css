@@ -1,0 +1,22 @@
+.header {
+  background-color:#ebebff  ;
+}
+.logo-img{
+  width : 120px;
+}
+.header .links a{
+  color : #172d66;
+  text-decoration: none;
+  font-size: 1.3rem;
+  padding: 5px;
+
+}
+
+.header .links a:hover{
+  color : #ffffff;
+  font-size: 1.3rem;
+  background-color: #172d66;
+  padding: 5px;
+  border-radius: 50px;
+  transition: all 0.2s ease-in-out;
+}

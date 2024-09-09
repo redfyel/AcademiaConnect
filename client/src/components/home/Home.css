@@ -1,0 +1,34 @@
+.left video{
+    height : 600px;
+}
+
+.right h1 {
+    font-size: 5rem;
+    color : #172d66;
+    margin-top: 200px ;
+    transition: all 0.4s ease;
+    text-align: center;
+}
+
+.right h1:hover{
+    font-size: 100px;
+    background: -webkit-linear-gradient(#cb0980, #29b1db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "Handjet", sans-serif;
+}
+.cards-container .card {
+    padding: 40%;
+
+    box-shadow: rgb(41, 177, 219,0.25) 0px 50px 100px -20px,rgb(41, 177, 219, 0.3) 0px 30px 60px -30px;
+    border : none;
+    width: 500px;
+    height : 250px;
+}
+.cards-container .card h5{
+    font-size: 2rem;
+    text-align: center;
+    color: rgb(41, 177, 219);
+   
+    font-family: "Handjet", sans-serif;
+}
