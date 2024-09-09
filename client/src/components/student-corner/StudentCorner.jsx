@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './StudentCorner.css'; // Assuming you're using a separate CSS file
+import './StudentCorner.css'; 
 
 function StudentCorner() {
   const [showModal, setShowModal] = useState(false);

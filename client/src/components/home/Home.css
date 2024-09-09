@@ -1,0 +1,19 @@
+.left video{
+    height : 600px;
+}
+
+.right h1 {
+    font-size: 4rem;
+    color : #172d66;
+    margin-top: 200px ;
+    transition: all 0.4s ease;
+    text-align: center;
+}
+
+.right h1:hover{
+    font-size: 100px;
+    background: -webkit-linear-gradient(#cb0980, #29b1db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "Handjet", sans-serif;
+}

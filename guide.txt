@@ -10,5 +10,17 @@ create a client folder and inside it, give commands in terminal
 create a backend folder
     in terminal, give npm init. this will create a package.json file
     create a server.js file in backend folder
-    next run  npm i express to install
+    next run  npm i express to install express
     import express in server.js and assign port number (3 lines of code)
+
+
+
+
+HARINI
+
+
+MEENAKSHI
+
+
+CHANDRASEKHAR
+
