@@ -6,23 +6,23 @@ function Home() {
   const features = [
     {
       name: "Exam Corner",
-      description: "",
+      description: "Your one-stop study hub! Find timetables, syllabi, and previous year questions for every subject, plus access to all your tutorials in one convenient place.",
     },
     {
       name: "Student Corner",
-      description: "",
+      description: "Connect, collaborate, and thrive. Share doubts, give feedback, and help each other out.",
     },
     {
       name: "Attendance Tracker",
-      description: "",
+      description: "Keep tabs on your attendance and know exactly how many more classes you need to attend.",
     },
     {
       name: "Events and Competitions",
-      description: "",
+      description: "Stay in the loop on campus happenings. Discover exciting events, find details, and register easily.",
     },
     {
       name: "Stationary Status",
-      description: "",
+      description: " Check the status of the stationary shop with a simple click. Green means it's open, red means it's closed. Find convenience at your fingertips.",
     },
   ];
   const defaultOptions = {
@@ -50,7 +50,7 @@ function Home() {
         </div>
       </div>
 
-      <div className="cards-container d-flex gap-5 flex-wrap justify-content-center">
+      <div className="cards-container">
         {features.map((feature) => (
           <div className="card p-5">
             <div className="card-inner">
