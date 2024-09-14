@@ -2,6 +2,7 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import StudentCorner from './components/student-corner/StudentCorner';
+import TimeTable from './components/time-table/TimeTable';
 import Home from './components/home/Home';
 import ExamCorner from './components/exam-corner/ExamCorner';
 import Tracker from './components/tracker/Tracker';
