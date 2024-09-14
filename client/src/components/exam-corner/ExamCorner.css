@@ -1,4 +1,4 @@
-.card-container {
+.exam-corner-card-container {
     display: flex;
     flex-wrap: wrap; 
     justify-content: flex-start; 
@@ -8,7 +8,7 @@
     scroll-snap-type: x mandatory; 
 }
 
-.card {
+.exam-card {
     background-color: #f9f9f9;
     width: 23%; 
     aspect-ratio: 5 / 3; 
@@ -23,18 +23,18 @@
     scroll-snap-align: start; 
 }
 
-.card:hover {
+.exam-card:hover {
     transform: translateY(-10px); 
     box-shadow: 0 6px 12px rgba(173, 216, 230, 0.4); 
 }
 
-.card-image {
+.exam-card .card-image {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
 }
 
-button {
+.ec-btn {
     background-color: #6e97b7; 
     color: white;
     padding: 10px 20px;
@@ -46,7 +46,7 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
+.ec-btn:hover {
     background-color: #6e8bab; 
 }
 

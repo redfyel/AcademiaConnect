@@ -1,7 +1,7 @@
 import React from 'react';
 import './ExamCorner.css';
 
-const CardLayout = () => {
+const ExamCorner = () => {
   const cards = [
     { title: 'TimeTable', imgSrc: 'https://t4.ftcdn.net/jpg/02/99/06/99/360_F_299069957_9FfNrl3vi6yDSnvEgL6xXRVSYVb0PKkO.jpg', link: '/time-table' },
     { title: 'Syllabus', imgSrc: 'https://freedesignfile.com/upload/2021/03/College-student-cartoon-illustration-vector.jpg', link: '/syllabus' },
@@ -10,16 +10,16 @@ const CardLayout = () => {
   ];
 
   return (
-    <div className="card-container">
+    <div className="exam-corner-card-container">
       {cards.map((card, index) => (
-        <div key={index} className="card">
+        <div key={index} className="exam-card">
           <img src={card.imgSrc} alt={card.title} className="card-image" />
           <h2>{card.title}</h2>
-          <button onClick={() => window.location.href = card.link}>Go to {card.title}</button>
+          <button onClick={() => window.location.href = card.link} className='ec-btn'>Go to {card.title}</button>
         </div>
       ))}
     </div>
   );
 };
 
-export default CardLayout;
+export default ExamCorner;
