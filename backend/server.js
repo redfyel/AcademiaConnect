@@ -5,6 +5,9 @@ const app = exp() // app contains express application object. object contains ht
 //import environment variables
 require('dotenv').config()
 
+const cors = require('cors')
+app.use(cors({origin : 'http://localhost:5173'}))
+
 //import MongoClient 
 const {MongoClient} = require('mongodb');
 
@@ -36,7 +39,7 @@ mongoclient.connect().then((connectionObj)=>{
 
 //import userApp
 const userApp = require('./APIs/userAPI')
-//app.use('/user-api', userApp) //UNCOMMENT THIS LINE AFTER MAKING REQUEST IN FRONTEND
+app.use('/user-api', userApp) //UNCOMMENT THIS LINE AFTER MAKING REQUEST IN FRONTEND
 
 
 //error handling middleware
