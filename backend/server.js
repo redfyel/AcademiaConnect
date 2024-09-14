@@ -36,4 +36,10 @@ mongoclient.connect().then((connectionObj)=>{
 
 //import userApp
 const userApp = require('./APIs/userAPI')
-app.use('/user-api', userApp)
+//app.use('/user-api', userApp) //UNCOMMENT THIS LINE AFTER MAKING REQUEST IN FRONTEND
+
+
+//error handling middleware
+app.use((err, req, res, next)=>{
+    res.send({message :"An error occured : ", errorMessage : err.message})
+})
