@@ -1,5 +1,5 @@
 import React from 'react';
-import './Table.css'; 
+import './TimeTable.css'; 
 
 const TableComponent = () => {
   const tableData = [

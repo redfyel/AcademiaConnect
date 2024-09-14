@@ -3,37 +3,19 @@ import './ExamCorner.css';
 
 const CardLayout = () => {
   const cards = [
-    {
-      title: 'TimeTable',
-      imgSrc: 'https://th.bing.com/th/id/OIP.iviJzwY87xQSLMLQ6G7tWgHaE-?pid=ImgDet&w=164&h=110&c=7&dpr=1.5',
-      link: '/time-table'
-    },
-    {
-      title: 'Syllabus',
-      imgSrc: 'https://th.bing.com/th/id/OIP.UFKXZSq14XRFIfhDm-NAhQHaF5?pid=ImgDet&w=164&h=130&c=7&dpr=1.5',
-      link: '/syllabus'
-    },
-    {
-      title: 'Results',
-      imgSrc: 'https://th.bing.com/th/id/OIP._BQGGZoKzvcKDiZkxY54EgHaH0?pid=ImgDet&w=164&h=174&c=7&dpr=1.5',
-      link: '/results'
-    },
-    {
-      title: 'Previous Papers',
-      imgSrc: 'https://th.bing.com/th/id/OIP.kSXQUXvLTAxdh_KRk9SrrQHaE7?pid=ImgDet&w=164&h=110&c=7&dpr=1.5',
-      link: '/previous-papers'
-    },
+    { title: 'TimeTable', imgSrc: 'https://t4.ftcdn.net/jpg/02/99/06/99/360_F_299069957_9FfNrl3vi6yDSnvEgL6xXRVSYVb0PKkO.jpg', link: '/time-table' },
+    { title: 'Syllabus', imgSrc: 'https://freedesignfile.com/upload/2021/03/College-student-cartoon-illustration-vector.jpg', link: '/syllabus' },
+    { title: 'Tutorials', imgSrc: 'https://www.pngitem.com/pimgs/m/81-814668_transparent-student-cartoon-png-png-download.png', link: '/tutorials' },
+    { title: 'PYQs', imgSrc: 'https://st5.depositphotos.com/1007566/65571/v/450/depositphotos_655718986-stock-illustration-young-adult-businessman-sitting-desk.jpg', link: '/pyqs' },
   ];
 
   return (
-    <div className="card-layout">
+    <div className="card-container">
       {cards.map((card, index) => (
-        <div className="card" key={index}>
+        <div key={index} className="card">
           <img src={card.imgSrc} alt={card.title} className="card-image" />
-          <h3 className="card-title">{card.title}</h3>
-          <a href={card.link} className="card-button">
-            {card.title === 'TimeTable' ? 'View Time Table' : 'Explore'}
-          </a>
+          <h2>{card.title}</h2>
+          <button onClick={() => window.location.href = card.link}>Go to {card.title}</button>
         </div>
       ))}
     </div>
