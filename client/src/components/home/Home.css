@@ -1,34 +1,79 @@
-.left video{
-    height : 600px;
-}
-
+/* right side title */
 .right h1 {
     font-size: 5rem;
-    color : #172d66;
-    margin-top: 200px ;
+    color: #172d66;
+    margin-top: 200px;
     transition: all 0.4s ease;
     text-align: center;
 }
 
-.right h1:hover{
-    font-size: 100px;
+.right h1:hover {
+    font-size: 6.5rem;
     background: -webkit-linear-gradient(#cb0980, #29b1db);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-family: "Handjet", sans-serif;
 }
-.cards-container .card {
-    padding: 40%;
 
-    box-shadow: rgb(41, 177, 219,0.25) 0px 50px 100px -20px,rgb(41, 177, 219, 0.3) 0px 30px 60px -30px;
-    border : none;
-    width: 500px;
-    height : 250px;
+
+.cards-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
 }
-.cards-container .card h5{
+
+.cards-container .card {
+    /* flex: 1; */
+    width: 500px; 
+    height: 400px;
+    /* perspective: 1000px;  */
+    transition: transform 0.3s ease-in-out;
+    border: none;
+    box-shadow: none;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s ease-in-out;
+    transform-style: preserve-3d;
+}
+
+.card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 75%;
+    box-shadow: 0 15px 40px rgba(157, 199, 242, 0.3);
+    transition: all 0.4s ease;
+}
+
+
+.card-front h5 {
     font-size: 2rem;
-    text-align: center;
     color: rgb(41, 177, 219);
-   
     font-family: "Handjet", sans-serif;
+}
+
+.card-back {
+    background: linear-gradient(145deg, rgb(41, 177, 219,0.3), rgb(203, 9, 128  ), rgb(41, 177, 219, 80%));
+    color: #fff6e9;
+    padding: 20px;
+    transform: rotateY(180deg);
+    font-family: 'Roboto', sans-serif;
+}
+.card-back p{
+    font-size: 1.4rem;
+    text-align:center;
 }
