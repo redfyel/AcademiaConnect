@@ -1,93 +1,89 @@
-import React, { useState } from 'react';
-import './StudentCorner.css'; // Assuming you're using a separate CSS file
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './StudentCorner.css';
 
-function StudentCorner() {
-  const [showModal, setShowModal] = useState(false);
-  const [activeSection, setActiveSection] = useState('doubts');
-  const [posts, setPosts] = useState({ doubts: [], complaints: [] });
+const StudentCorner = () => {
+    const [selectedTab, setSelectedTab] = useState('doubts');
+    const [data, setData] = useState([]);  // Initialize as an empty array
+    const [modalOpen, setModalOpen] = useState(false);
+    const [title, setTitle] = useState('');
+    const [type, setType] = useState('doubt');
+    const [issue, setIssue] = useState('');
 
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
+    // Function to fetch data based on the selected tab
+    // const fetchData = async () => {
+    //     try {
+    //         const response = await axios.get(`/api/${selectedTab}`);
+    //         setData(Array.isArray(response.data) ? response.data : []);
+    //     } catch (error) {
+    //         console.error('Error fetching data', error);
+    //         setData([]);  // Set as empty array on error
+    //     }
+    // };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
+    // useEffect(() => {
+    //     fetchData();
+    // }, [selectedTab]);
 
-  const handleSectionChange = (section) => {
-    setActiveSection(section);
-  };
+    const handleSubmit = async () => {
+        try {
+            const postData = { title, type, issue };
+            await axios.post('/api/posts', postData);
+            setModalOpen(false);
+            fetchData();  // Refetch the data after submission
+        } catch (error) {
+            console.error('Error submitting data', error);
+        }
+    };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const postType = event.target.postType.value;
-    const postTitle = event.target.postTitle.value;
+    return (
+        <div className="student-corner-container">
+            <div className="tab-buttons">
+                <button className={selectedTab === 'doubts' ? 'active' : ''} onClick={() => setSelectedTab('doubts')}>Doubts</button>
+                <button className={selectedTab === 'complaints' ? 'active' : ''} onClick={() => setSelectedTab('complaints')}>Complaints</button>
+                <button className="post-button" onClick={() => setModalOpen(true)}>Post</button>
+            </div>
+            <div className="content-area">
+                {data.length > 0 ? (
+                    data.map((item, index) => (
+                        <div key={index} className="item">
+                            <h3>{item.title}</h3>
+                            <p>{item.issue}</p>
+                        </div>
+                    ))
+                ) : (
+                    <p>No {selectedTab} available.</p>
+                )}
+            </div>
 
-    setPosts((prevPosts) => ({
-      ...prevPosts,
-      [postType]: [...prevPosts[postType], postTitle],
-    }));
-
-    handleCloseModal();
-    event.target.reset();
-  };
-
-  return (
-    <div>
-      <h1>Student Corner</h1>
-      <div className="buttons">
-        <button onClick={() => handleSectionChange('doubts')}>Doubts</button>
-        <button onClick={handleOpenModal}>Create Post</button>
-        <button onClick={() => handleSectionChange('complaints')}>Complaints</button>
-      </div>
-
-      <div className="section">
-        {activeSection === 'doubts' && (
-          <div>
-            <h2>Doubts</h2>
-            <ul>
-              {posts.doubts.map((doubt, index) => (
-                <li key={index}>{doubt}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {activeSection === 'complaints' && (
-          <div>
-            <h2>Complaints</h2>
-            <ul>
-              {posts.complaints.map((complaint, index) => (
-                <li key={index}>{complaint}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-
-      {showModal && (
-        <div id="postModal" className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={handleCloseModal}>
-              &times;
-            </span>
-            <h2>Create Post</h2>
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="postType">Type:</label>
-              <select id="postType" name="postType">
-                <option value="doubt">Doubt</option>
-                <option value="complaint">Complaint</option>
-              </select>
-              <br />
-              <label htmlFor="postTitle">Title:</label>
-              <input type="text" id="postTitle" name="postTitle" required />
-              <br />
-              <button type="submit">Submit</button>
-            </form>
-          </div>
+            {modalOpen && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <h2>Create Post</h2>
+                        <input
+                            type="text"
+                            placeholder="Title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                        <select value={type} onChange={(e) => setType(e.target.value)}>
+                            <option value="doubt">Doubt</option>
+                            <option value="complaint">Complaint</option>
+                        </select>
+                        <textarea
+                            placeholder="Describe your issue..."
+                            value={issue}
+                            onChange={(e) => setIssue(e.target.value)}
+                        />
+                        <div className="modal-buttons">
+                            <button onClick={handleSubmit}>Submit</button>
+                            <button onClick={() => setModalOpen(false)}>Close</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
-}
+    );
+};
 
 export default StudentCorner;

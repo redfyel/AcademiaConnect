@@ -1,29 +1,32 @@
-import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './App.css';
-import StudentCorner from './components/student-corner/StudentCorner';
-import Home from './components/home/Home';
-// import Layout from './Layout';
+import StudentCorner from "./components/student-corner/StudentCorner";
+import Header from "./components/header/Header";
+import Layout from "./Layout";
+import { createBrowserRouter } from "react-router-dom";
+import Home from "./components/home/Home";
+import { RouterProvider } from "react-router-dom";
+import './App.css'
+const router=createBrowserRouter(
+    [
+        {
+        path:'/',
+        element:<Layout />,
+        children:[
+              {
+                path:'/',
+                element:<Home />
+              },
+              {
+                path:'/student-corner',
+                element:<StudentCorner />
+              }
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/student-corner",
-        element: <StudentCorner />,
-      },
-    ],
-  },
-]);
-
-const App = () => {
-  return <RouterProvider router={router} />;
-};
-
+        ]
+    }
+    ]
+)
+function App(){
+    return(
+       <RouterProvider router={router}></RouterProvider>
+    )
+}
 export default App;
