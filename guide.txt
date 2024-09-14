@@ -13,6 +13,9 @@ create a backend folder
     next run  npm i express to install express
     import express in server.js and assign port number (3 lines of code)
 
+    create a .env file. add your environment variables
+    "npm i mongodb"
+    "npm i dotenv"
 
 
 
