@@ -22,7 +22,9 @@
     justify-content: space-between;
     scroll-snap-align: start; 
 }
-
+.exam-corner-card-container h2{
+    color: #172d66;
+}
 .exam-card:hover {
     transform: translateY(-10px); 
     box-shadow: 0 6px 12px rgba(173, 216, 230, 0.4); 
@@ -35,19 +37,20 @@
 }
 
 .ec-btn {
-    background-color: #6e97b7; 
-    color: white;
+    background-color: #ebebff; 
     padding: 10px 20px;
     margin-top: 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1.1rem;
+    color: #172d66;
     transition: background-color 0.3s ease;
 }
 
 .ec-btn:hover {
-    background-color: #6e8bab; 
+    color: #ebebff; 
+    background-color: #172d66;
 }
 
 
