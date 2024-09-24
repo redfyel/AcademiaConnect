@@ -1,5 +1,7 @@
 import React from 'react';
 import './ExamCorner.css';
+import {useNavigate} from 'react-router-dom';
+
 
 const ExamCorner = () => {
   const cards = [
@@ -8,10 +10,7 @@ const ExamCorner = () => {
     { title: 'Tutorials', imgSrc: 'https://st4.depositphotos.com/34031690/39333/v/450/depositphotos_393337694-stock-illustration-vector-illustration-young-woman-filling.jpg', link: '/tutorials' },
     { title: 'PYQs', imgSrc: 'https://static.vecteezy.com/system/resources/previews/006/584/666/non_2x/graphic-cartoon-character-of-checklist-vector.jpg', link: '/pyqs' },
   ];
-// https://c8.alamy.com/comp/2PK6RAC/getting-an-academic-degree-concept-educational-trajectory-exams-and-tests-graduation-day-school-classroom-exam-timetable-flat-vector-modern-illu-2PK6RAC.jpg
-// https://cdni.iconscout.com/illustration/premium/thumb/graduation-exam-paper-illustration-download-in-svg-png-gif-file-formats--examination-mcq-test-pack-school-education-illustrations-6665986.png?f=webp
-// https://static.vecteezy.com/system/resources/previews/010/717/767/non_2x/boy-doing-exam-preparation-illustration-concept-on-white-background-vector.jpg
-// https://static.vecteezy.com/system/resources/previews/022/163/371/non_2x/concept-of-public-survey-customer-review-rating-or-score-consumer-opinion-market-research-man-with-pencil-filling-out-paper-forms-or-asking-questions-in-questionnaire-flat-illustration-vector.jpg
+
   return (
     <div className="exam-corner-card-container">
       {cards.map((card, index) => (
@@ -26,3 +25,9 @@ const ExamCorner = () => {
 };
 
 export default ExamCorner;
+
+// additional images
+// https://c8.alamy.com/comp/2PK6RAC/getting-an-academic-degree-concept-educational-trajectory-exams-and-tests-graduation-day-school-classroom-exam-timetable-flat-vector-modern-illu-2PK6RAC.jpg
+// https://cdni.iconscout.com/illustration/premium/thumb/graduation-exam-paper-illustration-download-in-svg-png-gif-file-formats--examination-mcq-test-pack-school-education-illustrations-6665986.png?f=webp
+// https://static.vecteezy.com/system/resources/previews/010/717/767/non_2x/boy-doing-exam-preparation-illustration-concept-on-white-background-vector.jpg
+// https://static.vecteezy.com/system/resources/previews/022/163/371/non_2x/concept-of-public-survey-customer-review-rating-or-score-consumer-opinion-market-research-man-with-pencil-filling-out-paper-forms-or-asking-questions-in-questionnaire-flat-illustration-vector.jpg

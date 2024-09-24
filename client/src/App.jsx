@@ -44,6 +44,12 @@ const router = createBrowserRouter([
         path: "/events",
         element: <Events />,
       },
+     
+      {
+        path: "/time-table",
+        element: <TimeTable />,
+      },
+      
     ],
   },
 ]);

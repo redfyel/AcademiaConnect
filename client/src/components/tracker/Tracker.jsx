@@ -1,21 +1,178 @@
-import React from 'react'
+import React, { useState } from "react";
+import { Pie } from "react-chartjs-2";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import "./Tracker.css";
+import { useEffect } from "react";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Tracker() {
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [presentHours, setPresentHours] = useState(0);
+  const [absentHours, setAbsentHours] = useState(0);
+  const [holidayDays, setHolidayDays] = useState(0);
+  const [markedDates, setMarkedDates] = useState({});
+  const [previousMonths, setPreviousMonths] = useState([]); 
+
+  
+  const totalHours = 4 * 4 * 7; // 4 weeks * 4 months * 7 hours/week
+  const requiredAttendance = 0.75 * totalHours; 
+
+  useEffect(() => {
+    const fetchAttendanceData = async () => {
+      const response = await fetch('https://localhost:400/attendance-api/attendance'); 
+      const data = await response.json();
+      if (data.success) {
+        setPreviousMonths(data.attendance.previousMonths);
+        setPresentHours(data.attendance.presentHours);
+        setAbsentHours(data.attendance.absentHours);
+      }
+    };
+    fetchAttendanceData();
+  }, []);
+
+  
+
+  const totalPresentHoursFromPreviousMonths = previousMonths.reduce((total, month) => {
+    return total + month.presentHours;
+  }, 0);
+
+  
+  const remainingAttendance = requiredAttendance - (totalPresentHoursFromPreviousMonths + presentHours);
+
+  
+  const presentPercentage = ((presentHours + totalPresentHoursFromPreviousMonths) / totalHours) * 100;
+  const absentPercentage = (absentHours / totalHours) * 100;
+  const remainingPercentage = 100 - presentPercentage - absentPercentage;
+
+  const handleDayClick = (value) => {
+    setSelectedDate(value);
+    setModalOpen(true);
+  };
+
+  const handleStatusChange = (status) => {
+    const dayOfWeek = selectedDate.getDay();
+
+    if (dayOfWeek !== 0) { 
+      if (status === "present") {
+        setPresentHours((prev) => prev + 7); 
+      } else if (status === "absent") {
+        setAbsentHours((prev) => prev + 7);
+      } else if (status === "holiday") {
+        setHolidayDays((prev) => prev + 1);
+      }
+
+      setMarkedDates((prev) => ({
+        ...prev,
+        [selectedDate.toDateString()]: status,
+      }));
+    }
+    setModalOpen(false); 
+  };
+
+  const tileClassName = ({ date }) => {
+    const dateStr = date.toDateString();
+    if (date.getDay() === 0) return "sunday"; 
+    if (markedDates[dateStr] === "present") return "present";
+    if (markedDates[dateStr] === "absent") return "absent";
+    if (markedDates[dateStr] === "holiday") return "holiday";
+    return "";
+  };
+
+  const chartData = {
+    labels: ["Present", "Absent", "Remaining"],
+    datasets: [
+      {
+        label: "Attendance",
+        data: [
+          presentHours + totalPresentHoursFromPreviousMonths,
+          absentHours,
+          Math.max(remainingAttendance, 0), 
+        ],
+        backgroundColor: ["#4caf50", "#f44336", "#ffc107"],
+        hoverBackgroundColor: ["#66bb6a", "#ef5350", "#ffca28"],
+        borderWidth: 1,
+      },
+    ],
+  };
+
   return (
-    <div className='text-center'>
+    <div className="tracker-container">
+      <div className="row">
+        <div className="col-md-6">
+          <Calendar
+            onClickDay={handleDayClick}
+            tileClassName={tileClassName}
+            minDetail="month"
+          />
+        </div>
+        <div className="col-md-6">
+          <div className="stats-section">
+            <h3 className="text-center tracker-title">Attendance Tracker</h3>
+            <div className="pie-chart-container">
+              <Pie data={chartData} />
+            </div>
+            <div className="cool-stats-container">
+              <div className="stat-item">
+                <div className="progress-circle present-circle">
+                  {Math.round(presentPercentage)}%
+                </div>
+                <p>Present: {presentHours / 7} days ({presentHours} hours)</p>
+              </div>
 
+              <div className="stat-item">
+                <div className="progress-circle remaining-circle">
+                  {Math.round(remainingPercentage)}%
+                </div>
+                <p>
+                  Remaining: {totalHours - presentHours - absentHours} hours
+                </p>
+              </div>
 
-  <iframe
-    src="https://calendar.google.com/calendar/embed?height=800&wkst=1&ctz=Asia%2FKolkata&bgcolor=%238E24AA&title=Monthly%20Attendance&showPrint=0&showTz=0&showDate=0&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%2333B679"
-    style={{ border: "solid 1px #777" }}
-    width={800}
-    height={800}
-    frameBorder={0}
-    scrolling="no"
-  />
+              <div className="stat-item">
+                <div className="progress-circle absent-circle">
+                  {Math.round(absentPercentage)}%
+                </div>
+                <p>Absent: {absentHours / 7} days ({absentHours} hours)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      {modalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Select Status for {selectedDate?.toDateString()}</h3>
+            <button
+              className="present-btn"
+              onClick={() => handleStatusChange("present")}
+            >
+              Present
+            </button>
+            <button
+              className="absent-btn"
+              onClick={() => handleStatusChange("absent")}
+            >
+              Absent
+            </button>
+            <button
+              className="holiday-btn"
+              onClick={() => handleStatusChange("holiday")}
+            >
+              Holiday
+            </button>
+            <button className="close-btn" onClick={() => setModalOpen(false)}>
+              X
+            </button>
+          </div>
+        </div>
+      )}
     </div>
-  )
+  );
 }
 
-export default Tracker
+export default Tracker;
