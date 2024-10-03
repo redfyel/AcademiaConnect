@@ -11,6 +11,7 @@ import Register from './components/register/Register';
 import Events from './components/events/Events';
 import RootLayout from './RootLayout';
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
         path: "/events",
         element: <Events />,
       },
+      {
+        path: "/time-table",
+        element: <TimeTable/>,
+      }
     ],
   },
 ]);
