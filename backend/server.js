@@ -25,14 +25,19 @@ mongoclient.connect().then((connectionObj)=>{
 
     //connect to a collection
     const usersCollection = db.collection('users')
+    const attendanceCollection = db.collection('attendance')
+    const examCollection = db.collection('exam-corner')
+
 
     //share collection obj to the API
     app.set('usersCollection', usersCollection)
+    app.set('attendanceCollection', attendanceCollection)
+    app.set('examCollection', examCollection)
 
 
     //start http server iff db connection has succeeded
     //assigning port number to http server of express app
-    app.listen(4000, ()=>console.log("http server started at port 4000"))
+    app.listen(process.env.PORT, ()=>console.log("http server started at port 4000"))
 }).catch((err)=>{
     console.log("Error in DB Connection : ", err);
 })
@@ -41,6 +46,11 @@ mongoclient.connect().then((connectionObj)=>{
 const userApp = require('./APIs/userAPI')
 app.use('/user-api', userApp) //UNCOMMENT THIS LINE AFTER MAKING REQUEST IN FRONTEND
 
+const attendanceApp = require('./APIs/attendanceAPI');
+app.use('/attendance-api', attendanceApp);
+
+const examApp = require('./APIs/examAPI')
+app.use('/exam-api', examApp)
 
 //error handling middleware
 app.use((err, req, res, next)=>{

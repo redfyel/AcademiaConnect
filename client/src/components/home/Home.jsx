@@ -20,10 +20,10 @@ function Home() {
       name: "Events and Competitions",
       description: "Stay in the loop on campus happenings. Discover exciting events, find details, and register easily.",
     },
-    {
-      name: "Stationary Status",
-      description: " Check the status of the stationary shop with a simple click. Green means it's open, red means it's closed. Find convenience at your fingertips.",
-    },
+    // {
+    //   name: "Stationary Status",
+    //   description: " Check the status of the stationary shop with a simple click. Green means it's open, red means it's closed. Find convenience at your fingertips.",
+    // },
   ];
   const defaultOptions = {
     loop: true,
@@ -34,7 +34,7 @@ function Home() {
     }
   };
   return (
-    <div className="container">
+    <div className="container ">
       <div className="row">
         <div className="col-md-6 left">
 

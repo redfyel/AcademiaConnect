@@ -1,0 +1,218 @@
+.tracker-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.calendar-container {
+  margin: 80px 0;
+}
+
+.day-cell {
+  padding: 20px;
+  background-color: #f0f8ff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.day-cell:hover {
+  background-color: #29b1db;
+}
+
+/* Holiday styling */
+.holiday {
+  background-color: #d3d3d3;
+  color: #fff;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  right: 100;
+  width: 500px;
+  background: linear-gradient(145deg, rgba(41, 177, 219, 0.3), rgba(203, 9, 128, 0.4), rgba(41, 177, 219, 80%));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: red;
+}
+
+/* Present and Absent Button Styling */
+.present-btn,
+.absent-btn, .holiday-btn {
+  padding: 10px;
+  text-align: center;
+  margin: 10px;
+  width: 40%;
+  border: none;
+  border-radius: 5px;
+}
+
+.present-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.absent-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Stats Section */
+.stats-section {
+  margin: 80px 100px;
+}
+
+.pie-chart-container {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.cool-stats-container {
+  display: flex;
+  gap: 60px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.stat-item {
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.progress-circle {
+  width: 80px;
+  height: 80px;
+  background-color: #e0e0e0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.present-circle {
+  background-color: rgb(142, 221, 142);
+}
+
+.absent-circle {
+  background-color: #f44336;
+  color: white;
+}
+
+.remaining-circle {
+  background: linear-gradient(145deg, rgba(41, 177, 219), rgb(203, 9, 128));
+  color: white;
+}
+
+
+.cool-stats-container .stat-item p {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  background: -webkit-linear-gradient(#cb0980, rgb(41, 177, 219));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tracker-title {
+  font-size: 3.5rem !important;
+  font-family: "Handjet", sans-serif;
+  background: -webkit-linear-gradient(#cb0980, #29b1db);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* Calendar Styling */
+.react-calendar {
+  width: 100% !important;
+  background-color: #ebebff;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0px 4px 12px rgba(142, 135, 215, 0.1);
+  font-size: 1.1rem;
+  margin: 80px auto;
+  padding : 40px;
+}
+
+.react-calendar__tile {
+  padding: 20px;
+  background-color: rgba(203, 9, 128, 0.3);
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.react-calendar__tile:hover {
+  background-color: #628fd6;
+  transform: scale(1.05);
+}
+
+.react-calendar__tile--active {
+  background-color: #5d77b9 !important;
+}
+
+.react-calendar__tile--now {
+  background-color: #aa60b5 !important;
+  border: 2px solid #172d66;
+}
+
+.react-calendar__tile:enabled:focus {
+  background: linear-gradient(#cb0980, rgb(41, 177, 219));
+  color: white !important;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #13135f !important;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  visibility: hidden;
+}
+
+
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.react-calendar__navigation button {
+  color: #1e3e8e;
+  font-size: 1.2rem;
+  background: none;
+  padding: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Date Status Colors */
+.present {
+  background-color: #98fb98 !important;
+  border-color: #4caf50 !important;
+  color: black !important;
+}
+
+.absent {
+  background-color: rgb(209, 70, 68) !important;
+  border-color: rgba(244, 67, 54, 0.8) !important;
+  color: white !important;
+}
+.holiday{
+  background-color: #8580ca !important;
+  border-color: #6b2c8a !important;
+  color: black !important;
+}
+.greyed-out {
+  background-color: #e0e0e0 !important;
+  color: #666 !important;
+}

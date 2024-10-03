@@ -8,7 +8,8 @@ import ExamCorner from './components/exam-corner/ExamCorner';
 import Tracker from './components/tracker/Tracker';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
-import Events from './components/events/Events';
+import Auth from './components/register/Auth'
+import EventCalendar from './components/events/EventCalendar';
 import RootLayout from './RootLayout';
 
 
@@ -39,16 +40,17 @@ const router = createBrowserRouter([
       },
       {
         path: "/register",
-        element: <Register />,
+        element: <Auth />,
       },
       {
         path: "/events",
-        element: <Events />,
+        element: <EventCalendar />,
       },
+     
       {
         path: "/time-table",
-        element: <TimeTable/>,
-      }
+        element: <TimeTable />,
+      },
     ],
   },
 ]);

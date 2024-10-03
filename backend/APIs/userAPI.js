@@ -4,6 +4,7 @@ let userApp = exp.Router();
 const { Db } = require("mongodb");
 const expressAsyncHandler = require("express-async-handler");
 const bcryptjs = require("bcryptjs");
+const jwt = require('jsonwebtoken'); 
 
 //add a body parser middleware
 userApp.use(exp.json());
@@ -40,5 +41,29 @@ userApp.post("/user", expressAsyncHandler(async (req, res) => {
     }
   })
 );
+
+
+
+userApp.post("/login", expressAsyncHandler(async (req, res) => {
+  const usersCollection = req.app.get("usersCollection");
+  const { username, password } = req.body;
+  const user = await usersCollection.findOne({ username });
+
+  if (!user) {
+    return res.status(401).json({ message: "Invalid username or password" });
+  }
+
+  const isPasswordValid = await bcryptjs.compare(password, user.password);
+  if (!isPasswordValid) {
+    return res.status(401).json({ message: "Invalid username or password" });
+  }
+
+  // Generate JWT token upon successful login
+  const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY , { expiresIn: '1h' });
+
+  const { password: _, ...userInfo } = user; 
+  res.status(200).json({ message: "login success", user: userInfo, token });
+}));
+
 
 module.exports = userApp;
