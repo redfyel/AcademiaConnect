@@ -1,0 +1,11 @@
+.footer{
+    padding : 30px;
+    background-color: #172d66;
+    text-align: center;
+    color: #ebebff ;
+    font-family: "Handjet", sans-serif;
+}
+
+.footer h2{
+    font-size: 1.3rem;
+}
