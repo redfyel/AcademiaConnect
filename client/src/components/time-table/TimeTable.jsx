@@ -170,7 +170,7 @@ const TablesWrapper = () => {
   ];
 
   return (
-    <div className="tables-wrapper">
+    <div className="tables-wrapper container">
       {tableContents.map((table, index) => (
         <TableComponent key={index} title={table.title} tableData={table.data} />
       ))}

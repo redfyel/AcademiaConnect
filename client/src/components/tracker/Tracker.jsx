@@ -149,7 +149,7 @@ function Tracker() {
 
 
   return (
-    <div className="tracker-container">
+    <div className="tracker-container container">
       {!currentUser  ? (
         <div className="auth-error-message">
           <h3>Please Sign Up or Log In to track your attendance</h3>

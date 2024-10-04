@@ -11,7 +11,7 @@ const ExamCorner = () => {
   ];
 
   return (
-    <div className="exam-corner-card-container">
+    <div className="exam-corner-card-container container">
       {cards.map((card, index) => (
         <div key={index} className="exam-card">
           <img src={card.imgSrc} alt={card.title} className="card-image" />

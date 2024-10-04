@@ -37,7 +37,7 @@ userApp.post("/user", expressAsyncHandler(async (req, res) => {
       await usersCollection.insertOne(newUser);
 
       //temporarily I'm sending a message
-      res.send({ message: "User created." });
+      res.send({ message: "user created" });
     }
   })
 );

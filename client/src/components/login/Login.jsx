@@ -1,6 +1,5 @@
 import  {userLoginContext} from "../../contexts/userLoginContext";
 import { useForm } from "react-hook-form";
-import "./Login.css";
 import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -22,8 +21,8 @@ function Login() {
 
   return (
     <form className="auth-form" onSubmit={handleSubmit(userLogin)}>
-      <h3>Login</h3>
-      {err.length !== 0 && <p className="error">{err}</p>}
+      <h3 className="text-center fs-4">Login</h3>
+      {err.length !== 0 && <p className="error text-center text-danger">{err}</p>}
       <div>
         <label>Username</label>
         <input type="text" {...register("username", { required: true })} />

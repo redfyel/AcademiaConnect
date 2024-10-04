@@ -9,7 +9,7 @@
 }
 
 .exam-card {
-    background-color: #f9f9f9;
+    background-color: #ebebff;
     width: 23%; 
     aspect-ratio: 5 / 3; 
     padding: 15px;
@@ -37,14 +37,14 @@
 }
 
 .ec-btn {
-    background-color: #ebebff; 
+    background-color: #6c6ca8; 
     padding: 10px 20px;
     margin-top: 15px;
-    border: none;
+    border : 1px solid white;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1.1rem;
-    color: #172d66;
+    color: #d8ddeb;
     transition: background-color 0.3s ease;
 }
 

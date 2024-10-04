@@ -4,6 +4,7 @@ import moment from 'moment';
 import axios from 'axios';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Modal, Button } from 'react-bootstrap';
+import './EventCalendar.css'; // Import your custom styles
 
 const localizer = momentLocalizer(moment);
 
@@ -30,22 +31,25 @@ function EventCalendar() {
   };
 
   return (
-    <div>
+    <div className='event-calendar-container'>
+      <h2 className='calendar-title'>Events Calendar</h2>
       <Calendar
         localizer={localizer}
         events={events}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 500 }}
+        style={{ height: 600, padding: '10px', borderRadius: '8px', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)' }}
         onSelectEvent={handleEventClick}
+        views={['month']}
+        className='custom-calendar' // Add a custom class for styling
       />
 
       {selectedEvent && (
-        <Modal show={showModal} onHide={closeModal}>
+        <Modal show={showModal} onHide={closeModal} centered>
           <Modal.Header closeButton>
-            <Modal.Title>{selectedEvent.title}</Modal.Title>
+            <Modal.Title className="modal-title">{selectedEvent.title}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className="modal-body">
             <p><strong>Timings:</strong> {moment(selectedEvent.start).format('LLL')} - {moment(selectedEvent.end).format('LLL')}</p>
             <p><strong>Conducted by:</strong> {selectedEvent.conductedBy}</p>
             <p><strong>Description:</strong> {selectedEvent.description}</p>
