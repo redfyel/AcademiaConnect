@@ -7,7 +7,7 @@ const { Db } = require("mongodb");
 //add a body parser middleware
 examApp.use(exp.json());
 
-examApp.get('/tutorials', (async (req, res) => {}))
+examApp.get('/tutorials/:subject_name', (async (req, res) => {}))
 
 
 module.exports = examApp;

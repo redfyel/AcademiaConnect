@@ -1,5 +1,5 @@
 .event-calendar-container {
-    background-color: #f4f4f9; /* Light background for contrast */
+    background-color: #f4f4f9; 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -8,12 +8,12 @@
   .calendar-title {
     text-align: center;
     font-size: 2rem;
-    color: #172d66; /* Darker color for the title */
+    color: #172d66;
     margin-bottom: 20px;
   }
   
   .custom-calendar {
-    border: 1px solid #e0e0e0; /* Light border for calendar */
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
   }
   
@@ -23,6 +23,6 @@
   }
   
   .modal-body {
-    background-color: #ffffff; /* White background for modal */
+    background-color: #ffffff; 
   }
   

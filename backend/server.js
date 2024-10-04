@@ -29,10 +29,12 @@ mongoclient.connect().then((connectionObj)=>{
     const examCollection = db.collection('exam-corner')
 
 
+
     //share collection obj to the API
     app.set('usersCollection', usersCollection)
     app.set('attendanceCollection', attendanceCollection)
     app.set('examCollection', examCollection)
+
 
 
     //start http server iff db connection has succeeded
@@ -44,13 +46,14 @@ mongoclient.connect().then((connectionObj)=>{
 
 //import userApp
 const userApp = require('./APIs/userAPI')
-app.use('/user-api', userApp) //UNCOMMENT THIS LINE AFTER MAKING REQUEST IN FRONTEND
+app.use('/user-api', userApp) 
 
 const attendanceApp = require('./APIs/attendanceAPI');
 app.use('/attendance-api', attendanceApp);
 
 const examApp = require('./APIs/examAPI')
 app.use('/exam-api', examApp)
+
 
 //error handling middleware
 app.use((err, req, res, next)=>{
