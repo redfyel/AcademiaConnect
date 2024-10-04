@@ -29,9 +29,9 @@ function Header(){
         
         {
           userLoginStatus === false ? (<li className="nav-item links">
-          <Link to="register">Login/Register</Link>
+          <Link to="auth">Login/Register</Link>
         </li> ): (<li className="nav-item links">
-          <Link to="login" onClick={logoutUser}>Logout</Link>
+          <Link to="auth" onClick={logoutUser}>Logout</Link>
         </li>)
         }
         
