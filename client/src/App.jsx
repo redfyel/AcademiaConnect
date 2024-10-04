@@ -12,6 +12,7 @@ import Auth from './components/register/Auth'
 import EventCalendar from './components/events/EventCalendar';
 import RootLayout from './RootLayout';
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -54,7 +55,6 @@ const router = createBrowserRouter([
         path: "/time-table",
         element: <TimeTable />,
       },
-      
     ],
   },
 ]);

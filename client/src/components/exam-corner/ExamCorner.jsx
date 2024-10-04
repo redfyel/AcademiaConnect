@@ -1,7 +1,6 @@
 import React from 'react';
 import './ExamCorner.css';
-import {useNavigate} from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 const ExamCorner = () => {
   const cards = [
