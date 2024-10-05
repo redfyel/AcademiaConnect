@@ -8,15 +8,15 @@ import ExamCorner from './components/exam-corner/ExamCorner';
 import Tracker from './components/tracker/Tracker';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
-import Auth from './components/register/Auth'
+import Auth from './components/register/Auth';
 import EventCalendar from './components/events/EventCalendar';
 import RootLayout from './RootLayout';
-
+import AcademiaChatbot from './components/chatbot/AcademiaChatbot';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: <RootLayout />, // Root layout for all routes
     children: [
       {
         path: "/",
@@ -43,14 +43,13 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path : '/auth',
-        element : <Auth />
+        path: '/auth',
+        element: <Auth />,
       },
       {
         path: "/events",
         element: <EventCalendar />,
       },
-     
       {
         path: "/time-table",
         element: <TimeTable />,
@@ -60,7 +59,12 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <AcademiaChatbot /> {/* Chatbot included here for global access */}
+    </>
+  );
 };
 
 export default App;
