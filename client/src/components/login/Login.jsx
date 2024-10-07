@@ -1,6 +1,6 @@
 import  {userLoginContext} from "../../contexts/userLoginContext";
 import { useForm } from "react-hook-form";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,7 @@ function Login() {
 
   useEffect(() => {
     if (userLoginStatus === true) {
-      navigate("/tracker");
+      navigate("/user-profile");
     }
   }, [userLoginStatus]);
 

@@ -25,16 +25,14 @@ mongoclient.connect().then((connectionObj)=>{
 
     //connect to a collection
     const usersCollection = db.collection('users')
-    const attendanceCollection = db.collection('attendance')
     const examCollection = db.collection('exam-corner')
-
+    const eventsCollection = db.collection('events')
 
 
     //share collection obj to the API
     app.set('usersCollection', usersCollection)
-    app.set('attendanceCollection', attendanceCollection)
     app.set('examCollection', examCollection)
-
+    app.set('eventsCollection', eventsCollection)
 
 
     //start http server iff db connection has succeeded
@@ -48,11 +46,11 @@ mongoclient.connect().then((connectionObj)=>{
 const userApp = require('./APIs/userAPI')
 app.use('/user-api', userApp) 
 
-const attendanceApp = require('./APIs/attendanceAPI');
-app.use('/attendance-api', attendanceApp);
-
 const examApp = require('./APIs/examAPI')
 app.use('/exam-api', examApp)
+
+const eventsApp = require('./APIs/eventsAPI')
+app.use('/events-api', eventsApp)
 
 
 //error handling middleware

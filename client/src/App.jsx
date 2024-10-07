@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './App.css';
 import StudentCorner from './components/student-corner/StudentCorner';
 import TimeTable from './components/time-table/TimeTable';
 import Home from './components/home/Home';
@@ -10,6 +9,8 @@ import Login from './components/login/Login';
 import Register from './components/register/Register';
 import Auth from './components/register/Auth'
 import EventCalendar from './components/events/EventCalendar';
+import UserProfile from './components/user-profile/UserProfile';
+import RoutingError from './components/RoutingError'
 import RootLayout from './RootLayout';
 
 
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <RoutingError />,
     children: [
       {
         path: "/",
@@ -50,13 +52,18 @@ const router = createBrowserRouter([
         path: "/events",
         element: <EventCalendar />,
       },
-     
+      {
+        path : '/user-profile',
+        element : <UserProfile/>
+      },
       {
         path: "/time-table",
         element: <TimeTable />,
       },
     ],
   },
+
+  
 ]);
 
 const App = () => {

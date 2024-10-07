@@ -4,7 +4,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import "./Tracker.css";
-import { userLoginContext } from '../../contexts/userLoginContext';
+import { userLoginContext } from "../../contexts/userLoginContext";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -18,70 +18,96 @@ function Tracker() {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const { currentUser } = useContext(userLoginContext);
-  
-  // Assuming roll_num is part of currentUser
-  const roll_num = currentUser?.roll_num; 
+  const { userLoginStatus } = useContext(userLoginContext);
+
+  const rollnum = currentUser?.rollnum;
 
   useEffect(() => {
-    const fetchAttendanceData = async () => {
+    const fetchCumulativeAttendanceData = async () => {
       try {
         const token = sessionStorage.getItem('token');
-        if (!token) return;
-
-        const response = await fetch(`http://localhost:4000/attendance-api/attendance`, {
+        if (!token || !rollnum) return;
+  
+        const response = await fetch(`http://localhost:4000/user-api/attendance/${rollnum}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           }
         });
-
+  
         const data = await response.json();
         if (response.ok) {
-          setPresentHours(data.presentHours || 0);
-          setAbsentHours(data.absentHours || 0);
-          setMarkedDates(data.markedDates || {});
+          const { attendance } = data;
+  
+          const semesterStart = new Date(2024, 5, 18); // June 18, 2024
+  
+          // Filter attendance records from semester start until the current month
+          const cumulativeAttendance = attendance.filter(item => {
+            const date = new Date(item.date);
+            return date >= semesterStart && date.getFullYear() === currentYear && date.getMonth() <= currentMonth;
+          });
+  
+          let presentCount = 0;
+          let absentCount = 0;
+          let holidayCount = 0;
+          const newMarkedDates = {};
+  
+          cumulativeAttendance.forEach(item => {
+            const { date, status } = item;
+            newMarkedDates[date] = status;
+            if (status === 'present') presentCount += 7;
+            if (status === 'absent') absentCount += 7;
+            if (status === 'holiday') holidayCount += 1;
+          });
+  
+          setPresentHours(presentCount);
+          setAbsentHours(absentCount);
+          setHolidayDays(holidayCount);
+          setMarkedDates(newMarkedDates);
+        } else {
+          console.error("Failed to fetch attendance data");
         }
       } catch (error) {
         console.error("Error fetching attendance data", error);
       }
     };
-
+  
     if (currentUser) {
-      fetchAttendanceData();
+      fetchCumulativeAttendanceData();
     }
-  }, [currentMonth, currentYear, currentUser]);
+  }, [currentMonth, currentYear, currentUser, rollnum]);
+  
 
-  const saveAttendanceData = async () => {
+  const saveAttendanceData = async (status, date) => {
     const attendanceData = {
-      presentHours,
-      absentHours,
-      holidayDays,
-      markedDates,
-      month: currentMonth,
-      year: currentYear,
-      roll_num,  // Use roll_num here
+      rollnum,
+      status,
+      date: date.toDateString(),
     };
-  
+
     try {
-      const token = sessionStorage.getItem('token');
-      if (!token) throw new Error("No token available for authorization");
-  
-      const response = await fetch(`http://localhost:4000/attendance-api/save-attendance`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
-        body: JSON.stringify(attendanceData),
-      });
-  
+      const token = sessionStorage.getItem("token");
+      if (!token) throw new Error("Please login to save attendance");
+
+      const response = await fetch(
+        `http://localhost:4000/user-api/save-attendance`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(attendanceData),
+        }
+      );
+
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Error details:", errorData);
         throw new Error("Failed to save attendance");
       }
-  
+
       const result = await response.json();
-      console.log("Attendance saved successfully:", result);
+      // console.log("Attendance saved successfully:", result);
     } catch (error) {
       console.error("Error saving attendance data", error);
     }
@@ -92,11 +118,12 @@ function Tracker() {
     setModalOpen(true);
   };
 
+
   const handleStatusChange = (status) => {
     const dayOfWeek = selectedDate.getDay();
     const dateStr = selectedDate.toDateString();
 
-    if (dayOfWeek !== 0) { // Exclude Sundays
+    if (dayOfWeek !== 0) {
       const previousStatus = markedDates[dateStr];
       if (previousStatus) {
         if (previousStatus === "present") setPresentHours((prev) => prev - 7);
@@ -112,10 +139,10 @@ function Tracker() {
         ...prev,
         [dateStr]: status,
       }));
-    }
 
-    setModalOpen(false);
-    saveAttendanceData();
+      setModalOpen(false);
+      saveAttendanceData(status, selectedDate);
+    }
   };
 
   const tileClassName = ({ date }) => {
@@ -127,43 +154,58 @@ function Tracker() {
     return "";
   };
 
-  const totalHours = 30 * 7;  
+  const totalDaysInSemester = 30 * 4;
+  const workingDays = totalDaysInSemester - holidayDays;
+  const totalHours = Math.max(workingDays * 7, 1);
   const requiredAttendance = 0.75 * totalHours;
+  const remainingHours = Math.max(requiredAttendance - presentHours, 0);
 
   const chartData = {
     labels: ["Present", "Absent", "Remaining"],
     datasets: [
       {
         label: "Attendance",
-        data: [
-          presentHours,
-          absentHours,
-          Math.max(requiredAttendance - presentHours, 0),
-        ],
+        data: [presentHours, absentHours, remainingHours],
         backgroundColor: ["#4caf50", "#f44336", "#ffc107"],
         hoverBackgroundColor: ["#66bb6a", "#ef5350", "#ffca28"],
         borderWidth: 1,
       },
     ],
   };
-
+  const handleMonthChange = ({ activeStartDate }) => {
+    setCurrentMonth(activeStartDate.getMonth());
+    setCurrentYear(activeStartDate.getFullYear());
+  };
 
   return (
     <div className="tracker-container container">
-      {!currentUser  ? (
+      {!userLoginStatus ? (
         <div className="auth-error-message">
-          <h3>Please Sign Up or Log In to track your attendance</h3>
+          <h3>
+            Please{" "}
+            <a
+              href="/auth"
+              className="btn btn-lg active"
+              role="button"
+              aria-pressed="true"
+            >
+              Sign Up / Login
+            </a>{" "}
+            to track your attendance
+          </h3>
           <p>
-            You need to create an account or log in to save and view your attendance data.
+            You need to create an account or log in to save and view your
+            attendance data.
           </p>
         </div>
       ) : (
         <div className="row">
           <div className="col-md-6">
             <Calendar
-              onClickDay={handleDayClick}
-              tileClassName={tileClassName}
-              minDetail="month"
+              value={selectedDate}
+  onChange={handleDayClick}
+  onActiveStartDateChange={handleMonthChange}
+  tileClassName={tileClassName}
             />
           </div>
           <div className="col-md-6">
@@ -177,15 +219,18 @@ function Tracker() {
                   <div className="progress-circle present-circle">
                     {Math.round((presentHours / totalHours) * 100)}%
                   </div>
-                  <p>Present: {presentHours / 7} days ({presentHours} hours)</p>
+                  <p>
+                    Present: {presentHours / 7} days ({presentHours} hours)
+                  </p>
                 </div>
 
                 <div className="stat-item">
                   <div className="progress-circle remaining-circle">
-                    {Math.round(((requiredAttendance - presentHours) / totalHours) * 100)}%
+                    {Math.round((remainingHours / totalHours) * 100)}%
                   </div>
                   <p>
-                    Remaining: {Math.ceil((requiredAttendance - presentHours) / 7)} days ({requiredAttendance - presentHours} hours)
+                    Remaining: {Math.ceil(remainingHours / 7)} days (
+                    {remainingHours} hours)
                   </p>
                 </div>
 
@@ -193,7 +238,9 @@ function Tracker() {
                   <div className="progress-circle absent-circle">
                     {Math.round((absentHours / totalHours) * 100)}%
                   </div>
-                  <p>Absent: {absentHours / 7} days ({absentHours} hours)</p>
+                  <p>
+                    Absent: {absentHours / 7} days ({absentHours} hours)
+                  </p>
                 </div>
               </div>
             </div>
@@ -205,10 +252,27 @@ function Tracker() {
         <div className="modal-overlay">
           <div className="modal-content">
             <h3>Select Status for {selectedDate?.toDateString()}</h3>
-            <button className="present-btn" onClick={() => handleStatusChange("present")}>Present</button>
-            <button className="absent-btn" onClick={() => handleStatusChange("absent")}>Absent</button>
-            <button className="holiday-btn" onClick={() => handleStatusChange("holiday")}>Holiday</button>
-            <button className="close-btn" onClick={() => setModalOpen(false)}>X</button>
+            <button
+              className="present-btn"
+              onClick={() => handleStatusChange("present")}
+            >
+              Present
+            </button>
+            <button
+              className="absent-btn"
+              onClick={() => handleStatusChange("absent")}
+            >
+              Absent
+            </button>
+            <button
+              className="holiday-btn"
+              onClick={() => handleStatusChange("holiday")}
+            >
+              Holiday
+            </button>
+            <button className="close-btn" onClick={() => setModalOpen(false)}>
+              X
+            </button>
           </div>
         </div>
       )}

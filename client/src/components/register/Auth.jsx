@@ -28,7 +28,7 @@ function Auth() {
   return (
     <div className="auth-wrapper">
       <div className="auth-animation">
-        <Lottie options={defaultOptions} height={400} width={650} />
+        <Lottie options={defaultOptions} height={290} width={450} />
       </div>
 
       <div className="auth-form-container">

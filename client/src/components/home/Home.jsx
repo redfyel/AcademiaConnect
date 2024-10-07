@@ -9,21 +9,17 @@ function Home() {
       description: "Your one-stop study hub! Find timetables, syllabi, and previous year questions for every subject, plus access to all your tutorials in one convenient place.",
     },
     {
-      name: "Student Corner",
-      description: "Connect, collaborate, and thrive. Share doubts, give feedback, and help each other out.",
-    },
-    {
       name: "Attendance Tracker",
       description: "Keep tabs on your attendance and know exactly how many more classes you need to attend.",
+    },
+    {
+      name: "Student Corner",
+      description: "Connect, collaborate, and thrive. Share doubts, give feedback, and help each other out.",
     },
     {
       name: "Events and Competitions",
       description: "Stay in the loop on campus happenings. Discover exciting events, find details, and register easily.",
     },
-    // {
-    //   name: "Stationary Status",
-    //   description: " Check the status of the stationary shop with a simple click. Green means it's open, red means it's closed. Find convenience at your fingertips.",
-    // },
   ];
   const defaultOptions = {
     loop: true,
@@ -52,7 +48,7 @@ function Home() {
 
       <div className="cards-container">
         {features.map((feature) => (
-          <div className="card p-5">
+          <div key = {feature.name} className="card p-5">
             <div className="card-inner">
               <div className="card-front">
                 <h5>{feature.name}</h5>
