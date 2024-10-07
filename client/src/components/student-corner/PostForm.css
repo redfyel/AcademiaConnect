@@ -1,0 +1,61 @@
+/* PostForm.css */
+
+.post-form {
+    /* margin-top:100px; */
+    background-color: #ffffff; /* White background */
+    padding: 20px; /* Inner padding */
+    border-radius: 8px; /* Rounded corners */
+   
+    max-width: 600px; /* Maximum width for the form */
+    margin: 20px auto; /* Center the form */
+}
+
+.post-form h2 {
+    /* margin-top:500px; */
+    text-align: center; /* Center title */
+    color: #333; /* Dark text color */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Space between form groups */
+}
+
+.form-group label {
+    display: block; /* Block display for labels */
+    margin-bottom: 5px; /* Space below the label */
+}
+
+.form-group select,
+.form-group textarea {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside the fields */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+}
+
+.form-group textarea {
+    height: 100px; /* Fixed height for textarea */
+    resize: none; /* Prevent resizing */
+}
+
+.submit-button {
+    background-color: #8BC34A; /* Light green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 10px 15px; /* Padding */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.submit-button:hover {
+    background:  #29b1db;
+}
+.post-form{
+    color: #172d66;
+}
+form .btn{
+    background:  #29b1db;
+    color:white;
+}
