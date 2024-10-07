@@ -12,10 +12,11 @@ import EventCalendar from './components/events/EventCalendar';
 import UserProfile from './components/user-profile/UserProfile';
 import RoutingError from './components/RoutingError'
 import RootLayout from './RootLayout';
-import AcademiaChatbot from './components/chatbot/AcademiaChatbot';
 
-const router = createBrowserRouter([
-  {
+
+function App() {
+  const browserRouter = createBrowserRouter([
+    {
     path: "/",
     element: <RootLayout />,
     errorElement: <RoutingError />,
@@ -62,17 +63,15 @@ const router = createBrowserRouter([
       },
     ],
   },
-
-  
 ]);
 
-const App = () => {
-  return (
-    <>
-      <RouterProvider router={router} />
-      <AcademiaChatbot /> {/* Chatbot included here for global access */}
-    </>
-  );
+return (
+
+  <div className="main">
+    <RouterProvider router = {browserRouter} />
+  </div>
+
+)
 };
 
 export default App;
