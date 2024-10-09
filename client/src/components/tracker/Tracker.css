@@ -1,8 +1,32 @@
 .tracker-title {
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-size: 3.5rem !important;
+  font-family: "Handjet", sans-serif;
+  background: -webkit-linear-gradient(#cb0980, #29b1db);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px; /* Adjusted margin to be consistent */
 }
 
+/*-----------------------------------------*/
+.auth-error-message {
+  text-align: center;
+  font-size: 2.3rem;
+  color: red;
+}
+
+.auth-error-message h3 {
+  background: -webkit-linear-gradient(#cb0980, #29b1db);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  font-family: "Handjet", sans-serif;
+  margin-top: 40px;
+  font-size: 3rem;
+}
+
+
+
+/*-----------------------------------------*/
 .calendar-container {
   margin: 80px 0;
 }
@@ -19,22 +43,23 @@
   background-color: #29b1db;
 }
 
-/* Holiday styling */
 .holiday {
   background-color: #d3d3d3;
-  color: #fff;
+  color: white;
 }
 
+
+/*-----------------------------------------*/
 .modal-overlay {
   position: fixed;
   top: 0;
-  right: 100;
   width: 500px;
-  background: linear-gradient(145deg, rgba(41, 177, 219, 0.3), rgba(203, 9, 128, 0.4), rgba(41, 177, 219, 80%));
+  background: linear-gradient(145deg, rgba(41, 177, 219, 0.3), rgba(203, 9, 128, 0.4), rgba(41, 177, 219, 0.8));
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 
 .close-btn {
   position: absolute;
@@ -46,9 +71,8 @@
   color: red;
 }
 
-/* Present and Absent Button Styling */
-.present-btn,
-.absent-btn, .holiday-btn {
+
+.present-btn, .absent-btn, .holiday-btn {
   padding: 10px;
   text-align: center;
   margin: 10px;
@@ -67,7 +91,7 @@
   color: white;
 }
 
-/* Stats Section */
+/*-----------------------------------------*/
 .stats-section {
   margin: 80px 100px;
 }
@@ -123,16 +147,7 @@
   -webkit-text-fill-color: transparent;
 }
 
-.tracker-title {
-  font-size: 3.5rem !important;
-  font-family: "Handjet", sans-serif;
-  background: -webkit-linear-gradient(#cb0980, #29b1db);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-
-/* Calendar Styling */
+/*-----------------------------------------*/
 .react-calendar {
   width: 100% !important;
   background-color: #ebebff;
@@ -141,7 +156,7 @@
   box-shadow: 0px 4px 12px rgba(142, 135, 215, 0.1);
   font-size: 1.1rem;
   margin: 80px auto;
-  padding : 40px;
+  padding: 40px;
 }
 
 .react-calendar__tile {
@@ -175,7 +190,7 @@
 }
 
 .react-calendar__month-view__days__day--neighboringMonth {
-  visibility: hidden;
+  visibility: collapse;
 }
 
 
@@ -195,7 +210,7 @@
   cursor: pointer;
 }
 
-/* Date Status Colors */
+
 .present {
   background-color: #98fb98 !important;
   border-color: #4caf50 !important;
@@ -207,12 +222,10 @@
   border-color: rgba(244, 67, 54, 0.8) !important;
   color: white !important;
 }
-.holiday{
+
+.holiday {
   background-color: #8580ca !important;
   border-color: #6b2c8a !important;
   color: black !important;
 }
-.greyed-out {
-  background-color: #e0e0e0 !important;
-  color: #666 !important;
-}
+

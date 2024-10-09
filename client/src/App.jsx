@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './App.css';
 import StudentCorner from './components/student-corner/StudentCorner';
 import TimeTable from './components/time-table/TimeTable';
 import Home from './components/home/Home';
@@ -10,16 +9,17 @@ import Login from './components/login/Login';
 import Register from './components/register/Register';
 import Auth from './components/register/Auth';
 import EventCalendar from './components/events/EventCalendar';
+import UserProfile from './components/user-profile/UserProfile';
+import RoutingError from './components/RoutingError'
 import RootLayout from './RootLayout';
-import AcademiaChatbot from './components/chatbot/AcademiaChatbot';
-import Syllabus from './components/syllabus/Syllabus';
-import Tutorials from './components/tutorials/Tutorials';
-import Pyqs from './components/pyqs/Pyqs';
 
-const router = createBrowserRouter([
-  {
+
+function App() {
+  const browserRouter = createBrowserRouter([
+    {
     path: "/",
-    element: <RootLayout />, // Root layout for all routes
+    element: <RootLayout />,
+    errorElement: <RoutingError />,
     children: [
       {
         path: "/",
@@ -54,6 +54,10 @@ const router = createBrowserRouter([
         element: <EventCalendar />,
       },
       {
+        path : '/user-profile',
+        element : <UserProfile/>
+      },
+      {
         path: "/time-table",
         element: <TimeTable />,
       },
@@ -73,13 +77,13 @@ const router = createBrowserRouter([
   },
 ]);
 
-const App = () => {
-  return (
-    <>
-      <RouterProvider router={router} />
-      <AcademiaChatbot /> {/* Chatbot included here for global access */}
-    </>
-  );
+return (
+
+  <div className="main">
+    <RouterProvider router = {browserRouter} />
+  </div>
+
+)
 };
 
 export default App;

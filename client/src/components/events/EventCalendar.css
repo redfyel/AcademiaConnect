@@ -1,28 +1,74 @@
 .event-calendar-container {
-    background-color: #f4f4f9; 
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .calendar-title {
-    text-align: center;
-    font-size: 2rem;
-    color: #172d66;
-    margin-bottom: 20px;
-  }
-  
-  .custom-calendar {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-  }
-  
-  .modal-title {
-    color: #172d66;
-    font-weight: bold;
-  }
-  
-  .modal-body {
-    background-color: #ffffff; 
-  }
-  
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #172d66;
+  margin-bottom: 20px;
+}
+
+.custom-calendar {
+  background-color: #c1c1e59e;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  color: #172d66;
+  text-align: center;
+}
+
+.modal-title {
+  color: #172d66;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+
+.modal {
+  background-color: #ebebff;
+}
+
+.modal-body img {
+  display: block;
+  margin: 0 auto 20px auto;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.rbc-btn-group button {
+  color: #172d66;
+  background-color: #ebebff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.rbc-btn-group button:hover {
+  background-color: #00b8ff;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.rbc-btn-group button:focus,
+.rbc-btn-group button:active {
+  background-color: #cb0980;
+  color: white;
+}
+
+
+.rbc-btn-group .rbc-active {
+  background-color: #00b8ff;
+  color: white;
+}
+
+
+
+.r-btn{
+  background-color: #cb0980;
+  padding: 10px;
+  color : white;
+  border-radius: 40px;
+  border : 1px solid  #172d66;
+  text-decoration: none;
+}

@@ -18,6 +18,8 @@ userApp.post("/user", expressAsyncHandler(async (req, res) => {
     //get new user data from req obj
     const newUser = req.body;
 
+    newUser.attendance = []; 
+
     //verifying uniqueness
     let existingUser = await usersCollection.findOne({
       username: newUser.username,
@@ -43,7 +45,7 @@ userApp.post("/user", expressAsyncHandler(async (req, res) => {
 );
 
 
-
+//login route
 userApp.post("/login", expressAsyncHandler(async (req, res) => {
   const usersCollection = req.app.get("usersCollection");
   const { username, password } = req.body;
@@ -65,5 +67,55 @@ userApp.post("/login", expressAsyncHandler(async (req, res) => {
   res.status(200).json({ message: "login success", user: userInfo, token });
 }));
 
+
+//get attendance to display
+userApp.get('/attendance/:rollnum', expressAsyncHandler(async (req, res) => {
+  const usersCollection = req.app.get('usersCollection')
+  const { rollnum } = req.params;
+
+  try {
+    // Find user by rollnum
+    const user = await usersCollection.findOne({ rollnum: rollnum });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // If user found, return the attendance array
+    const attendanceData = user.attendance || [];
+
+    res.status(200).json({ rollnum: user.rollnum, attendance: attendanceData });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching attendance data", error: error.message });
+  }
+}));
+
+
+// Save attendance route
+userApp.post('/save-attendance', expressAsyncHandler(async (req, res) => {
+  const usersCollection = req.app.get('usersCollection');
+  const { rollnum,date, status } = req.body;
+  try {
+    const existingRecord = await usersCollection.findOne({ rollnum: rollnum, 'attendance.date': date });
+
+    if (existingRecord) {
+      // Update the existing attendance record
+      await usersCollection.updateOne(
+        { rollnum: rollnum, 'attendance.date': date },
+        { $set: { 'attendance.$.status': status } }
+      );
+    } else {
+      // Create a new attendance record
+      await usersCollection.updateOne(
+        { rollnum: rollnum },
+        { $push: { attendance: { date, status } } }
+      );
+    }
+
+    res.status(200).json({ message: "Attendance data saved successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error saving attendance data", error: error.message });
+  }
+}))
 
 module.exports = userApp;
