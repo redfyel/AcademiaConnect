@@ -1,0 +1,87 @@
+.syllabus-container {
+    padding: 20px;
+    background-color: #f4f8fc; /* Light background color */
+    text-align: center;
+    border-radius: 10px; /* Rounded corners for the container */
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    border: 2px solid #0c74b4; /* Thicker border */
+    border-radius: 30px;
+    overflow: hidden;
+    background-color: white; /* White background for the form */
+}
+
+.search-icon-container {
+    padding: 10px; /* Adjust padding for a compact look */
+    background-color: #1bd3de; /* Different color for the icon container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px 0 0 30px; /* Rounded left corners */
+}
+
+.search-icon {
+    color: white;
+    font-size: 1.2em;
+}
+
+.search-input {
+    padding: 12px 15px; /* More padding for better visibility */
+    border: none;
+    outline: none;
+    width: 250px; /* Slightly smaller width */
+}
+
+.search-button {
+    padding: 12px 15px;
+    background-color: #b01c80; /* Different background color */
+    color: white;
+    border: none;
+    border-radius: 0 30px 30px 0; /* Rounded right corners */
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #9a1568; /* Darker shade on hover */
+}
+
+.no-results {
+    margin-top: 10px;
+    color: #e74c3c; /* Red color for no results message */
+}
+
+.syllabus-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.syllabus-item {
+    padding: 20px;
+    margin: 10px 0;
+    width: 90%;
+    max-width: 550px; /* Adjusted max width */
+    background-color: #e1e8eb; /* Slightly darker background */
+    border-radius: 10px; /* More rounded corners */
+    color: #333;
+    border: 1px solid #888e91; /* Different border color */
+}
+
+.syllabus-title {
+    font-size: 1.6em; /* Larger font for title */
+    color: #0c74b4;
+}
+
+.syllabus-description {
+    color: #444; /* Darker text for description */
+}

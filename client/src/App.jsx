@@ -12,6 +12,9 @@ import Auth from './components/register/Auth';
 import EventCalendar from './components/events/EventCalendar';
 import RootLayout from './RootLayout';
 import AcademiaChatbot from './components/chatbot/AcademiaChatbot';
+import Syllabus from './components/syllabus/Syllabus';
+import Tutorials from './components/tutorials/Tutorials';
+import Pyqs from './components/pyqs/Pyqs';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +56,18 @@ const router = createBrowserRouter([
       {
         path: "/time-table",
         element: <TimeTable />,
+      },
+      {
+        path: "/syllabus",
+        element: <Syllabus />,
+      },
+      {
+        path: "/tutorials",
+        element: <Tutorials />,
+      },
+      {
+        path: "/pyqs",
+        element: <Pyqs />,
       },
     ],
   },
