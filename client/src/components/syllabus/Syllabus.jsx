@@ -8,49 +8,77 @@ const Syllabus = () => {
     const [filteredSyllabus, setFilteredSyllabus] = useState([]);
 
     useEffect(() => {
-        // Example: Fetching data from an API endpoint or using mock data
-        fetch('http://localhost:4000/exam-api/syllabus') // Replace with your actual API endpoint
-            .then(response => response.json())
-            .then(data => {
-                setSyllabusList(data); // Update state with fetched syllabus
-                setFilteredSyllabus(data); // Initially display all syllabus items
-            })
-            .catch(error => console.error('Error fetching syllabus:', error));
-    }, []);
+        async function fetchSyllabus() {
+            try {
+                // Fetch the syllabus data from the backend
+                let res = await fetch(`http://localhost:4000/exam-api/syllabus`);
+                const data = await res.json();
+                
+                if (res.ok) {
+                    // Remove duplicates based on subjectName
+                    const uniqueData = data.reduce((acc, current) => {
+                        const x = acc.find(item => item.subjectName === current.subjectName);
+                        return !x ? acc.concat([current]) : acc;
+                    }, []);
+
+                    // Sort syllabus by subject name alphabetically
+                    const sortedData = uniqueData.sort((a, b) =>
+                        a.subjectName.localeCompare(b.subjectName)
+                    );
+
+                    setSyllabusList(sortedData); // Store the sorted and filtered syllabus data
+                    setFilteredSyllabus(sortedData); // Initially display sorted and filtered syllabuses
+                } else {
+                    console.error('Error fetching syllabus:', data.message);
+                    setSyllabusList([]);
+                    setFilteredSyllabus([]);
+                }
+            } catch (error) {
+                console.error('Error fetching syllabus:', error);
+            }
+        }
+
+        fetchSyllabus(); // Call the function
+    }, []); // Fetch syllabus on component mount
 
     const handleSearch = (e) => {
         e.preventDefault();
         const filtered = syllabusList.filter(item =>
-            item.title.toLowerCase().includes(searchTerm.toLowerCase())
+            item.subjectName.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredSyllabus(filtered);
     };
 
+    const openSyllabus = (url) => {
+        window.open(url, '_blank'); // Open the syllabus PDF in a new tab
+    };
+
     return (
         <div className="syllabus-container">
-            <div className="search-container">
-                <form onSubmit={handleSearch} className="search-form">
-                    <div className="search-icon-container">
-                        <FaSearch className="search-icon" />
+            <div className="syllabus-search-container">
+                <form onSubmit={handleSearch} className="syllabus-search-form">
+                    <div className="syllabus-search-icon-container">
+                        <FaSearch className="syllabus-search-icon" />
                     </div>
                     <input
                         type="text"
                         placeholder="Search Syllabus"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="search-input"
+                        className="syllabus-search-input"
                     />
-                    <button type="submit" className="search-button">Search</button>
+                    <button type="submit" className="syllabus-search-button">Search</button>
                 </form>
             </div>
             {filteredSyllabus.length === 0 && searchTerm && (
-                <p className="no-results">No syllabus found.</p>
+                <p className="syllabus-no-results">No syllabus found.</p>
             )}
             <div className="syllabus-list">
                 {filteredSyllabus.map((item, index) => (
-                    <div key={index} className="syllabus-item">
-                        <h3 className="syllabus-title">{item.title}</h3>
-                        <p className="syllabus-description">{item.description}</p>
+                    <div key={index} className="syllabus-item" onClick={() => openSyllabus(item.syllabus)}>
+                        <h3 className="syllabus-item-title">
+                            {`${item.subjectName}`}
+                        </h3>
                     </div>
                 ))}
             </div>

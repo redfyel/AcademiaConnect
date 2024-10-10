@@ -1,72 +1,83 @@
-.tutorials-container {
+/* Container for the entire Tutorials section */
+.tutorials-container-tutorials {
     padding: 20px;
     background-color: #ffffff; /* Light peach background */
     text-align: center;
     border-radius: 10px; /* Rounded corners */
 }
 
-.search-container {
+/* Search bar container */
+.search-container-tutorials {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.search-form {
+/* Search form styles */
+.search-form-tutorials {
     display: flex;
     align-items: center;
-    border: 2px solid #ff7043; /* Thicker orange border */
+    border: 2px solid #383c77; /* Thicker orange border */
     border-radius: 30px;
     overflow: hidden;
     background-color: white; /* White background */
 }
 
-.search-icon-container {
-    padding: 10px; /* Compact padding */
-    background-color: #ff5722; /* Darker peach for the icon container */
+/* Search icon container */
+.search-icon-container-tutorials {
+    padding: 14.4px; /* Compact padding */
+    background-color: #4c4c82; /* Darker peach for the icon container */
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 30px 0 0 30px; /* Rounded left corners */
 }
 
-.search-icon {
+/* Search icon style */
+.search-icon-tutorials {
     color: white;
     font-size: 1.2em;
 }
 
-.search-input {
+/* Input field inside the search bar */
+.search-input-tutorials {
     padding: 12px 15px; /* More padding */
     border: none;
     outline: none;
     width: 250px; /* Input width */
 }
 
-.search-button {
+/* Search button styles */
+.search-button-tutorials {
     padding: 12px 15px;
-    background-color: #ff9800; /* Bright orange button */
+    background-color: #3b3362; /* Bright orange button */
     color: white;
     border: none;
     border-radius: 0 30px 30px 0; /* Rounded right corners */
     cursor: pointer;
 }
 
-.search-button:hover {
-    background-color: #f57c20; /* Darker orange on hover */
+/* Hover effect for the search button */
+.search-button-tutorials:hover {
+    background-color: #14487d; /* Darker orange on hover */
 }
 
-.no-results {
+/* No results message */
+.no-results-tutorials {
     margin-top: 10px;
     color: #e57373; /* Red color for no results */
 }
 
-.tutorials-list {
+/* Tutorials list container */
+.tutorials-list-tutorials {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.tutorial-item {
+/* Individual tutorial item container */
+.tutorial-item-tutorials {
     padding: 20px;
     margin: 10px 0;
     width: 90%;
@@ -77,11 +88,13 @@
     border: 1px solid #d67f1a; /* Darker border */
 }
 
-.tutorial-title {
+/* Title inside each tutorial item */
+.tutorial-title-tutorials {
     font-size: 1.6em; /* Larger font for title */
     color: #ff5722; /* Title color */
 }
 
-.tutorial-description {
+/* Description inside each tutorial item */
+.tutorial-description-tutorials {
     color: #444; /* Darker text */
 }

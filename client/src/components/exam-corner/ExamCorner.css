@@ -1,57 +1,86 @@
+/* Container for the Exam Corner Cards */
 .exam-corner-card-container {
     display: flex;
-    flex-wrap: wrap; 
-    justify-content: flex-start; 
-    padding-top: 60px; 
-    gap: 34px; 
-    overflow-x: auto; 
-    scroll-snap-type: x mandatory; 
+    justify-content: space-between; /* Evenly space the cards */
+    align-items: stretch; /* Ensure all cards align properly */
+    padding-top: 60px;
+    gap: 20px; /* Space between the cards */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    overflow-x: auto; /* Allow horizontal scrolling if necessary */
+    scroll-snap-type: x mandatory;
 }
 
+/* Individual Exam Card Styling */
 .exam-card {
     background-color: #ebebff;
-    width: 23%; 
-    aspect-ratio: 5 / 3; 
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 23%; /* Ensure all cards have the same width */
+    padding: 20px;
+    aspect-ratio: 5 / 3; /* Maintain consistent aspect ratio */
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     text-align: center;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    scroll-snap-align: start; 
-}
-.exam-corner-card-container h2{
-    color: #172d66;
-}
-.exam-card:hover {
-    transform: translateY(-10px); 
-    box-shadow: 0 6px 12px rgba(173, 216, 230, 0.4); 
+    scroll-snap-align: start;
 }
 
+/* Title Styling */
+.exam-corner-card-container h2 {
+    color: #172d66;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Hover Effect for Cards */
+.exam-card:hover {
+    transform: translateY(-10px); /* Lift card on hover */
+    box-shadow: 0 6px 14px rgba(173, 216, 230, 0.4); /* Enhanced shadow on hover */
+}
+
+/* Card Image Styling */
 .exam-card .card-image {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
 }
 
+/* Button Styling for Exam Cards */
 .ec-btn {
-    background-color: #6c6ca8; 
-    padding: 10px 20px;
-    margin-top: 15px;
-    border : 1px solid white;
+    background-color: #6c6ca8;
+    padding: 12px 24px;
+    margin-top: 20px;
+    border: 1px solid white;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1.1rem;
     color: #d8ddeb;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .ec-btn:hover {
-    color: #ebebff; 
-    background-color: #172d66;
+    color: #ebebff;
+    background-color: #172d66; /* Darken button background on hover */
 }
 
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .exam-card {
+        width: 30%; /* Change width to fit three cards per row */
+    }
+}
 
+@media (max-width: 900px) {
+    .exam-card {
+        width: 45%; /* Change width to fit two cards per row */
+    }
+}
 
+@media (max-width: 600px) {
+    .exam-card {
+        width: 90%; /* Full width on smaller screens */
+        margin: 10px 0; /* Margin adjustment for better spacing */
+    }
+}

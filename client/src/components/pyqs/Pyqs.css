@@ -1,86 +1,120 @@
+/* Container for the entire PYQs section */
 .pyqs-container {
     padding: 20px;
-    background-color: #ffffff;
-    text-align: center; /* Center text within the container */
+    background: linear-gradient(135deg, #e0f7fa 30%, #dee2ff 100%); /* Soft pastel gradient */
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
 }
 
-.search-container {
+/* Search bar container */
+.pyqs-search-container {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.search-form {
+/* Search form styles */
+.pyqs-search-form {
     display: flex;
     align-items: center;
-    border: 1px solid #ccc;
+    border: 2px solid #92b4ec; /* Softer blue */
     border-radius: 30px;
     overflow: hidden;
+    background: linear-gradient(135deg, #ffffff, #f2f5fa); /* Lighter background for form */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Softer shadow */
 }
 
-.search-icon-container {
-    padding: 12.4px; /* Adjust padding to fit the icon */
-    background-color: #0c74b4; /* Blue background for the icon container */
+/* Search icon container */
+.pyqs-search-icon-container {
+    padding: 14.4px;
+    background-color: #92b4ec; /* Lighter blue */
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 30px 0 0 30px; /* Rounded left corners */
+    border-radius: 30px 0 0 30px;
 }
 
-.search-icon {
+/* Search icon style */
+.pyqs-search-icon {
     color: white;
-    font-size: 1.2em; /* Adjust size as needed */
+    font-size: 1.2em;
 }
 
-.search-input {
-    padding: 10px 15px;
+/* Input field inside the search bar */
+.pyqs-search-input {
+    padding: 12px 20px;
     border: none;
     outline: none;
-    border-radius: 0; /* No rounded corners for the input */
-    width: 300px; /* Set a width for the input */
+    width: 250px;
+    font-size: 1em;
+    color: #333;
 }
 
-.search-button {
-    padding: 10px 15px;
-    background-color: #0c74b4;
+/* Placeholder text for the input field */
+.pyqs-search-input::placeholder {
+    color: #888;
+}
+
+/* Search button styles */
+.pyqs-search-button {
+    padding: 12px 20px;
+    background-color: #5e8ac7; /* Lighter button color */
     color: white;
     border: none;
-    border-radius: 0 30px 30px 0; /* Rounded right corners */
+    border-radius: 0 30px 30px 0;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.search-button:hover {
-    background-color: #0a5a8a; /* Darker shade on hover */
+/* Hover effect for the search button */
+.pyqs-search-button:hover {
+    background-color: #92b4ec; /* Lighter hover effect */
+    transform: scale(1.05);
 }
 
-.no-results {
-    margin-top: 10px;
-    color: #3028a8; /* Red color for no results message */
-}
-
+/* Container for the list of PYQs */
 .pyqs-list {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* Center the items in the column */
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.pyq-item {
+/* Individual PYQ item container */
+.pyqs-item {
     padding: 15px;
-    margin: 10px 0;
-    width: 90%; /* Make the item responsive */
-    max-width: 600px; /* Limit the width */
-    background-color: #e9e6f4;
-    border-radius: 5px;
+    margin: 10px;
+    width: 180px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.8); /* Softer white with transparency */
+    border-radius: 10px;
     color: #333;
-    border: 1px solid #acbfe3;
+    border: 1px solid #ddd; /* Lighter border */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.pyq-title {
-    font-size: 1.5em; /* Larger font for title */
-    color: #0c74b4;
+/* Hover effect for individual PYQ items */
+.pyqs-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Softer shadow on hover */
 }
 
-.pyq-description {
-    color: #555;
+/* Title inside each PYQ item */
+.pyqs-title {
+    font-size: 1.2em;
+    color: #5e8ac7; /* Softer blue for titles */
+    text-align: center;
+    margin: 0;
+}
+
+/* No results message */
+.pyqs-no-results {
+    margin-top: 10px;
+    color: #e74c3c;
+    font-weight: bold;
 }

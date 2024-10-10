@@ -12,6 +12,9 @@ import EventCalendar from './components/events/EventCalendar';
 import UserProfile from './components/user-profile/UserProfile';
 import RoutingError from './components/RoutingError'
 import RootLayout from './RootLayout';
+import Syllabus from './components/syllabus/Syllabus';
+import Pyqs from './components/pyqs/Pyqs';
+import Tutorials from './components/tutorials/Tutorials';
 
 
 function App() {
