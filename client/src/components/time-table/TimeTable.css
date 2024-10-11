@@ -1,10 +1,9 @@
-body {
+.time-table-app {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 20px;
   background-color: #f5f7fa; 
 }
-
 
 .time-table-button-container {
   margin: 40px 0 30px; 
@@ -27,7 +26,7 @@ body {
 }
 
 .time-table-button-container button:hover {
-  background-color: #056b99; 
+  background-color: #cb0980;
   transform: scale(1.1); 
 }
 
@@ -80,7 +79,7 @@ body {
 }
 
 .time-table-custom-table td a:hover {
-  color: #0056b3;
+  color: #cb0980;
   text-decoration: underline; 
 }
 
