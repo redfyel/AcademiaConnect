@@ -1,59 +1,59 @@
-//import express module
-const exp = require('express')
-const app = exp() // app contains express application object. object contains http server
+// Import express module
+const exp = require('express');
+const app = exp(); // app contains express application object
 
-//import environment variables
-require('dotenv').config()
+// Import environment variables
+require('dotenv').config();
 
-const cors = require('cors')
-app.use(cors({origin : 'http://localhost:5173'}))
+// Middleware
+const cors = require('cors');
+app.use(cors({ origin: 'http://localhost:5173' }));
 
-//import MongoClient 
-const {MongoClient} = require('mongodb');
+// Import MongoClient
+const { MongoClient } = require('mongodb');
 
-//create MongoClient object
-let mongoclient = new MongoClient(process.env.DB_URL)
+// Create MongoClient object
+let mongoclient = new MongoClient(process.env.DB_URL);
 
-//connect to mongodb server
-mongoclient.connect().then((connectionObj)=>{
-    //displaying a message for confirmation
+// Connect to MongoDB server
+mongoclient.connect().then((connectionObj) => {
     console.log("DB CONNECTION SUCCESS!");
 
+    // Connect to the database
+    const db = connectionObj.db('acacon-db');
 
-    //connect to the database
-    const db = connectionObj.db('acacon-db')
+    // Connect to collections
+    const usersCollection = db.collection('users');
+    const examCollection = db.collection('exam-corner');
+    const eventsCollection = db.collection('events');
+    const postsCollection = db.collection('student-corner');
 
-    //connect to a collection
-    const usersCollection = db.collection('users')
-    const examCollection = db.collection('exam-corner')
-    const eventsCollection = db.collection('events')
+    // Share collection objects with the API
+    app.set('usersCollection', usersCollection);
+    app.set('examCollection', examCollection);
+    app.set('eventsCollection', eventsCollection);
+    app.set('postsCollection', postsCollection);
 
-
-    //share collection obj to the API
-    app.set('usersCollection', usersCollection)
-    app.set('examCollection', examCollection)
-    app.set('eventsCollection', eventsCollection)
-
-
-    //start http server iff db connection has succeeded
-    //assigning port number to http server of express app
-    app.listen(process.env.PORT, ()=>console.log("http server started at port 4000"))
-}).catch((err)=>{
+    // Start the HTTP server if DB connection has succeeded
+    app.listen(process.env.PORT, () => console.log("HTTP server started at port 4000"));
+}).catch((err) => {
     console.log("Error in DB Connection : ", err);
-})
+});
 
-//import userApp
-const userApp = require('./APIs/userAPI')
-app.use('/user-api', userApp) 
+// Import userApp
+const userApp = require('./APIs/userAPI');
+app.use('/user-api', userApp);
 
-const examApp = require('./APIs/examAPI')
-app.use('/exam-api', examApp)
+const examApp = require('./APIs/examAPI');
+app.use('/exam-api', examApp);
 
-const eventsApp = require('./APIs/eventsAPI')
-app.use('/events-api', eventsApp)
+const eventsApp = require('./APIs/eventsAPI');
+app.use('/events-api', eventsApp);
 
+const studentCornerApp = require('./APIs/student-cornerAPI');
+app.use('/student-corner-api', studentCornerApp);
 
-//error handling middleware
-app.use((err, req, res, next)=>{
-    res.send({message :"An error occured : ", errorMessage : err.message})
-})
+// Error handling middleware
+app.use((err, req, res, next) => {
+    res.status(500).send({ message: "An error occurred: ", errorMessage: err.message });
+});
