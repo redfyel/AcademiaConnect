@@ -17,7 +17,7 @@
 .tutorials-search-form {
     display: flex;
     align-items: center;
-    border: 2px solid #a3c1e0; 
+    border: 2px solid #33c6ff; 
     border-radius: 30px;
     overflow: hidden;
     background-color: white;
@@ -26,7 +26,7 @@
 
 .tutorials-search-icon-container {
     padding: 14.4px;
-    background-color: #6fa3ef; 
+    background-color: #33c6ff; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,7 +49,7 @@
 
 .tutorials-search-button {
     padding: 12px 15px;
-    background-color: #4a90e2; 
+    background-color: #33c6ff;
     color: white; 
     border: none;
     border-radius: 0 30px 30px 0; 
@@ -79,7 +79,7 @@
     padding: 15px;
     margin: 10px;
     width: 220px; 
-    background-color: #d0e7ff; 
+    background-color: #e6f7ff;
     border-radius: 10px; 
     color: #333;
     border: 1px solid #a3c1e0; 
@@ -122,7 +122,7 @@
     display: inline-block;
     padding: 10px 15px;
     border-radius: 5px; 
-    background-color: #4a90e2; 
+    background-color: #33c6ff; 
     transition: background-color 0.3s, color 0.3s;
     margin-top: 10px;
 }
