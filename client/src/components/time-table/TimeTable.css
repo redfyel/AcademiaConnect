@@ -1,163 +1,110 @@
-/* Wrapper for the entire table and buttons section */
-.tables-wrapper {
-  width: 100%;
-  padding: 30px;
-  background-color: #f7f9fc; /* Light background for the wrapper */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); /* Soft shadow for the wrapper */
-  border-radius: 10px; /* Rounded corners */
-  box-sizing: border-box;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f5f7fa; 
 }
 
-/* Styles for the group of buttons above the first table */
-.button-group {
+
+.time-table-button-container {
+  margin: 40px 0 30px; 
   display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
+  gap: 15px; 
+  justify-content: center; 
+  flex-wrap: wrap; 
 }
 
-.custom-button {
-  background-color: #4CAF50;
+.time-table-button-container button {
+  background-color: #1aa6da;
   color: white;
-  padding: 12px 25px;
-  margin: 5px;
   border: none;
-  border-radius: 30px; /* More rounded buttons */
+  padding: 14px 25px; 
+  border-radius: 12px; 
   cursor: pointer;
   font-size: 16px;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for buttons */
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.custom-button:hover {
-  background-color: #45a049;
-  transform: translateY(-2px); /* Slight lift on hover */
-}
-
-/* Table container styling */
-.table-container {
-  margin-bottom: 40px;
-}
-
-/* Styles for the table title */
-.table-title {
-  font-size: 28px; /* Slightly larger font */
-  margin-bottom: 15px;
-  color: #333;
-  text-align: center;
-  margin-top: 25px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Custom table styling */
-.custom-table {
-  width: 100%; /* Full width of the container */
-  border-collapse: collapse;
-  margin-top: 40px;
-  table-layout: fixed;
-  margin-bottom: 20px;
-  border-radius: 10px; /* Rounded corners for the table */
-  overflow: hidden;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-}
-
-/* Table header and cell styling */
-.custom-table th,
-.custom-table td {
-  border: 1px solid rgba(120, 120, 160, 0.3); /* Lightened borders */
-  padding: 15px;
-  text-align: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Specific background colors for each table using shades of #acbfe3 */
-.table-one.custom-table {
-  background-color: #acbfe3; /* Main light blue shade for table one */
-}
-
-.table-two.custom-table {
-  background-color: #bcd1f1; /* Lighter shade of blue for table two */
-}
-
-.table-three.custom-table {
-  background-color: #91a7d3; /* Darker shade of blue for table three */
-}
-
-.table-four.custom-table {
-  background-color: #8395c6; /* Even darker shade of blue for table four */
-}
-
-/* Header styles */
-.custom-table th {
-  background-color: #e0e6f5; /* Softer, lighter header color */
-  color: #333;
-  font-weight: 600;
-  text-transform: uppercase; /* Uppercase text for headers */
-  letter-spacing: 0.05em; /* Slight letter spacing for headers */
-}
-
-/* Cell background */
-.custom-table td {
-  background-color: inherit; /* Inherit background from table */
-  color: #555;
-  transition: background-color 0.3s ease;
-}
-
-/* Add hover effect for table rows */
-.custom-table tbody tr:hover td {
-  background-color: rgba(0, 0, 0, 0.05); /* Light hover effect */
-}
-
-/* Additional width for the second column (Subject Name) */
-.custom-table th:nth-child(2),
-.custom-table td:nth-child(2) {
-  width: 40%; /* Give 40% width to the second column */
-}
-
-/* Distribute the remaining width across other columns */
-.custom-table th:not(:nth-child(2)),
-.custom-table td:not(:nth-child(2)) {
-  width: auto;
-}
-
-/* Anchor link styles */
-.custom-table th a,
-.custom-table td a {
-  color: #333;
-  text-decoration: none;
-  position: relative;
   font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s ease;
+}
+
+.time-table-button-container button:hover {
+  background-color: #056b99; 
+  transform: scale(1.1); 
+}
+
+/* Table Container */
+.time-table-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); 
+  padding: 30px;
+  margin-bottom: 50px; 
+}
+
+/* Table Title */
+.time-table-title {
+  font-size: 26px;
+  color: #0571ac;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 600;
+  border-bottom: 2px solid #1aa6da;
+  padding-bottom: 12px;
+}
+
+
+.time-table-custom-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.time-table-custom-table th,
+.time-table-custom-table td {
+  border: 1px solid #ddd;
+  padding: 14px; 
+  text-align: left;
+}
+
+.time-table-custom-table th {
+  background-color: #e9f1ff; 
+  color: #333;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px; 
+}
+
+.time-table-custom-table td a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500; 
   transition: color 0.3s ease;
 }
 
-/* Hover effect for anchor links */
-.custom-table th a:hover,
-.custom-table td a:hover {
-  color: #5d78ff; /* More vibrant hover color */
-  text-decoration: underline;
+.time-table-custom-table td a:hover {
+  color: #0056b3;
+  text-decoration: underline; 
 }
 
-/* Tooltip on hover over links */
-.custom-table td a:hover::after {
-  content: attr(title);
-  position: absolute;
-  background-color: #333;
-  color: white;
-  padding: 8px 10px;
-  border-radius: 5px;
-  top: 110%;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  z-index: 10;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out, top 0.3s ease-in-out;
-  font-size: 12px;
+.time-table-custom-table tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-/* Show tooltip */
-.custom-table td a:hover::after {
-  opacity: 1;
-  top: 120%;
+.time-table-custom-table tr:hover {
+  background-color: #f1f8ff; 
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+  .time-table-button-container {
+    flex-direction: column; 
+  }
 
+  .time-table-button-container button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .time-table-custom-table th,
+  .time-table-custom-table td {
+    padding: 10px; /* Slightly smaller padding on mobile */
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FaSearch } from 'react-icons/fa'; // Importing icon for search
-import './Pyqs.css'; // Importing CSS for styles
+import { FaSearch } from 'react-icons/fa'; 
+import './Pyqs.css'; 
 
 const romanize = (num) => {
     const romanNumerals = [
@@ -41,8 +41,8 @@ const Pyqs = () => {
                 const data = await res.json();
 
                 if (res.ok) {
-                    setPyqsList(data); // Store the fetched PYQs data
-                    setFilteredPyqs(data); // Initially display all PYQs
+                    setPyqsList(data); 
+                    setFilteredPyqs(data); 
                 } else {
                     console.error('Error fetching PYQs:', data.message);
                     setPyqsList([]);
@@ -53,8 +53,8 @@ const Pyqs = () => {
             }
         }
 
-        fetchPyqs(); // Call the function
-    }, []); // Fetch PYQs on component mount
+        fetchPyqs(); 
+    }, []); 
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -65,28 +65,28 @@ const Pyqs = () => {
     };
 
     const openPyqs = (url) => {
-        window.open(url, '_blank'); // Open the PYQ PDF in a new tab
+        window.open(url, '_blank'); 
     };
 
-    // Sort filtered PYQs alphabetically by subjectName
+    
     const sortedFilteredPyqs = filteredPyqs.sort((a, b) =>
         a.subjectName.localeCompare(b.subjectName)
     );
 
-    // Group by subject, remove duplicates, and assign Roman numerals
+    
     const groupedPyqs = sortedFilteredPyqs.reduce((acc, item) => {
         const subjectName = item.subjectName;
 
-        // Initialize subject entry if it doesn't exist
+        
         if (!acc[subjectName]) {
             acc[subjectName] = { links: new Set(), count: 0 };
         }
 
-        // Filter out duplicate links using a Set to track unique links
+        
         item.pyqs.forEach(link => {
             if (!acc[subjectName].links.has(link)) {
-                acc[subjectName].links.add(link); // Add link to the Set
-                acc[subjectName].count += 1; // Increment count
+                acc[subjectName].links.add(link); 
+                acc[subjectName].count += 1; 
             }
         });
 

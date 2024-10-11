@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FaSearch } from 'react-icons/fa'; // Importing icon for search
-import './Syllabus.css'; // Importing CSS for styles
+import { FaSearch } from 'react-icons/fa'; 
+import './Syllabus.css'; 
 
 const Syllabus = () => {
     const [syllabusList, setSyllabusList] = useState([]);
@@ -15,19 +15,18 @@ const Syllabus = () => {
                 const data = await res.json();
                 
                 if (res.ok) {
-                    // Remove duplicates based on subjectName
                     const uniqueData = data.reduce((acc, current) => {
                         const x = acc.find(item => item.subjectName === current.subjectName);
                         return !x ? acc.concat([current]) : acc;
                     }, []);
 
-                    // Sort syllabus by subject name alphabetically
+                    
                     const sortedData = uniqueData.sort((a, b) =>
                         a.subjectName.localeCompare(b.subjectName)
                     );
 
-                    setSyllabusList(sortedData); // Store the sorted and filtered syllabus data
-                    setFilteredSyllabus(sortedData); // Initially display sorted and filtered syllabuses
+                    setSyllabusList(sortedData); 
+                    setFilteredSyllabus(sortedData); 
                 } else {
                     console.error('Error fetching syllabus:', data.message);
                     setSyllabusList([]);
@@ -38,8 +37,8 @@ const Syllabus = () => {
             }
         }
 
-        fetchSyllabus(); // Call the function
-    }, []); // Fetch syllabus on component mount
+        fetchSyllabus(); 
+    }, []); 
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -50,7 +49,7 @@ const Syllabus = () => {
     };
 
     const openSyllabus = (url) => {
-        window.open(url, '_blank'); // Open the syllabus PDF in a new tab
+        window.open(url, '_blank'); 
     };
 
     return (

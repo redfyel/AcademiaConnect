@@ -1,11 +1,10 @@
-// Import necessary modules
 let exp = require("express");
 let examApp = exp.Router();
 
-// Body parser middleware
+
 examApp.use(exp.json());
 
-// Route to fetch syllabus PDFs and subject names
+
 examApp.get('/syllabus', async (req, res) => {
     try {
         const examCollection = req.app.get('examCollection');
@@ -23,16 +22,16 @@ examApp.get('/syllabus', async (req, res) => {
     }
 });
 
-// Route to fetch Previous Year Questions (PYQs) and subject names
+
 examApp.get('/pyqs', async (req, res) => {
     try {
         const examCollection = req.app.get('examCollection');
         const pyqsData = await examCollection.find({}).toArray();
 
         const pyqs = pyqsData.map(item => ({
-            subjectName: item.subjectName, // Assuming you have a field named 'subjectName'
-            pyqs: item.pyqs // Assuming you have a field named 'pyqs'
-        })).filter(item => item.pyqs); // Filter out entries without PYQs
+            subjectName: item.subjectName, 
+            pyqs: item.pyqs 
+        })).filter(item => item.pyqs); 
 
         res.status(200).json(pyqs);
     } catch (error) {
@@ -41,5 +40,23 @@ examApp.get('/pyqs', async (req, res) => {
     }
 });
 
-// Export the examApp router
+
+examApp.get('/tutorials', async (req, res) => {
+    try {
+        const examCollection = req.app.get('examCollection'); 
+        const tutorialsData = await examCollection.find({}).toArray();
+
+        const tutorials = tutorialsData.map(item => ({
+            subjectName: item.subjectName, 
+            tutorials: item.tutorials || [] 
+        })).filter(item => item.subjectName && item.tutorials.length > 0); 
+
+        res.status(200).json(tutorials);
+    } catch (error) {
+        console.error("Error fetching tutorials data:", error);
+        res.status(500).json({ message: "Failed to fetch tutorials data" });
+    }
+});
+
+
 module.exports = examApp;
