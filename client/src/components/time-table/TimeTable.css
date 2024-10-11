@@ -2,7 +2,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 20px;
-  background-color: #f5f7fa; 
+  background-color: #cfcfec53; 
 }
 
 .time-table-button-container {
@@ -32,7 +32,7 @@
 
 /* Table Container */
 .time-table-container {
-  background: white;
+  background: #8383e526;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); 
   padding: 30px;
@@ -42,11 +42,11 @@
 /* Table Title */
 .time-table-title {
   font-size: 26px;
-  color: #0571ac;
+  color: #cb0980;
   margin-bottom: 25px;
   text-align: center;
   font-weight: 600;
-  border-bottom: 2px solid #1aa6da;
+  border-bottom: 2px solid #cb0980;
   padding-bottom: 12px;
 }
 
@@ -64,7 +64,7 @@
 }
 
 .time-table-custom-table th {
-  background-color: #e9f1ff; 
+  background-color: #8383e546;
   color: #333;
   font-weight: bold;
   text-transform: uppercase;
@@ -83,9 +83,7 @@
   text-decoration: underline; 
 }
 
-.time-table-custom-table tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
+
 
 .time-table-custom-table tr:hover {
   background-color: #f1f8ff; 
