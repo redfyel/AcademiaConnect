@@ -8,7 +8,7 @@
 }
 
 .syllabus-container:hover {
-    background-color: rgba(249, 109, 199, 0.2); 
+    background-color: linear-gradient(135deg, rgba(249, 109, 199, 0.15), rgba(126, 196, 225, 0.15));
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); 
 }
 
