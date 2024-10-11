@@ -1,145 +1,161 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { userLoginContext } from '../../contexts/userLoginContext';
 import Lottie from 'lottie-react';
-import studentAnimation from '../../assets/animations/student'; // replace with the correct path to the Lottie animation JSON file
-import './StudentCorner.css'; // Include your CSS for styling
-import PostForm from './PostForm';
-import PostList from './PostList';
-
+import animationData from '../../assets/animations/student.json';
+import { useNavigate } from 'react-router-dom'; 
+import './StudentCorner.css'; 
 const StudentCorner = () => {
+    const { userLoginStatus, currentUser } = useContext(userLoginContext);
     const [posts, setPosts] = useState([]);
-    const [activeTab, setActiveTab] = useState('Doubt');
+    const [postContent, setPostContent] = useState('');
+    const [replyContent, setReplyContent] = useState('');
+    const [error, setError] = useState('');
+    const [activeTab, setActiveTab] = useState('doubts'); 
+    const navigate = useNavigate(); 
 
-    const handlePostSubmit = (post) => {
-        setPosts([...posts, post]); 
+    useEffect(() => {
+        if (userLoginStatus) {
+            fetchPosts();
+        }
+    }, [userLoginStatus]);
+
+    const fetchPosts = async () => {
+        try {
+            const response = await fetch(`http://localhost:4000/student-corner-api/post`);
+            const data = await response.json();
+            setPosts(data);
+        } catch (err) {
+            console.error('Error fetching posts:', err);
+            setError('Error fetching posts');
+        }
     };
+
+    const handlePostSubmit = async (e) => {
+        e.preventDefault();
+        if (!userLoginStatus) {
+            setError('You must be logged in to post. Please register or log in.');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:4000/student-corner-api/post', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content: postContent, type: activeTab, username: currentUser.username }),
+            });
+
+            if (response.ok) {
+                setPostContent(''); 
+                fetchPosts(); 
+            } else {
+                const errorData = await response.json();
+                setError(errorData.message);
+            }
+        } catch (err) {
+            console.error('Error posting:', err);
+            setError('An error occurred while posting.');
+        }
+    };
+
+    const handleReplySubmit = async (postId, e) => {
+        e.preventDefault();
+        if (!userLoginStatus) {
+            setError('You must be logged in to reply. Please register or log in.');
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:4000/student-corner-api/post/${postId}/reply`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ replyContent, username: currentUser.username }),
+            });
+
+            if (response.ok) {
+                setReplyContent(''); 
+                fetchPosts(); 
+            } else {
+                const errorData = await response.json();
+                setError(errorData.message);
+            }
+        } catch (err) {
+            console.error('Error replying:', err);
+            setError('An error occurred while replying.');
+        }
+    };
+
+    // Filter posts based on the active tab (doubts or complaints)
+    const filteredPosts = posts.filter(post => post.type === activeTab);
 
     return (
         <div className="student-corner">
-            <div className="student-corner-header">
-                <div className="student-corner-text">
-                    <h1>Student Corner</h1>
-                    <p className="unlocking-text">Unlocking potential, one student at a time</p>
+            <div className="animation-container">
+                <div className="text-section">
+                    <h2>Student Corner</h2>
+                    <p>Welcome to the Student Corner! Here, you can share your doubts and complaints, and engage with your peers.</p>
                 </div>
-                <div className="student-corner-animation">
-                    <Lottie animationData={studentAnimation} />
-                </div>
+                <Lottie animationData={animationData} loop={true} className=""autoplay />
             </div>
 
-            {/* Static Community Cards */}
-            <div className="community-cards">
-                <div
-                    className="community-card"
-                    style={{
-                        backgroundImage: `url(https://img.freepik.com/free-vector/college-students-sitting-bench-illustration-university-girls-boys-with-bags-laptop_33099-812.jpg?w=996&t=st=1727177936~exp=1727178536~hmac=a166ac95f4a1c71da7dcd0c6095e11c845856157698ca97ce982677aae0ce0c7)`
-                    }}
-                >
-                    <div className="community-info">
-                        <h2>CSE - First Year</h2>
-                        <p>Join this vibrant community to collaborate and share knowledge.</p>
-                        <button type="button" className="join-button btn" data-toggle="modal" data-target="#exampleModal">
-                            Join Us
-                        </button>
-                    </div>
-                </div>
-                <div
-                    className="community-card"
-                    style={{
-                        backgroundImage: `url(https://img.freepik.com/free-vector/college-students-sitting-bench-illustration-university-girls-boys-with-bags-laptop_33099-812.jpg?w=996&t=st=1727177936~exp=1727178536~hmac=a166ac95f4a1c71da7dcd0c6095e11c845856157698ca97ce982677aae0ce0c7)`
-                    }}
-                >
-                    <div className="community-info">
-                        <h2>CSE - Second Year</h2>
-                        <p>Join this vibrant community to collaborate and share knowledge.</p>
-                        <button type="button" className="join-button btn" data-toggle="modal" data-target="#exampleModal">
-                            Join Us
-                        </button>
-                    </div>
-                </div>
-                <div
-                    className="community-card"
-                    style={{
-                        backgroundImage: `url(https://img.freepik.com/free-vector/college-students-sitting-bench-illustration-university-girls-boys-with-bags-laptop_33099-812.jpg?w=996&t=st=1727177936~exp=1727178536~hmac=a166ac95f4a1c71da7dcd0c6095e11c845856157698ca97ce982677aae0ce0c7)`
-                    }}
-                >
-                    <div className="community-info">
-                        <h2>CSE - Third Year</h2>
-                        <p>Join this vibrant community to collaborate and share knowledge.</p>
-                        <button type="button" className="join-button btn" data-toggle="modal" data-target="#exampleModal">
-                            Join Us
-                        </button>
-                    </div>
-                </div>
-                <div
-                    className="community-card"
-                    style={{
-                        backgroundImage: `url(https://img.freepik.com/free-vector/college-students-sitting-bench-illustration-university-girls-boys-with-bags-laptop_33099-812.jpg?w=996&t=st=1727177936~exp=1727178536~hmac=a166ac95f4a1c71da7dcd0c6095e11c845856157698ca97ce982677aae0ce0c7)`
-                    }}
-                >
-                    <div className="community-info">
-                        <h2>CSE - Fourth Year</h2>
-                        <p>Join this vibrant community to collaborate and share knowledge.</p>
-                        <button type="button" className="join-button btn" data-toggle="modal" data-target="#exampleModal">
-                            Join Us
-                        </button>
-                    </div>
-                </div>
+            <div className="tab-bar">
+                <button className={`tab-button ${activeTab === 'doubts' ? 'active' : ''}`} onClick={() => setActiveTab('doubts')}>Doubts</button>
+                <button className={`tab-button ${activeTab === 'complaints' ? 'active' : ''}`} onClick={() => setActiveTab('complaints')}>Complaints</button>
             </div>
 
-            {/* Modal for joining community */}
-            <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            Thanks for joining
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
+            <div className="form-container">
+                <form onSubmit={handlePostSubmit}>
+                    <textarea
+                        value={postContent}
+                        onChange={(e) => setPostContent(e.target.value)}
+                        placeholder={`Share your ${activeTab === 'doubts' ? 'doubt' : 'complaint'}...`}
+                        rows="4"
+                        required
+                    />
+                    <button type="submit" className="submit-button">Post</button>
+                </form>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
             </div>
 
-            {/* Tab buttons for navigating between sections */}
-            <div className="tab-row">
-                <button 
-                    className={`tab-button ${activeTab === 'Doubt' ? 'active' : ''}`} 
-                    onClick={() => setActiveTab('Doubt')}
-                >
-                    Doubts
-                </button>
-                <button 
-                    className={`tab-button ${activeTab === 'Complaint' ? 'active' : ''}`} 
-                    onClick={() => setActiveTab('Complaint')}
-                >
-                    Complaints
-                </button>
-                <button 
-                    className={`tab-button ${activeTab === 'Post' ? 'active' : ''}`} 
-                    onClick={() => setActiveTab('Post')}
-                >
-                    Write a Post
-                </button>
-            </div>
-
-            {/* Conditionally render content based on activeTab */}
-            <div className="tab-content">
-                {activeTab === 'Post' && <PostForm onPostSubmit={handlePostSubmit} />}
-                {activeTab === 'Doubt' && (
+            <div className="posts-container">
+                {!userLoginStatus ? (
                     <div>
-                        <h3>Doubts Section</h3>
-                        <PostList posts={posts} filter="Doubt" />
+                        <p>
+                            Please <a href="/register" onClick={(e) => {
+                                e.preventDefault(); 
+                                navigate('/auth'); 
+                            }}>register</a> or log in to post.
+                        </p>
                     </div>
-                )}
-                {activeTab === 'Complaint' && (
-                    <div>
-                        <h3>Complaints Section</h3>
-                        <PostList posts={posts} filter="Complaint" />
-                    </div>
+                ) : (
+                    filteredPosts.map(post => (
+                        <div key={post._id} className="post-card">
+                            <div className="post-content-overlay">
+                                <h3>{post.content}</h3>
+                                <p className="post-author">Posted by: {post.username}</p>
+                            </div>
+                            <div className="thread-section">
+                                <form onSubmit={(e) => handleReplySubmit(post._id, e)}>
+                                    <input
+                                        type="text"
+                                        className="reply-input"
+                                        value={replyContent}
+                                        onChange={(e) => setReplyContent(e.target.value)}
+                                        placeholder="Reply..."
+                                        required
+                                    />
+                                    <button type="submit" className="reply-button">Reply</button>
+                                </form>
+                            </div>
+                            <div className="replies-container">
+                                {post.replies && post.replies.map((reply, index) => (
+                                    <div key={index} className="reply-card">
+                                        <p className="reply-content">{reply.content}</p>
+                                        <p className="reply-author">Replied by: {reply.username}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))
                 )}
             </div>
         </div>
