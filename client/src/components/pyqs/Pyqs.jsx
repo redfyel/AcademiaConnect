@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FaSearch } from 'react-icons/fa'; 
-import './Pyqs.css'; 
+import { FaSearch } from 'react-icons/fa';
+import './Pyqs.css';
 
 const romanize = (num) => {
     const romanNumerals = [
@@ -36,15 +36,12 @@ const Pyqs = () => {
     useEffect(() => {
         async function fetchPyqs() {
             try {
-                // Fetch the PYQs data from the backend
-                let res = await fetch(`http://localhost:4000/exam-api/pyqs`);
+                const res = await fetch('http://localhost:4000/exam-api/pyqs');
                 const data = await res.json();
-
                 if (res.ok) {
-                    setPyqsList(data); 
-                    setFilteredPyqs(data); 
+                    setPyqsList(data);
+                    setFilteredPyqs(data);
                 } else {
-                    console.error('Error fetching PYQs:', data.message);
                     setPyqsList([]);
                     setFilteredPyqs([]);
                 }
@@ -52,50 +49,56 @@ const Pyqs = () => {
                 console.error('Error fetching PYQs:', error);
             }
         }
+        fetchPyqs();
+    }, []);
 
-        fetchPyqs(); 
-    }, []); 
+    // Filter function to handle search and apply additional filters
+    const filterPyqs = () => {
+        let filtered = pyqsList.filter(item => 
+            item.subjectName.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        // Sort filtered results alphabetically by subject name
+        filtered = filtered.sort((a, b) =>
+            a.subjectName.localeCompare(b.subjectName)
+        );
+
+        // Remove duplicates by checking links within the same subject
+        const uniqueFiltered = filtered.reduce((acc, item) => {
+            const subjectName = item.subjectName;
+
+            if (!acc[subjectName]) {
+                acc[subjectName] = { links: new Set(), count: 0 };
+            }
+
+            item.pyqs.forEach(link => {
+                if (!acc[subjectName].links.has(link)) {
+                    acc[subjectName].links.add(link);
+                }
+            });
+
+            return acc;
+        }, {});
+
+        return uniqueFiltered;
+    };
 
     const handleSearch = (e) => {
         e.preventDefault();
-        const filtered = pyqsList.filter(item =>
-            item.subjectName.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        const filtered = filterPyqs();
         setFilteredPyqs(filtered);
     };
 
     const openPyqs = (url) => {
-        window.open(url, '_blank'); 
+        window.open(url, '_blank');
     };
 
-    
-    const sortedFilteredPyqs = filteredPyqs.sort((a, b) =>
-        a.subjectName.localeCompare(b.subjectName)
-    );
-
-    
-    const groupedPyqs = sortedFilteredPyqs.reduce((acc, item) => {
-        const subjectName = item.subjectName;
-
-        
-        if (!acc[subjectName]) {
-            acc[subjectName] = { links: new Set(), count: 0 };
-        }
-
-        
-        item.pyqs.forEach(link => {
-            if (!acc[subjectName].links.has(link)) {
-                acc[subjectName].links.add(link); 
-                acc[subjectName].count += 1; 
-            }
-        });
-
-        return acc;
-    }, {});
+    const groupedPyqs = filterPyqs();
 
     return (
         <div className="pyqs-container">
-            <div className="pyqs-search-container">
+            {/* Search and Filters */}
+            <div className="pyqs-filter-container">
                 <form onSubmit={handleSearch} className="pyqs-search-form">
                     <div className="pyqs-search-icon-container">
                         <FaSearch className="pyqs-search-icon" />
@@ -110,16 +113,22 @@ const Pyqs = () => {
                     <button type="submit" className="pyqs-search-button">Search</button>
                 </form>
             </div>
+
+            {/* Display of PYQs */}
             {Object.keys(groupedPyqs).length === 0 && searchTerm && (
                 <p className="pyqs-no-results">No PYQs found.</p>
             )}
+
             <div className="pyqs-list">
                 {Object.keys(groupedPyqs).map((subject) => {
                     return Array.from(groupedPyqs[subject].links).map((link, idx) => (
                         <div key={`${subject}-${link}`} className="pyqs-item" onClick={() => openPyqs(link)}>
-                            <h3 className="pyqs-title">
-                                {subject} {romanize(idx + 1)}
-                            </h3>
+                            <div className="pyqs-card">
+                                <h3 className="pyqs-title">
+                                    {subject} {romanize(idx + 1)}
+                                </h3>
+                                <button className="view-btn">View Paper</button>
+                            </div>
                         </div>
                     ));
                 })}
