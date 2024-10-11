@@ -67,7 +67,7 @@
 }
 
 .pyqs-card {
-    background: linear-gradient(145deg, #cb0980, #d9a7c7);
+    background: linear-gradient(135deg, rgba(203, 9, 128, 0.2), rgba(0, 184, 255, 0.2));
     border-radius: 15px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 20px;

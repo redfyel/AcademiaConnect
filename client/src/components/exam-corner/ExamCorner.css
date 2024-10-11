@@ -28,11 +28,25 @@
 
 /* Title Styling */
 .exam-corner-card-container h2 {
-    color: #172d66;
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin-bottom: 15px;
+    color: #172d66; /* Keeping a strong, professional color */
+    font-size: 2rem; /* Bigger size for an eye-catching title */
+    font-family: 'Pacifico', cursive; /* A more elegant, handwritten-like font for a unique look */
+    margin-bottom: 20px; /* Adds more space between the title and button */
+    letter-spacing: 1px; /* Slight spacing to improve readability */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Adds depth with a subtle shadow */
+    text-align: center; /* Centers the title */
 }
+
+.exam-corner-card-container h2:hover {
+    color: #d35400; /* A warm color on hover for added contrast */
+    transform: scale(1.05); /* Gently enlarges on hover for interactivity */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+
+
+
+
 
 /* Hover Effect for Cards */
 .exam-card:hover {
