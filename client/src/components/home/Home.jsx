@@ -1,7 +1,6 @@
 import animationData from "../../assets/animations/education_animation.json";
 import Lottie from "react-lottie";
 import "./Home.css";
-
 function Home() {
   const features = [
     {
