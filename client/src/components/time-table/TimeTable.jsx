@@ -73,7 +73,7 @@ const TimeTable = () => {
     {
       title: 'III B.TECH - I SEMESTER',
       data: [
-        { date: '2024-09-10', subject: 'Software Engineering', syllabus: 'https://www.pvpsiddhartha.ac.in/autonomous20/31/cse/20MC1501.pdf', tutorials: '/Tutorials', pyqs: '/Pyqs' },
+        { date: '2024-09-10', subject: 'Software Engineering', syllabus: 'https://www.pvpsiddhartha.ac.in/autonomous20/31/cse/20CS3501.pdf', tutorials: '/Tutorials', pyqs: '/Pyqs' },
       { date: '2024-09-11', subject: 'Database Management Systems', syllabus: 'https://www.pvpsiddhartha.ac.in/autonomous20/31/cse/20CS3502.pdf', tutorials: '/Tutorials', pyqs: '/Pyqs' },
       { date: '2024-09-12', subject: 'Computer Networks', syllabus: 'https://www.pvpsiddhartha.ac.in/autonomous20/31/cse/20CS3503.pdf', tutorials: '/Tutorials', pyqs: '/Pyqs' },
       { date: '2024-09-13', subject: 'Design Thinking', syllabus: 'https://www.pvpsiddhartha.ac.in/autonomous20/31/CSE/20ME2501A.pdf', tutorials: '/Tutorials', pyqs: '/Pyqs' },

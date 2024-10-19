@@ -12,10 +12,14 @@
 
 .custom-calendar {
   background-color: #c1c1e59e;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #172d66;
   border-radius: 20px;
   color: #172d66;
   text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .modal-title {
