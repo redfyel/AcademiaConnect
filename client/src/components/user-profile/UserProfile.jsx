@@ -1,178 +1,192 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Assuming you're using react-router for navigation
+import React, { useEffect, useState, useContext } from "react";
+import { Pie } from "react-chartjs-2";
+import { useNavigate } from "react-router-dom";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { userLoginContext } from "../../contexts/userLoginContext";
 import './UserProfile.css';
 import profileImage from "../../assets/images/profile-image.jpeg";
-import ss from "../../assets/images/Attendance_Tracker-piechart.png";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 function UserProfile() {
   const navigate = useNavigate();
+  const { currentUser } = useContext(userLoginContext);
+  const [posts, setPosts] = useState([]);
+  const [presentHours, setPresentHours] = useState(0);
+  const [absentHours, setAbsentHours] = useState(0);
+  const [holidayDays, setHolidayDays] = useState(0);
+  const [currentPostIndex, setCurrentPostIndex] = useState(0); // Track the current post index
+  const [currentEventIndex, setCurrentEventIndex] = useState(0); // Track the current event index
 
-  // Sample posts data
-  const userPosts = [
-    {
-      id: 1,
-      title: "Understanding React Hooks",
-      content: "In this post, I discuss how to use React hooks effectively in your projects...",
-      date: "2024-10-15",
-    },
-    {
-      id: 2,
-      title: "My Journey with CSS Grid",
-      content: "CSS Grid has been a game-changer in building responsive layouts. Here are my thoughts...",
-      date: "2024-10-12",
-    },
-    {
-      id: 3,
-      title: "Top 10 JavaScript Tricks",
-      content: "JavaScript is full of quirks and tips. These are some of the tricks that have helped me...",
-      date: "2024-10-10",
-    },
-  ];
-
-  // Sample upcoming events data
+  // Sample upcoming events
   const upcomingEvents = [
-    {
-      id: 1,
-      title: "TechFest 2024",
-      date: "2024-11-05",
-      location: "Main Auditorium",
-      description: "A grand tech event showcasing the latest in technology, hosted by the Computer Science Department."
-    },
-    {
-      id: 2,
-      title: "AI and Machine Learning Conference",
-      date: "2024-11-12",
-      location: "Room 203, Block C",
-      description: "A detailed conference covering the most recent advancements in AI and Machine Learning."
-    },
+    { name: "AR/VR Hackathon", date: "November 29, 2024", location: "Online", description: "Join us for an immersive AR/VR experience!" },
+    { name: "Hackathon 2024", date: "November 20, 2024", location: "Campus", description: "Compete for exciting prizes and learn from experts." },
+    { name: "End of Semester Fest", date: "December 20, 2024", location: "Auditorium", description: "Celebrate the end of the semester with fun activities." }
   ];
 
-  // Navigation functions
-  const goToCreatePost = () => {
-    navigate('/student-corner'); // Redirect to StudentCorner page
+  const userPosts = [
+    { title: "Exploring the Future of AI", date: "October 1, 2024", content: "A deep dive into the advancements in artificial intelligence." },
+    { title: "Understanding Virtual Reality", date: "October 10, 2024", content: "Exploring the possibilities of VR technology." },
+    { title: "Tips for Successful Hackathons", date: "October 15, 2024", content: "Best practices for participating in hackathons." }
+  ];
+
+  useEffect(() => {
+    const fetchAttendanceData = async () => {
+      try {
+        const token = sessionStorage.getItem('token');
+        const rollnum = currentUser?.rollnum;
+
+        if (!token || !rollnum) return;
+
+        const response = await fetch(`http://localhost:4000/user-api/attendance/${rollnum}`, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          let presentCount = 0;
+          let absentCount = 0;
+          let holidayCount = 0;
+
+          if (data.attendance) {
+            data.attendance.forEach(item => {
+              if (item.status === 'present') presentCount += 7;
+              if (item.status === 'absent') absentCount += 7;
+              if (item.status === 'holiday') holidayCount += 1;
+            });
+          }
+
+          setPresentHours(presentCount);
+          setAbsentHours(absentCount);
+          setHolidayDays(holidayCount);
+        } else {
+          console.error("Failed to fetch attendance data");
+        }
+      } catch (error) {
+        console.error("Error fetching attendance data", error);
+      }
+    };
+
+    if (currentUser) fetchAttendanceData();
+  }, [currentUser]);
+
+  // Define pie chart data
+  const totalDaysInSemester = 30 * 4; // Assuming 4 weeks in the semester
+  const workingDays = totalDaysInSemester - holidayDays;
+  const totalHours = Math.max(workingDays * 7, 1);
+  const remainingHours = Math.max(0.75 * totalHours - presentHours, 0);
+
+  const chartData = {
+    labels: ["Present", "Absent", "Remaining"],
+    datasets: [
+      {
+        label: "Attendance",
+        data: [presentHours, absentHours, remainingHours],
+        backgroundColor: ["#4caf50", "#f44336", "#ffc107"],
+        borderWidth: 1,
+      },
+    ],
   };
 
-  const goToAttendanceTracker = () => {
-    navigate('/tracker'); // Redirect to Attendance Tracker page
+  // Handle post navigation
+  const handleNextPost = () => {
+    setCurrentPostIndex((prevIndex) => (prevIndex + 1) % userPosts.length);
   };
 
-  const goToEventsCalendar = () => {
-    navigate('/events'); // Redirect to Events Calendar page
+  const handlePreviousPost = () => {
+    setCurrentPostIndex((prevIndex) => (prevIndex - 1 + userPosts.length) % userPosts.length);
+  };
+
+  // Handle event navigation
+  const handleNextEvent = () => {
+    setCurrentEventIndex((prevIndex) => (prevIndex + 1) % upcomingEvents.length);
+  };
+
+  const handlePreviousEvent = () => {
+    setCurrentEventIndex((prevIndex) => (prevIndex - 1 + upcomingEvents.length) % upcomingEvents.length);
   };
 
   return (
-    <div> 
-     
-
-      {/* Profile header with image and details */}
-      <div className="profile-header">
-        <div className="background-line"></div> {/* Gradient line background */}
-
-        {/* Profile Image */}
-        <img 
-          src={profileImage}  // Correctly imported image
-          alt="Profile" 
-          className="profile-picture"
-        />
-
-        {/* Profile Details */}
-        <div className="profile-details">
-          <h1 className="profile-name">Chandra Sekhar</h1>
-          <div className="username">@ChanduSekhar</div>
-          <div className="join-roll-no">22501A0531</div>
-
-          {/* Buttons */}
-          <div className="profile-buttons">
-            <button className="edit-profile">Edit Profile</button>
+    <div className="profile-page">
+      <div className="sidebar">
+        <div className="profile-box">
+          <img src={profileImage} alt="Profile" className="profile-image" />
+          <h3>Chandra Sekhar</h3>
+          <p>Web Developer</p>
+          <button className="edit-profile">Edit Profile</button>
+        </div>
+        <div className="quick-links">
+          <h4>Quick Links</h4>
+          <ul>
+          <li><button onClick={() => document.getElementById("posts").scrollIntoView()}>My Posts</button></li>
+    <li><button onClick={() => document.getElementById("events").scrollIntoView()}>Upcoming Events</button></li>
+    <li><button onClick={() => document.getElementById("syllabus").scrollIntoView()}>Syllabus</button></li>
+    <li><button onClick={() => document.getElementById("events").scrollIntoView()}>Events</button></li>
+    <li><button onClick={() => document.getElementById("tracker").scrollIntoView()}>Attendance Tracker</button></li></ul>
+        </div>
+      </div>
+      <div className="main-content">
+        <div className="combined-sections">
+          <div className="events-section">
+            <h2 className="events-header">Upcoming Events</h2>
+            <div className="events-list">
+              {upcomingEvents.length > 0 && (
+                <div className="event-card">
+                  <h3 className="event-title">{upcomingEvents[currentEventIndex].name}</h3>
+                  <p className="event-date">Date: {upcomingEvents[currentEventIndex].date}</p>
+                  <p className="event-location">Location: {upcomingEvents[currentEventIndex].location}</p>
+                  <p className="event-description">{upcomingEvents[currentEventIndex].description}</p>
+                </div>
+              )}
+              <div className="scroll-buttons">
+                <button className="scroll-button" onClick={handlePreviousEvent}>Previous</button>
+                <button className="scroll-button" onClick={handleNextEvent}>Next</button>
+              </div>
+            </div>
+          </div>
+          <div className="posts-section">
+            <h2>Recent Posts</h2>
+            <div className="posts-container">
+              {userPosts.length > 0 && (
+                <div className="post-card">
+                  <h3 className="post-title">{userPosts[currentPostIndex].title}</h3>
+                  <p className="post-date">Date: {userPosts[currentPostIndex].date}</p>
+                  <p className="post-content">{userPosts[currentPostIndex].content}</p>
+                </div>
+              )}
+              <div className="scroll-buttons">
+                <button className="scroll-button" onClick={handlePreviousPost}>Previous</button>
+                <button className="scroll-button" onClick={handleNextPost}>Next</button>
+              </div>
+            </div>
           </div>
         </div>
-        
-      </div>
-      <div className="welcome-message">
-        Welcome, 22501A0531!
-      </div>
 
-    <div className="container-user">
-
-      
-     {/* Attendance Section */}
-<div className="attendance-section">
-  <div className="attendance-image">
-    <img 
-      src={ss}  // Correctly imported attendance tracker image
-      alt="Attendance Tracker" 
-    />
-    <div className="attendance-button">
-      <button className="track-attendance" onClick={goToAttendanceTracker}>
-        Track your Attendance
-      </button>
-    </div>
-  </div>
-  <div className="motivational-quote">
-    <p>"Success is the sum of small efforts, repeated day in and day out."</p>
-  </div>
-</div>
-
-
-
-      {/* Track Attendance Button */}
-      
-
-      {/* Posts Section */}
-      <div className="posts-section section">
-        <div className="posts-header">
-          <h2>Your Posts</h2>
-          <button className="create-post" onClick={goToCreatePost}>
-            Create Post
-          </button>
-        </div>
-        <div className="posts-list">
-          {userPosts.length === 0 ? (
-            <p>You haven't created any posts yet.</p>
-          ) : (
-            userPosts.map(post => (
-              <div key={post.id} className="post-card">
-                <h3 className="post-title">{post.title}</h3>
-                <p className="post-date">Posted on: {post.date}</p>
-                <p className="post-content">{post.content}</p>
+         {/* Attendance Tracker */}
+         <div className="attendance-section">
+          <h3 className="text-center tracker-title">Attendance Tracker</h3>
+          <div className="pie-chart-section">
+            <div className="small-pie-chart">
+              <Pie data={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
+            </div>
+            <div className="legend-section">
+              <div className="stat-item">
+                <span className="legend-icon present-circle"></span>
+                <p>Present: {Math.round((presentHours / totalHours) * 100)}%</p>
               </div>
-            ))
-          )}
-        </div>
-      </div>
-
-      {/* Upcoming Events Section */}
-      <div className="events-section section">
-        <h2 className="events-header">Upcoming Events at PVPSIT</h2>
-        
-        <div className="events-list">
-          {upcomingEvents.length === 0 ? (
-            <p>No upcoming events registered.</p>
-          ) : (
-            upcomingEvents.map(event => (
-              <div key={event.id} className="event-card">
-                <div className="event-date mb-5">
-                  {new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-                </div>
-                <div className="event-title">{event.title}</div>
-                <div className="event-location">📍 {event.location}</div>
+              <div className="stat-item">
+                <span className="legend-icon absent-circle"></span>
+                <p>Absent: {Math.round((absentHours / totalHours) * 100)}%</p>
               </div>
-            
-          ) )
-            
-          )}
+              <div className="stat-item">
+                <span className="legend-icon remaining-circle"></span>
+                <p>Yet to Come: {Math.round((remainingHours / totalHours) * 100)}%</p>
+              </div>
+            </div>
+          </div>
         </div>
-
-        {/* View More Events Button */}
-        <div className="view-more-events">
-    <button className="view-more" onClick={() => navigate('/events')}>
-      View More Events
-    </button>
-  </div>
       </div>
-
-    </div>
-     
     </div>
   );
 }
