@@ -9,6 +9,7 @@ import profileImage from "../../assets/images/profile-image.jpeg";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function UserProfile() {
+  let { logoutUser, userLoginStatus, currentUser } = useContext(userLoginContext); 
   const navigate = useNavigate();
   const { currentUser } = useContext(userLoginContext);
   const [posts, setPosts] = useState([]);

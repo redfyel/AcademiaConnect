@@ -12,7 +12,8 @@ examApp.get('/syllabus', async (req, res) => {
 
         const syllabuses = syllabusData.map(item => ({
             subjectName: item.subjectName, 
-            syllabus: item.syllabus 
+            syllabus: item.syllabus,
+            semno: item.semno // Add semno field here
         })).filter(item => item.syllabus);
 
         res.status(200).json(syllabuses);
@@ -30,7 +31,8 @@ examApp.get('/pyqs', async (req, res) => {
 
         const pyqs = pyqsData.map(item => ({
             subjectName: item.subjectName, 
-            pyqs: item.pyqs 
+            pyqs: item.pyqs, 
+            semno: item.semno
         })).filter(item => item.pyqs); 
 
         res.status(200).json(pyqs);
@@ -48,7 +50,8 @@ examApp.get('/tutorials', async (req, res) => {
 
         const tutorials = tutorialsData.map(item => ({
             subjectName: item.subjectName, 
-            tutorials: item.tutorials || [] 
+            tutorials: item.tutorials || [], 
+            semno: item.semno
         })).filter(item => item.subjectName && item.tutorials.length > 0); 
 
         res.status(200).json(tutorials);

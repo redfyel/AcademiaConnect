@@ -7,7 +7,15 @@ require('dotenv').config();
 
 // Middleware
 const cors = require('cors');
-app.use(cors({ origin: 'http://localhost:5173' }));
+const allowedOrigins = [
+    'http://localhost:5173',  
+    'https://academia-connect.vercel.app'  
+  ];
+  
+  app.use(cors({
+    origin: allowedOrigins,
+    credentials: true,
+  }));
 
 // Import MongoClient
 const { MongoClient } = require('mongodb');
@@ -25,11 +33,13 @@ mongoclient.connect().then((connectionObj) => {
     // Connect to collections
     const usersCollection = db.collection('users');
     const examCollection = db.collection('exam-corner');
+    const timeTableCollection = db.collection('time-table');
     const eventsCollection = db.collection('events');
     const postsCollection = db.collection('student-corner');
 
     // Share collection objects with the API
     app.set('usersCollection', usersCollection);
+    app.set('timeTableCollection',timeTableCollection);
     app.set('examCollection', examCollection);
     app.set('eventsCollection', eventsCollection);
     app.set('postsCollection', postsCollection);
@@ -46,6 +56,9 @@ app.use('/user-api', userApp);
 
 const examApp = require('./APIs/examAPI');
 app.use('/exam-api', examApp);
+
+const timeTableApp = require('./APIs/timeTableAPI');
+app.use('/timeTable-api', timeTableApp);
 
 const eventsApp = require('./APIs/eventsAPI');
 app.use('/events-api', eventsApp);

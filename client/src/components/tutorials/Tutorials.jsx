@@ -5,38 +5,42 @@ const Tutorials = () => {
   const [tutorials, setTutorials] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredTutorials, setFilteredTutorials] = useState([]);
+  const [selectedSemester, setSelectedSemester] = useState('');
+  const [semesters, setSemesters] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
 
   useEffect(() => {
-    // Fetch tutorials from backend
     const fetchTutorials = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/exam-api/tutorials`); 
+        const response = await fetch(`http://localhost:4000/exam-api/tutorials`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        const allTutorials = data.flatMap(item => 
+
+        const allTutorials = data.flatMap(item =>
           item.tutorials.map(link => {
-            const videoId = new URLSearchParams(new URL(link).search).get('v'); 
+            const videoId = new URLSearchParams(new URL(link).search).get('v');
             return {
-              title: item.subjectName, 
-              subject: item.subjectName, 
-              link: link, 
-              thumbnail: videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null 
+              title: item.subjectName,
+              subject: item.subjectName,
+              link: link,
+              thumbnail: videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null,
+              semno: item.semno
             };
           })
         );
 
-        
-        const uniqueTutorials = allTutorials.filter((tutorial, index, self) => 
+        const uniqueTutorials = allTutorials.filter((tutorial, index, self) =>
           index === self.findIndex(t => t.link === tutorial.link)
         );
 
-        
         const filteredTutorialsWithThumbnails = uniqueTutorials.filter(tutorial => tutorial.thumbnail);
 
-        
-        const sortedData = filteredTutorialsWithThumbnails.sort((a, b) => a.title.localeCompare(b.title));
+        // Sort the tutorials alphabetically by title
+        const sortedData = filteredTutorialsWithThumbnails.sort((a, b) =>
+          a.title.localeCompare(b.title)
+        );
+
         setTutorials(sortedData);
         setFilteredTutorials(sortedData);
       } catch (error) {
@@ -55,8 +59,16 @@ const Tutorials = () => {
     setFilteredTutorials(filtered);
   };
 
+  const handleSemesterChange = (event) => {
+    const selected = event.target.value;
+    setSelectedSemester(selected);
+    const filtered = tutorials.filter(tutorial => tutorial.semno.toString() === selected);
+    setFilteredTutorials(filtered);
+  };
+
   return (
     <div className="tutorials-container">
+      <h1 className="tutorials-header">Master any subject with clear, step-by-step lecture tutorials!</h1>
       <div className="tutorials-search-container">
         <form className="tutorials-search-form" onSubmit={handleSearch}>
           <div className="tutorials-search-icon-container">
@@ -73,14 +85,18 @@ const Tutorials = () => {
             Search
           </button>
         </form>
+        <select className="tutorials-semester-select" value={selectedSemester} onChange={handleSemesterChange}>
+          <option value="">Select Semester</option>
+          {semesters.map((sem, index) => (
+            <option key={index} value={sem}>{`Semester ${sem}`}</option>
+          ))}
+        </select>
       </div>
 
-      
       <div className="tutorials-list">
         {filteredTutorials.length > 0 ? (
           filteredTutorials.map((tutorial, index) => (
             <div key={index} className="tutorials-item">
-              
               <a href={tutorial.link} target="_blank" rel="noopener noreferrer">
                 <img 
                   className="tutorials-thumbnail" 
@@ -88,8 +104,6 @@ const Tutorials = () => {
                   alt={`Thumbnail for ${tutorial.title}`} 
                 />
               </a>
-
-              
               <a href={tutorial.link} target="_blank" rel="noopener noreferrer" className="tutorials-title">
                 {tutorial.subject}
               </a>
