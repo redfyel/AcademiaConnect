@@ -3,7 +3,9 @@
     background-color: #172d66;
     text-align: center;
     color: #ebebff ;
-    font-family: "Handjet", sans-serif;
+    /* font-family: "Handjet", sans-serif; */
+    font-family: "Playwrite GB S", cursive;
+    font-optical-sizing: auto;
 }
 
 .footer h2{

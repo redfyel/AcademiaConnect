@@ -30,7 +30,9 @@
     font-size: 3.5rem;
     color: #172d66;
     transition: all 0.4s ease;
-    font-family: "Handjet", sans-serif;
+    /* font-family: "Handjet", sans-serif; */
+    font-family: "Playwrite GB S", cursive;
+    font-optical-sizing: auto;
 }
 
 .text-section p {

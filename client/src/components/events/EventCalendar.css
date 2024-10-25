@@ -1,23 +1,10 @@
-.event-calendar-container {
+.event-calendar-page {
+  display: flex;
   padding: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  gap: 20px;
+  height: 90vh; 
+  transition: all 0.3s ease; 
 }
-
-.calendar-title {
-  text-align: center;
-  font-size: 2rem;
-  color: #172d66;
-  margin-bottom: 20px;
-}
-
-.custom-calendar {
-  background-color: #c1c1e59e;
-  border: 1px solid #e0e0e0;
-  border-radius: 20px;
-  color: #172d66;
-  text-align: center;
-}
-
 .modal-title {
   color: #172d66;
   font-weight: bold;
@@ -56,13 +43,62 @@
   color: white;
 }
 
+/* Make the month name bigger */
+.rbc-toolbar-label {
+  font-size: 2rem; /* Adjust as needed */
+  font-weight: bold;
+  color: #172d66;
+  text-align: center;
+}
+
+/* Add strong borders to the calendar cells */
+.rbc-day-bg {
+  border: 2px solid #ebebff; /* Stronger border between dates */
+}
+
+/* Add border around the entire calendar */
+.custom-calendar {
+  background-color: #c1c1e59e;
+  border: 0.2rem solid #ebebff; /* Strengthened border */
+  border-radius: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px; /* Add padding to create space around the calendar */
+}
+
+/* Style the dates for better visibility */
+.rbc-day-bg,
+.rbc-date-cell {
+  padding: 10px; /* Space inside the dates */
+}
+
+.rbc-day-bg:hover {
+  background-color: #ebebff; /* Subtle hover effect */
+  transition: background-color 0.3s ease;
+}
+
+/* Adjust toggle button positioning */
+.toggle-btn {
+  padding: 10px 20px;
+  background-color: #cb0980;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  position: sticky; 
+  bottom: 10px;
+  left: 10px;
+  z-index: 1000;
+}
+
+.toggle-btn:hover {
+  background-color: #00b8ff;
+}
 
 .rbc-btn-group .rbc-active {
   background-color: #00b8ff;
   color: white;
 }
-
-
 
 .r-btn{
   background-color: #cb0980;
@@ -71,4 +107,117 @@
   border-radius: 40px;
   border : 1px solid  #172d66;
   text-decoration: none;
+}
+.left-section {
+  width: 40%;
+  transition: all 0.3s ease; 
+  color : #172d66;
+  margin-right: 30px;
+}
+
+.left-section.collapsed {
+  width: 0;
+  overflow: hidden;
+}
+
+.right-section {
+  width: 55%;
+  transition: all 0.3s ease;
+  color : #172d66;
+}
+
+.right-section.centered {
+  width: 100%; 
+  text-align: center;
+}
+
+.toggle-btn {
+  background-color: #cb0980;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.scrollable {
+  overflow-y: auto;
+  max-height: 50%;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.scrollable .event-card {
+  width: 100%; 
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, rgba(203, 9, 128, 0.2), rgba(0, 184, 255, 0.2));
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  color : #172d66;
+}
+
+.event-card:hover {
+  /* background-color: #af4181; */
+  transform: scale(1.05);
+  background-color: #172d66;
+  color : white;
+}
+
+.custom-calendar {
+  background-color: #c1c1e59e;
+  border: 1px solid #172d66;
+  border-radius: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.progress-bar-custom {
+  background-color: #cb0980;
+  height: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .event-calendar-page {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .left-section, .right-section {
+    width: 100%;
+  }
+
+  .scrollable {
+    max-height: 300px;
+  }
+}
+.button-container {
+  position: fixed; /* or absolute if you want it relative to a parent */
+  bottom: 10px; /* Distance from bottom */
+  right: 10px; /* Distance from right */
+  z-index: 1000; /* Ensure it stays above other content */
+}
+
+.toggle-btn {
+  padding: 10px 20px;
+  background-color: #cb0980;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  position: fixed; /* or absolute if you want it relative to a parent */
+  bottom: 10px; /* Distance from bottom */
+  left: 10px; /* Distance from right */
+  z-index: 1000;
+}
+
+.toggle-button:hover {
+  background-color: #00b8ff; /* A hover effect for better interaction */
 }
