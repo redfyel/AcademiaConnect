@@ -25,7 +25,7 @@
 
 
 .tutorials-search-icon-container {
-    padding: 14.4px;
+    padding: 12.7px 15px;
     background-color: #33c6ff; 
     display: flex;
     justify-content: center;
@@ -48,7 +48,7 @@
 
 
 .tutorials-search-button {
-    padding: 12px 15px;
+    padding: 12.7px 15px;
     background-color: #33c6ff;
     color: white; 
     border: none;
@@ -144,7 +144,7 @@
 .tutorials-search-form {
     display: flex;
     align-items: center;
-    border: 2px solid #172d66;
+    border: 2px solid #33c6ff;
     border-radius: 20px;
     overflow: hidden;
     background: #e3f7fc; /* You can set a background color for the search bar */
