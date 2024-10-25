@@ -1,52 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import { FaSearch } from 'react-icons/fa'; 
+import { FaSearch } from 'react-icons/fa';
 import './Syllabus.css'; 
 
 const Syllabus = () => {
     const [syllabusList, setSyllabusList] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
     const [filteredSyllabus, setFilteredSyllabus] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedSemester, setSelectedSemester] = useState('All');
 
     useEffect(() => {
-        async function fetchSyllabus() {
+        const fetchSyllabus = async () => {
             try {
-                // Fetch the syllabus data from the backend
-                let res = await fetch(`http://localhost:4000/exam-api/syllabus`);
+                const res = await fetch('http://localhost:4000/exam-api/syllabus');
+                if (!res.ok) throw new Error('Failed to fetch syllabus');
+
                 const data = await res.json();
-                
-                if (res.ok) {
-                    const uniqueData = data.reduce((acc, current) => {
-                        const x = acc.find(item => item.subjectName === current.subjectName);
-                        return !x ? acc.concat([current]) : acc;
-                    }, []);
+                console.log("Fetched Data:", data); // Log fetched data
 
-                    
-                    const sortedData = uniqueData.sort((a, b) =>
-                        a.subjectName.localeCompare(b.subjectName)
-                    );
+                // Removing duplicates based on subjectName
+                const uniqueData = Array.from(new Map(data.map(item => [item.subjectName, item])).values());
+                console.log("Unique Syllabus Data:", uniqueData); // Log unique data
 
-                    setSyllabusList(sortedData); 
-                    setFilteredSyllabus(sortedData); 
-                } else {
-                    console.error('Error fetching syllabus:', data.message);
-                    setSyllabusList([]);
-                    setFilteredSyllabus([]);
-                }
+                setSyllabusList(uniqueData);
+                setFilteredSyllabus(uniqueData);
             } catch (error) {
                 console.error('Error fetching syllabus:', error);
+                setSyllabusList([]);
+                setFilteredSyllabus([]);
             }
-        }
+        };
 
         fetchSyllabus(); 
-    }, []); 
+    }, []);
 
-    const handleSearch = (e) => {
-        e.preventDefault();
-        const filtered = syllabusList.filter(item =>
-            item.subjectName.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+    useEffect(() => {
+        const filtered = syllabusList.filter(item => {
+            const matchesSemester = selectedSemester === 'All' || item.semno === selectedSemester;
+            const matchesSearch = item.subjectName.toLowerCase().includes(searchTerm.toLowerCase());
+            return matchesSemester && matchesSearch;
+        });
         setFilteredSyllabus(filtered);
-    };
+    }, [selectedSemester, searchTerm, syllabusList]);
 
     const openSyllabus = (url) => {
         window.open(url, '_blank'); 
@@ -54,8 +48,12 @@ const Syllabus = () => {
 
     return (
         <div className="syllabus-container">
-            <div className="syllabus-search-container">
-                <form onSubmit={handleSearch} className="syllabus-search-form">
+            <h1 className="syllabus-header">Study Plan Navigator!</h1>
+
+            {/* Filter and Search Bar */}
+            <div className="syllabus-filter-container">
+                {/* Search Bar (Left) */}
+                <form onSubmit={(e) => e.preventDefault()} className="syllabus-search-form">
                     <div className="syllabus-search-icon-container">
                         <FaSearch className="syllabus-search-icon" />
                     </div>
@@ -66,21 +64,33 @@ const Syllabus = () => {
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="syllabus-search-input"
                     />
-                    <button type="submit" className="syllabus-search-button">Search</button>
                 </form>
+
+                {/* Filter Dropdown (Right) */}
+                <select 
+                    onChange={(e) => setSelectedSemester(e.target.value)} 
+                    value={selectedSemester} 
+                    className="syllabus-semester-select"
+                >
+                    <option value="All">All Semesters</option>
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map(sem => (
+                        <option key={sem} value={String(sem)}>Semester {sem}</option>
+                    ))}
+                </select>
             </div>
-            {filteredSyllabus.length === 0 && searchTerm && (
+
+            {/* Syllabus List */}
+            {filteredSyllabus.length === 0 ? (
                 <p className="syllabus-no-results">No syllabus found.</p>
+            ) : (
+                <div className="syllabus-list">
+                    {filteredSyllabus.map((item, index) => (
+                        <div key={index} className="syllabus-item" onClick={() => openSyllabus(item.syllabus)}>
+                            <h3 className="syllabus-item-title">{item.subjectName}</h3>
+                        </div>
+                    ))}
+                </div>
             )}
-            <div className="syllabus-list">
-                {filteredSyllabus.map((item, index) => (
-                    <div key={index} className="syllabus-item" onClick={() => openSyllabus(item.syllabus)}>
-                        <h3 className="syllabus-item-title">
-                            {`${item.subjectName}`}
-                        </h3>
-                    </div>
-                ))}
-            </div>
         </div>
     );
 };

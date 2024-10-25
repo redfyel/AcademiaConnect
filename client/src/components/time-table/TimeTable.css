@@ -1,3 +1,5 @@
+/* TimeTable.css */
+
 .time-table-app {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
@@ -30,8 +32,11 @@
   transform: scale(1.1); 
 }
 
-/* Table Container */
-.time-table-container {
+.time-table-button-container button.active {
+  background-color: #cb0980; /* Highlight active button */
+}
+
+.time-table {
   background: #8383e526;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); 
@@ -39,31 +44,29 @@
   margin-bottom: 50px; 
 }
 
-/* Table Title */
-.time-table-title {
-  font-size: 26px;
+.time-table h2 {
+  font-size: 24px;
   color: #cb0980;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   text-align: center;
   font-weight: 600;
   border-bottom: 2px solid #cb0980;
   padding-bottom: 12px;
 }
 
-
-.time-table-custom-table {
+.time-table table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.time-table-custom-table th,
-.time-table-custom-table td {
+.time-table th,
+.time-table td {
   border: 1px solid #ddd;
   padding: 14px; 
   text-align: left;
 }
 
-.time-table-custom-table th {
+.time-table th {
   background-color: #8383e546;
   color: #333;
   font-weight: bold;
@@ -71,22 +74,28 @@
   letter-spacing: 0.5px; 
 }
 
-.time-table-custom-table td a {
+.time-table td a {
   color: #007bff;
   text-decoration: none;
   font-weight: 500; 
   transition: color 0.3s ease;
 }
 
-.time-table-custom-table td a:hover {
+.time-table td a:hover {
   color: #cb0980;
   text-decoration: underline; 
 }
 
-
-
-.time-table-custom-table tr:hover {
+.time-table tr:hover {
   background-color: #f1f8ff; 
+}
+
+/* Loading message */
+.loading {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 20px 0;
 }
 
 /* Responsive Design */
@@ -100,8 +109,12 @@
     margin-bottom: 10px;
   }
 
-  .time-table-custom-table th,
-  .time-table-custom-table td {
+  .time-table th,
+  .time-table td {
     padding: 10px; /* Slightly smaller padding on mobile */
+  }
+
+  .time-table h2 {
+    font-size: 20px; /* Adjust title size for mobile */
   }
 }

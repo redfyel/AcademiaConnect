@@ -1,103 +1,93 @@
+/* Syllabus Container */
 .syllabus-container {
     padding: 20px;
     background: linear-gradient(135deg, rgba(249, 109, 199, 0.15), rgba(126, 196, 225, 0.15)); /* Soft pastel gradient */
     text-align: center;
-    border-radius: 20px; 
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); 
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
 }
 
-.syllabus-container:hover {
-    background-color:linear-gradient(135deg, rgba(249, 109, 199, 0.15), rgba(126, 196, 225, 0.15));
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); 
-}
-
-
-.syllabus-search-container {
+/* Search Bar and Filters Placement */
+.syllabus-filter-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between; /* Pushes the search and filter to opposite sides */
     align-items: center;
     margin-bottom: 25px;
+    position: relative;
+    padding: 0 20px;
 }
 
+/* Search Bar Styling */
 .syllabus-search-form {
     display: flex;
     align-items: center;
-    border: 2px solid #172d66; 
-    border-radius: 35px; 
+    border: 2px solid #172d66;
+    border-radius: 20px;
     overflow: hidden;
-    background: linear-gradient(135deg, #e3f7fc, #b3e8f2); 
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); 
+    background: none; /* No background color for the search bar */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    position: absolute;
+    left: 0; /* Push the search bar to the left-most corner */
 }
 
 .syllabus-search-icon-container {
-    padding: 12.8px;
-    background-color: #172d66; 
+    padding: 10px;
+    background-color: white; /* Set background color to white */
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 35px 0 0 35px; 
+    border-radius: 16px 0 0 16px;
     transition: background-color 0.3s ease;
 }
 
 .syllabus-search-icon {
-    color: white;
-    font-size: 1.8em; 
+    color: #172d66; /* Blue color for the search icon */
+    font-size: 1.5em;
 }
 
 .syllabus-search-input {
-    padding: 14px 22px;
+    padding: 10px 15px;
     border: none;
     outline: none;
-    width: 350px; 
-    font-size: 1.1em;
+    width: 250px;
+    font-size: 1em;
     color: #333;
-    background-color: white; 
-    transition: width 0.3s ease; 
+    background-color: white;
+    transition: width 0.3s ease;
 }
 
 .syllabus-search-input:focus {
-    width: 380px; 
+    width: 280px;
 }
 
-.syllabus-search-button {
-    padding: 15.2px 22px;
-    background-color: #172d66; 
-    color: white; 
-    border: none;
-    border-radius: 0 35px 35px 0; 
+/* Filter Dropdown Styling */
+.syllabus-semester-select {
+    padding: 10px 15px;
+    border-radius: 20px;
+    background-color: #fff;
+    border: 2px solid #172d66;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: absolute;
+    right: 0; /* Push the filters to the right top-most corner */
 }
 
-.syllabus-search-button:hover {
-    background-color: #16304a; 
-    transform: scale(1.05); 
-}
-
-
-.syllabus-no-results {
-    margin-top: 10px;
-    color: #e74c3c; 
-    font-weight: bold;
-    font-size: 1.1em;
-}
-
-
+/* Syllabus List and Item Styling */
 .syllabus-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; 
+    justify-content: center;
+    margin: 0 -10px; /* Adjust for spacing */
 }
-
 
 .syllabus-item {
     padding: 15px;
     margin: 20px;
     width: 200px;
-    height: 130px; 
-    background: linear-gradient(135deg, #f7f7ff, #dcdcf9); 
-    border-radius: 15px; 
+    height: 130px;
+    background: linear-gradient(135deg, #f7f7ff, #dcdcf9);
+    border-radius: 15px;
     color: #333;
     border: 1px solid #6c6ca8;
     display: flex;
@@ -108,14 +98,36 @@
 }
 
 .syllabus-item:hover {
-    transform: translateY(-8px); 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); 
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
 .syllabus-item-title {
     font-size: 1.3em;
-    color: #172d66; 
+    color: #172d66;
     text-align: center;
     margin: 0;
-    font-family: 'Helvetica Neue', sans-serif; 
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+/* No Results Message */
+.syllabus-no-results {
+    margin-top: 10px;
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* Hover Effect on Container */
+.syllabus-container:hover {
+    background: linear-gradient(135deg, rgba(249, 109, 199, 0.15), rgba(126, 196, 225, 0.15)); /* Retain original gradient on hover */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.syllabus-header {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 2.2em;
+    color: #172d66;
+    margin-bottom: 70px;
 }

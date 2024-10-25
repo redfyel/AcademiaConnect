@@ -52,7 +52,7 @@
     background-color: #33c6ff;
     color: white; 
     border: none;
-    border-radius: 0 30px 30px 0; 
+    border-radius: 0 18px 18px 0; 
     cursor: pointer;
 }
 
@@ -131,4 +131,66 @@
 .tutorials-title:hover {
     background-color: #357ab8; 
     color: white;
+}
+
+.tutorials-search-container {
+    display: flex;
+    justify-content: space-between; /* Space between search and dropdown */
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* Search Bar Styling */
+.tutorials-search-form {
+    display: flex;
+    align-items: center;
+    border: 2px solid #172d66;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #e3f7fc; /* You can set a background color for the search bar */
+}
+
+.tutorials-search-icon-container {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1px 0 0 1px;
+}
+
+.tutorials-search-icon {
+    color: #172d66; /* Change to blue for visibility */
+}
+
+/* Search Input Styling */
+.tutorials-search-input {
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    width: 200px; /* Set a smaller width for the search input */
+    font-size: 1em;
+    color: #333;
+    transition: width 0.3s ease;
+}
+
+.tutorials-search-input:focus {
+    width: 220px; /* Width when focused */
+}
+
+/* Filter Dropdown Styling */
+.tutorials-semester-select {
+    padding: 10px 15px;
+    border-radius: 20px;
+    background-color: #fff;
+    border: 2px solid #172d66;
+    cursor: pointer;
+    margin-left: 20px; /* Space between dropdown and search bar */
+}
+
+.tutorials-header {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 2.2em;
+    color: #172d66;
+    margin-bottom: 50px;
 }

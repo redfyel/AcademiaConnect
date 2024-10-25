@@ -3,16 +3,25 @@
     padding: 20px;
     background: #f8f9fa;
     min-height: 100vh;
+    position: relative; /* Added for positioning */
+}
+
+/* Heading styling */
+.pyqs-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #172d66;
 }
 
 /* Search and Filters */
 .pyqs-filter-container {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between; /* Aligns items to the left and right */
     align-items: center;
     margin-bottom: 20px;
 }
 
+/* Search form */
 .pyqs-search-form {
     display: flex;
     align-items: center;
@@ -20,14 +29,16 @@
     border-radius: 30px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 8px 15px;
+    flex-grow: 0;
 }
 
 .pyqs-search-input {
     border: none;
     outline: none;
-    padding: 10px;
+    padding: 8px; /* Reduced padding */
     border-radius: 30px;
-    width: 250px;
+    width: 150px; /* Set a smaller width for the search bar */
+    margin-right: 10px; /* Space between input and button */
 }
 
 .pyqs-search-button {
@@ -45,17 +56,12 @@
 }
 
 /* Filters */
-.pyqs-filters {
-    display: flex;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.pyqs-filters select {
+.pyqs-semester-select {
     padding: 8px 12px;
-    border-radius: 5px;
-    background-color: white;
-    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: #fff;
+    border: 2px solid #172d66;
+    cursor: pointer;
 }
 
 /* List and Cards */

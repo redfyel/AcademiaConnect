@@ -32,6 +32,7 @@ const Pyqs = () => {
     const [pyqsList, setPyqsList] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredPyqs, setFilteredPyqs] = useState([]);
+    const [selectedSemester, setSelectedSemester] = useState('All');
 
     useEffect(() => {
         async function fetchPyqs() {
@@ -52,18 +53,15 @@ const Pyqs = () => {
         fetchPyqs();
     }, []);
 
-    // Filter function to handle search and apply additional filters
     const filterPyqs = () => {
-        let filtered = pyqsList.filter(item => 
-            item.subjectName.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        let filtered = pyqsList.filter(item => {
+            const matchesSearch = item.subjectName.toLowerCase().includes(searchTerm.toLowerCase());
+            const matchesSemester = selectedSemester === 'All' || item.semno === selectedSemester;
+            return matchesSearch && matchesSemester;
+        });
 
-        // Sort filtered results alphabetically by subject name
-        filtered = filtered.sort((a, b) =>
-            a.subjectName.localeCompare(b.subjectName)
-        );
+        filtered = filtered.sort((a, b) => a.subjectName.localeCompare(b.subjectName));
 
-        // Remove duplicates by checking links within the same subject
         const uniqueFiltered = filtered.reduce((acc, item) => {
             const subjectName = item.subjectName;
 
@@ -97,6 +95,9 @@ const Pyqs = () => {
 
     return (
         <div className="pyqs-container">
+            {/* Heading */}
+            <h1 className="pyqs-heading">Previous Years' Examination Papers</h1>
+
             {/* Search and Filters */}
             <div className="pyqs-filter-container">
                 <form onSubmit={handleSearch} className="pyqs-search-form">
@@ -112,6 +113,17 @@ const Pyqs = () => {
                     />
                     <button type="submit" className="pyqs-search-button">Search</button>
                 </form>
+
+                <select 
+                    onChange={(e) => setSelectedSemester(e.target.value)} 
+                    value={selectedSemester} 
+                    className="pyqs-semester-select"
+                >
+                    <option value="All">All Semesters</option>
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map(sem => (
+                        <option key={sem} value={String(sem)}>Semester {sem}</option>
+                    ))}
+                </select>
             </div>
 
             {/* Display of PYQs */}

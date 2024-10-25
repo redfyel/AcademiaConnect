@@ -38,7 +38,7 @@
 }
 
 .exam-corner-card-container h2:hover {
-    color: #d35400; /* A warm color on hover for added contrast */
+    color: #cb0980; /* A warm color on hover for added contrast */
     transform: scale(1.05); /* Gently enlarges on hover for interactivity */
     transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
