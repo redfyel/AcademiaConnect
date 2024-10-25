@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { Modal, Button, ProgressBar } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import "./EventCalendar.css";
 
 const localizer = momentLocalizer(moment);
@@ -79,8 +79,7 @@ function EventCalendar() {
       <div className={`right-section ${areEventsVisible ? '' : 'centered'}`}>
         <h2 className="calendar-title">Explore this month's events</h2>
 
-        {/* Event Progress */}
-        <ProgressBar now={progress} label={`${progress}% of events completed`} className="progress-bar-custom" />
+     
 
         <Calendar
           localizer={localizer}
