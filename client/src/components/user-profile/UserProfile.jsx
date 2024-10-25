@@ -6,6 +6,7 @@ import { FaCheckCircle, FaTimesCircle, FaClock } from "react-icons/fa"; // Impor
 import { userLoginContext } from "../../contexts/userLoginContext";
 import md5 from 'md5'; 
 import './UserProfile.css';
+import ProfileImage from "./ProfileImage";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -114,12 +115,19 @@ function UserProfile() {
   if (!userLoginStatus) {
     return null;
   }
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState(null); // Changed to hold image URL
+
+  const handleImageUpload = (file) => {
+    const imageUrl = URL.createObjectURL(file);
+    setUploadedImage(imageUrl);
+  };
 
   return (
     <div className="profile-page">
       <div className="sidebar">
         <div className="profile-box">
-          <img src={gravatarUrl} alt="Profile" className="profile-image" />
+          <img src={gravatarUrl || uploadedImage}  alt="Profile" className="profile-image" />
           <h3>{currentUser.username}</h3>
           <p>{currentUser.rollnum}</p>
           <p>{currentUser.email}</p>
@@ -177,25 +185,34 @@ function UserProfile() {
               <Pie data={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
             </div>
             <div className="legend-section">
-              <div className="stat-item">
+              <div className="stat-item1">
                 <FaCheckCircle color="#4caf50" size={20} /> {/* Present icon */}
                 <span className="stat-label">Present:</span>
                 <span className="stat-value">{presentPercentage}% ({presentHours / 7} days)</span>
               </div>
-              <div className="stat-item">
+              <div className="stat-item1">
                 <FaTimesCircle color="#f44336" size={20} /> {/* Absent icon */}
-                <span className="stat-label">Absent:</span>
+                <span className="stat-label"> Absent:</span>
                 <span className="stat-value">{absentPercentage}% ({absentHours / 7} days)</span>
               </div>
-              <div className="stat-item">
+              <div className="stat-item1">
                 <FaClock color="#ffc107" size={20} /> {/* Remaining icon */}
-                <span className="stat-label">Yet to Come:</span>
+                <span className="stat-label"> Yet to Come:</span>
                 <span className="stat-value">{remainingDays} days</span>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {isModalOpen && (
+        <ProfileImage
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          currentImage={uploadedImage}
+          onImageUpload={handleImageUpload}
+        />
+      )}
     </div>
   );
 }

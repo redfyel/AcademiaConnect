@@ -167,7 +167,11 @@
   padding: 20px;
   max-height: 300px;
 }
-
+.post-card:hover{
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  color : #172d66;
+}
 .post-title {
   font-size: 1.5em;
   margin-bottom: 5px;
@@ -220,7 +224,7 @@
   justify-content: center;
 }
 
-.stat-item {
+.stat-item1 {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
@@ -233,7 +237,7 @@
   margin-right: 10px;
 }
 
-.tracker-title, .events-header {
+.tracker-title1, .events-header {
   font-family: "Playwrite GB S", cursive;
   font-size: 2rem;
 }
@@ -260,4 +264,71 @@
 
 .arrow:hover {
   color: #172d66;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px); /* Adding blur effect for a futuristic feel */
+}
+
+.modal-container {
+  background-color: #282c34; /* Dark background for a modern look */
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  color: white; /* White text for contrast */
+  text-align: center; /* Centered text */
+}
+
+.modal-container h2 {
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+.image-preview-container {
+  margin: 20px 0;
+}
+
+.avatar-preview {
+  width: 100%;
+  height: auto;
+  border: 2px solid #00b8ff;
+  border-radius: 12px;
+}
+
+.placeholder-preview {
+  text-align: center;
+  padding: 10px;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  color: #ccc;
+}
+
+.modbuts {
+  background-color: #00b8ff; /* Accent button color */
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modbuts:hover {
+  background-color: #0086c3; /* Darker shade on hover */
 }
