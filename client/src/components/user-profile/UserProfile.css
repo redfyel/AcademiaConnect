@@ -1,220 +1,109 @@
+/* UserProfile.css */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
+.profile-page {
+  display: flex;
   font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  padding: 0;
-  margin: 0;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  background-color: #f0f0f0;
 }
 
-.container-user {
-  background-color: white;
+/* Sidebar */
+.sidebar {
+  width: 25%;
+  background-color: #f5f5f5;
   padding: 20px;
-  border-radius: 15px;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  flex-grow: 1;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Profile section */
-.profile-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  padding: 20px;
-}
-.edit-profile {
-  background: linear-gradient(90deg, #ce087f, #00b8ff); /* Gradient background */
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  font-size: 1em;
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+.profile-box {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
-/* Hover Effects */
-.edit-profile:hover {
-  transform: translateY(-2px); /* Slight lift effect */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
-}
-
-.edit-profile:active {
-  transform: translateY(0); /* Reset lift on click */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow back to normal */
-}
-
-.profile-header img {
+.profile-image {
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border: 5px solid #fff;
-  position: relative;
-  z-index: 2;
+  margin-bottom: 10px;
 }
 
-.profile-header .background-line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 180px;
-  background: linear-gradient(90deg, rgba(206, 8, 127, 0.3), rgba(0, 184, 255, 0.3)); /* Reduced opacity */
-  z-index: 1;
-  filter: blur(10px); /* Add a blur effect for more subtlety */
+.profile-box h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 10px 0;
 }
 
-
-.profile-details {
-  margin-left: 20px;
-  text-align: center;
-  z-index: 3; /* Ensures it stays on top of the gradient */
+.profile-box p {
+  color: #666;
+  font-size: 0.9rem;
 }
 
-/* Welcome message */
-.welcome-message {
-  text-align: center;
-  padding: 10px;
-  font-size: 2.5rem !important;
-  /* font-family: "Handjet", sans-serif; */
-  font-family: "Playwrite GB S", cursive;
-  font-optical-sizing: auto;
-  background: -webkit-linear-gradient(#cb0980, #29b1db);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;  font-size: 40px;
-  color: #172d66;
-  font-weight: bold;
-  
-}
-
-/* Posts Section */
-.posts-section {
-  margin-top: 40px;
-  background-color: #eaebff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.posts-header {
-  color: #172d66;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.create-post {
-  background-color: #ce087f;
+.edit-profile {
+  background-color: #4caf50;
   color: white;
+  border: none;
   padding: 10px 20px;
   border-radius: 5px;
-  border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.create-post:hover {
-  background-color: #00b8ff;
+.edit-profile:hover {
+  background-color: #45a049;
 }
 
-.posts-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
- 
+/* Quick Links */
+.quick-links {
+  margin-top: 20px;
 }
 
-.post-card {
-  background: linear-gradient(135deg, rgba(203, 9, 128, 0.2), rgba(0, 184, 255, 0.2));
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border-radius: 10px;
-  padding: 20px;
-  transition: transform 0.3s ease;
-}
-
-.post-card:hover {
-  transform: translateY(-10px);
-}
-
-.post-title {
-  font-size: 1.5em;
-  margin-bottom: 5px;
-  color: #172d66;
-}
-
-.post-date {
-  font-size: 0.9em;
-  color: #777;
+.quick-links h4 {
+  font-size: 1.2rem;
+  color: #333;
   margin-bottom: 10px;
 }
 
-.post-content {
-  font-size: 1.1em;
-  color: #172d66;
+.quick-links ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.quick-links li {
+  margin-bottom: 8px;
+}
+
+.quick-links a {
+  color: #4caf50;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.quick-links a:hover {
+  text-decoration: underline;
+}
+
+/* Main Content */
+.main-content {
+  width: 75%;
+  padding: 20px;
+  overflow-y: auto; /* Enable scrolling if content overflows */
+}
+
+/* Combined Sections */
+.combined-sections {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* Events Section */
 .events-section {
-  margin-top: 40px;
-}
-
-.events-list {
-  background-color: #eaebff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.event {
-  margin-bottom: 20px;
-}
-
-.event-title {
-  font-size: 1.5em;
-  margin-bottom: 5px;
-  color: #172d66;
-}
-
-.event-date {
-  font-size: 0.9em;
-  color: #777;
-  margin-bottom: 10px;
-}
-
-.event-location {
-  font-size: 1em;
-  color: #555;
-  margin-bottom: 5px;
-}
-
-.event-description {
-  font-size: 1em;
-  color: #555;
-}
-/* Events Section */
-.events-section {
-  margin-top: 40px;
-  text-align: center;
+  width: 48%; /* Slightly less than posts */
+  max-height: 400px; /* Set a max height for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin-right: 20px; /* Space between events and posts */
 }
 
 .events-header {
@@ -224,11 +113,9 @@ body {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Events List */
 .events-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-direction: column; /* Align events vertically */
 }
 
 /* Event Card */
@@ -237,146 +124,66 @@ body {
   border-radius: 15px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  margin-bottom: 15px; /* Space between events */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-  overflow: hidden; /* To manage the child elements */
 }
 
-/* Event Date */
-.event-date {
-  font-size: 1.2em;
-  font-weight: bold;
-  color: #ce087f;
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  margin-bottom: 10px;
-  background-color: rgba(255, 255, 255, 0.7);
-  padding: 10px;
-  border-radius: 10px;
-}
-
-/* Event Title */
 .event-title {
   font-size: 1.5em;
-  margin: 15px 15px;
+  margin: 15px 0;
   color: #172d66;
 }
 
-/* Event Location */
-.event-location {
-  color: #777;
-  font-size: 0.9em;
+/* Posts Section */
+.posts-section {
+  width: 50%; /* Larger width than events */
+  max-height: 400px; /* Set a max height for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 15px;
 }
 
-/* Event Description */
-.event-description {
-  margin: 10px 0;
-  font-size: 1em;
-  color: #555;
-}
-
-/* Register Button */
-.register-btn {
-  background-color: #ce087f;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.register-btn:hover {
-  background-color: #00b8ff;
-  transform: translateY(-2px);
-}
-
-/* Hover Effect */
-.event-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-  .events-list {
-    grid-template-columns: 1fr; /* Stack cards on smaller screens */
-  }
-}
-
-
-.attendance-button {
-  margin-top: 10px; /* Space between image and button */
-  margin-left: 145px;
-}
-.attendance-section {
-  display: flex; /* Use flexbox to align image and quote side by side */
-  align-items: center; /* Center items vertically */
-  margin-top: 20px; /* Space above the section */
-}
-
-.attendance-image {
+.posts-container {
   display: flex;
-  flex-direction: column; /* Stack image and button vertically */
-  align-items: flex-start; /* Align items to the left */
-  margin-right: 20px; /* Space between image and quote */
+  flex-direction: column; /* Align posts vertically */
 }
 
-.motivational-quote {
+/* Post Card */
+.post-card {
+  background: linear-gradient(135deg, rgba(203, 9, 128, 0.2), rgba(0, 184, 255, 0.2));
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 15px; /* Space between posts */
+}
 
+.post-title {
+  font-size: 1.5em;
+  margin-bottom: 5px;
   color: #172d66;
-    margin-top: 200px;
-    transition: all 0.4s ease;
-    text-align: center;
-
-
-  font-size: 2.5rem; /* Adjust font size as needed */
-  
-  padding: 10px; /* Add padding around the quote */
- 
-}
-.motivational-quote:hover {
-  font-size: 4.5rem;
-  background: -webkit-linear-gradient(#cb0980, #29b1db);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  /* font-family: "Handjet", sans-serif; */
-  font-family: "Playwrite GB S", cursive;
-    font-optical-sizing: auto;
-}
-.track-attendance {
-  background-color: #ce087f;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  width: 100%; /* Full width button */
 }
 
-.track-attendance:hover {
-  background-color: #00b8ff;
-  transform: translateY(-2px);
+/* Scroll Buttons */
+.scroll-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 
-.view-more-events {
-  text-align: center;
-  margin-top: 20px; /* Space above the button */
+.scroll-button {
+  background-color: #4caf50; /* Green background for buttons */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px; /* Padding for the button */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin: 0 5px; /* Spacing between buttons */
+  font-size: 1em; /* Font size for the buttons */
+  transition: background-color 0.3s; /* Transition for hover effect */
 }
 
-.view-more {
-  background-color: #00b8ff;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.view-more:hover {
-  background-color: #ce087f;
-  transform: translateY(-2px);
+.scroll-button:hover {
+  background-color: #45a049; /* Darker green on hover */
 }
