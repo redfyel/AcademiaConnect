@@ -91,7 +91,7 @@
     font-size: 1.1em;
 }
 /* Hamburger Icon Styling */
-.hamburger-icon {
+.syllabus-hamburger-icon {
     font-size: 18px;
     color: #ebebff;
     background-color: #172d66 ;
@@ -101,13 +101,14 @@
     position: absolute;
     top: 10px;
     right: 20px;
+    margin-right: 25px;
 }
 
 /* Dropdown Menu Styling */
 .syllabus-menu {
     position: absolute;
-    top: 50px;
-    right: 20px;
+    top: 10px;
+    right: 70px;
     background-color: #fff;
     border: 2px solid #172d66;
     border-radius: 10px;

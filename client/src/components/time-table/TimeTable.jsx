@@ -37,6 +37,8 @@ const TimeTable = () => {
 
   return (
     <div className="time-table-app">
+      <h2 className="time-table-heading">TimeTable</h2> {/* Added heading here */}
+      
       <div className="time-table-button-container">
         {tablesData.map((table, index) => (
           <button
@@ -60,7 +62,7 @@ const TimeTable = () => {
                   <th>Subject</th>
                   <th>Syllabus</th>
                   <th>Tutorials</th>
-                  <th>PYQs</th>
+                  <th>Past Papers</th>
                 </tr>
               </thead>
               <tbody>
@@ -77,7 +79,7 @@ const TimeTable = () => {
                       <Link to={item.tutorials}>Tutorials</Link>
                     </td>
                     <td>
-                      <Link to={item.pyqs}>PYQs</Link>
+                      <Link to={item.pyqs}>Past Papers</Link>
                     </td>
                   </tr>
                 ))}

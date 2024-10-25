@@ -187,10 +187,55 @@
     margin-left: 20px; /* Space between dropdown and search bar */
 }
 
+/* Tutorials Header */
 .tutorials-header {
-    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Playwrite GB S", cursive;
+    font-optical-sizing: auto;
     font-weight: 600;
     font-size: 2.2em;
     color: #172d66;
-    margin-bottom: 50px;
+    margin-bottom: 10px; /* Spacing between header and icon */
+}
+
+/* Hamburger Icon Styling (Positioned Below Header) */
+.tutorials-hamburger-icon {
+    font-size: 18px;
+    color: #ebebff;
+    background-color: #172d66;
+    border-radius: 9px;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: -80px; /* Adjusts spacing below header */
+    margin-left: 1150px;
+    display: inline-block;
+    margin-bottom: 10px;
+    
+}
+
+.tutorials-menu {
+    position: absolute;
+    top: 180px;
+    right: 80px;
+    background-color: #fff;
+    border: 2px solid #172d66;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.tutorials-menu a {
+    text-decoration: none;
+    color: #172d66;
+    padding: 8px 0;
+    transition: color 0.3s ease;
+}
+
+.tutorials-menu a:hover {
+    color: #cb0980; /* Accent color */
 }

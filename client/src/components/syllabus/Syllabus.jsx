@@ -50,7 +50,7 @@ const Syllabus = () => {
             <div className="syllabus-header">Syllabus Hub</div>
 
             {/* Hamburger Icon */}
-            <button className="hamburger-icon" onClick={toggleMenu}>
+            <button className="syllabus-hamburger-icon" onClick={toggleMenu}>
                 &#9776; {/* Unicode for hamburger icon */}
             </button>
 
@@ -58,8 +58,8 @@ const Syllabus = () => {
             {menuVisible && (
                 <div className="syllabus-menu">
                     <Link to="/tutorials">Tutorials</Link>
-                    <a href="#pyqs">Previous Year Questions</a>
-                    <a href="#timetable">Timetable</a>
+                    <Link to="/pyqs">Past Papers</Link>
+                    <Link to="/time-table">Timetable</Link>
                 </div>
             )}
 
