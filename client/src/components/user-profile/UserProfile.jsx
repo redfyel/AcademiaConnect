@@ -11,7 +11,6 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 function UserProfile() {
   let { logoutUser, userLoginStatus, currentUser } = useContext(userLoginContext); 
   const navigate = useNavigate();
-  const { currentUser } = useContext(userLoginContext);
   const [posts, setPosts] = useState([]);
   const [presentHours, setPresentHours] = useState(0);
   const [absentHours, setAbsentHours] = useState(0);
