@@ -5,11 +5,10 @@ const Tutorials = () => {
   const [tutorials, setTutorials] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredTutorials, setFilteredTutorials] = useState([]);
-  const [selectedSemester, setSelectedSemester] = useState(''); // State for selected semester
-  const [semesters, setSemesters] = useState([]); // State for semesters
+  const [selectedSemester, setSelectedSemester] = useState('');
+  const [semesters, setSemesters] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
 
   useEffect(() => {
-    // Fetch tutorials from backend
     const fetchTutorials = async () => {
       try {
         const response = await fetch(`http://localhost:4000/exam-api/tutorials`);
@@ -18,7 +17,7 @@ const Tutorials = () => {
         }
         const data = await response.json();
 
-        const allTutorials = data.flatMap(item => 
+        const allTutorials = data.flatMap(item =>
           item.tutorials.map(link => {
             const videoId = new URLSearchParams(new URL(link).search).get('v');
             return {
@@ -26,28 +25,21 @@ const Tutorials = () => {
               subject: item.subjectName,
               link: link,
               thumbnail: videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null,
-              semno: item.semno // Add semester number to each tutorial
+              semno: item.semno
             };
           })
         );
 
-        const uniqueTutorials = allTutorials.filter((tutorial, index, self) => 
+        const uniqueTutorials = allTutorials.filter((tutorial, index, self) =>
           index === self.findIndex(t => t.link === tutorial.link)
         );
 
         const filteredTutorialsWithThumbnails = uniqueTutorials.filter(tutorial => tutorial.thumbnail);
 
-        // Get unique semester numbers for dropdown
-        const uniqueSemesters = [...new Set(data.map(item => item.semno))];
-        setSemesters(uniqueSemesters);
-
-        // Sort the tutorials by semester number first, then by title
-        const sortedData = filteredTutorialsWithThumbnails.sort((a, b) => {
-          if (a.semno !== b.semno) {
-            return a.semno - b.semno; // Sort by semester number
-          }
-          return a.title.localeCompare(b.title); // Then sort by title
-        });
+        // Sort the tutorials alphabetically by title
+        const sortedData = filteredTutorialsWithThumbnails.sort((a, b) =>
+          a.title.localeCompare(b.title)
+        );
 
         setTutorials(sortedData);
         setFilteredTutorials(sortedData);
@@ -70,7 +62,6 @@ const Tutorials = () => {
   const handleSemesterChange = (event) => {
     const selected = event.target.value;
     setSelectedSemester(selected);
-    // Filter tutorials based on the selected semester
     const filtered = tutorials.filter(tutorial => tutorial.semno.toString() === selected);
     setFilteredTutorials(filtered);
   };
