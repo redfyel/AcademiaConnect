@@ -7,7 +7,15 @@ require('dotenv').config();
 
 // Middleware
 const cors = require('cors');
-app.use(cors({ origin: 'http://localhost:5173' }));
+const allowedOrigins = [
+    'http://localhost:5173',  
+    'https://academia-connect.vercel.app'  
+  ];
+  
+  app.use(cors({
+    origin: allowedOrigins,
+    credentials: true,
+  }));
 
 // Import MongoClient
 const { MongoClient } = require('mongodb');

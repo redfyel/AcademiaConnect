@@ -11,7 +11,7 @@
   font-size: 1.5rem;
   margin: auto;
   text-shadow: #ebebff;
-  text-decoration: dashed;
+  text-decoration: none;
   font-family: "Playwrite GB S", cursive;
 }
 .header .links a{
