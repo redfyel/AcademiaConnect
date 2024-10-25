@@ -177,12 +177,7 @@
   margin: 0 auto;
 }
 
-.progress-bar-custom {
-  background-color: #cb0980;
-  height: 15px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
+
 
 @media (max-width: 768px) {
   .event-calendar-page {

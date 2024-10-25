@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { FaSearch } from 'react-icons/fa';
-import './Syllabus.css'; 
+import { FaBars, FaSearch } from 'react-icons/fa';
+import {Link} from 'react-router-dom';
+import './Syllabus.css';
 
 const Syllabus = () => {
     const [syllabusList, setSyllabusList] = useState([]);
     const [filteredSyllabus, setFilteredSyllabus] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedSemester, setSelectedSemester] = useState('All');
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
     useEffect(() => {
         const fetchSyllabus = async () => {
             try {
                 const res = await fetch('http://localhost:4000/exam-api/syllabus');
                 if (!res.ok) throw new Error('Failed to fetch syllabus');
-
                 const data = await res.json();
-                console.log("Fetched Data:", data); // Log fetched data
-
-                // Removing duplicates based on subjectName
                 const uniqueData = Array.from(new Map(data.map(item => [item.subjectName, item])).values());
-                console.log("Unique Syllabus Data:", uniqueData); // Log unique data
-
                 setSyllabusList(uniqueData);
                 setFilteredSyllabus(uniqueData);
             } catch (error) {
@@ -29,7 +25,6 @@ const Syllabus = () => {
                 setFilteredSyllabus([]);
             }
         };
-
         fetchSyllabus(); 
     }, []);
 
@@ -42,18 +37,34 @@ const Syllabus = () => {
         setFilteredSyllabus(filtered);
     }, [selectedSemester, searchTerm, syllabusList]);
 
-    const openSyllabus = (url) => {
-        window.open(url, '_blank'); 
+    const openSyllabus = (url) => window.open(url, '_blank');
+
+    const [menuVisible, setMenuVisible] = useState(false);
+
+    const toggleMenu = () => {
+        setMenuVisible(!menuVisible);
     };
 
     return (
         <div className="syllabus-container">
-            <h1 className="syllabus-header">Study Plan Navigator!</h1>
+            <div className="syllabus-header">Syllabus Hub</div>
 
-            {/* Filter and Search Bar */}
+            {/* Hamburger Icon */}
+            <button className="hamburger-icon" onClick={toggleMenu}>
+                &#9776; {/* Unicode for hamburger icon */}
+            </button>
+
+            {/* Dropdown Menu */}
+            {menuVisible && (
+                <div className="syllabus-menu">
+                    <Link to="/tutorials">Tutorials</Link>
+                    <a href="#pyqs">Previous Year Questions</a>
+                    <a href="#timetable">Timetable</a>
+                </div>
+            )}
+
             <div className="syllabus-filter-container">
-                {/* Search Bar (Left) */}
-                <form onSubmit={(e) => e.preventDefault()} className="syllabus-search-form">
+                <div className="syllabus-search-form">
                     <div className="syllabus-search-icon-container">
                         <FaSearch className="syllabus-search-icon" />
                     </div>
@@ -64,9 +75,8 @@ const Syllabus = () => {
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="syllabus-search-input"
                     />
-                </form>
+                </div>
 
-                {/* Filter Dropdown (Right) */}
                 <select 
                     onChange={(e) => setSelectedSemester(e.target.value)} 
                     value={selectedSemester} 
@@ -79,7 +89,6 @@ const Syllabus = () => {
                 </select>
             </div>
 
-            {/* Syllabus List */}
             {filteredSyllabus.length === 0 ? (
                 <p className="syllabus-no-results">No syllabus found.</p>
             ) : (
