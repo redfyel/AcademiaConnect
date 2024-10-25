@@ -33,19 +33,12 @@ studentCornerApp.post("/post", expressAsyncHandler(async (req, res) => {
     res.status(201).json({ message: "Post created successfully", post: newPost });
 }));
 
-
-
-
-    
-
-    
-
 // POST: Add a reply to a specific post
 studentCornerApp.post("/post/:postId/reply", expressAsyncHandler(async (req, res) => {
     console.log("Incoming reply request:", req.params, req.body);
     const studentCornerCollection = req.app.get("postsCollection");
     const { postId } = req.params;
-    const { replyContent, username } = req.body;
+    const { content, username } = req.body; // Use 'content' here to match the newReply structure
 
     // Validate ObjectId format
     if (!ObjectId.isValid(postId)) {
@@ -54,12 +47,12 @@ studentCornerApp.post("/post/:postId/reply", expressAsyncHandler(async (req, res
     }
 
     // Validate input
-    if (!replyContent || !username) {
+    if (!content || !username) { // Updated to match the new property name
         return res.status(400).json({ message: "Reply content and username are required." });
     }
 
     const newReply = {
-        replyContent,
+        content, // Use 'content' to match the post reply format
         username,
         repliedAt: new Date()
     };
