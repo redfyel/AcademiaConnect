@@ -124,7 +124,7 @@
   flex-direction: column;
 }
 
-.event-card {
+.event-card1 {
   background: linear-gradient(135deg, #f3f4f6, #e4e9ff);
   border-radius: 15px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -132,10 +132,10 @@
   margin-bottom: 15px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.event-card:hover{
+.event-card1:hover{
   transform: scale(1.05);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  color : #172d66
+  color : #172d66;
 }
 
 .event-title {
@@ -165,7 +165,7 @@
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  max-height: 100px;
+  max-height: 300px;
 }
 
 .post-title {

@@ -142,7 +142,7 @@ function UserProfile() {
           <div className="events-section">
             <h2 className="events-header">Upcoming Events</h2>
             <div className="events-list">
-              <div className="event-card">
+              <div className="event-card1">
                 <h3 className="event-title">{upcomingEvents[currentEventIndex].name}</h3>
                 <p>{upcomingEvents[currentEventIndex].date}</p>
                 <p>{upcomingEvents[currentEventIndex].description}</p>
