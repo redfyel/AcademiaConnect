@@ -197,21 +197,21 @@
     font-weight: 600;
     font-size: 2.2em;
     color: #172d66;
-    margin-bottom: 10px; /* Spacing between header and icon */
+    margin-bottom: 40px; /* Spacing between header and icon */
 }
 
 /* Hamburger Icon Styling (Positioned Below Header) */
 .tutorials-hamburger-icon {
     font-size: 18px;
     color: #ebebff;
-    background-color: #172d66;
+    background-color: #172d66 ;
     border-radius: 9px;
-    padding: 10px;
+    padding : 10px;
     cursor: pointer;
-    margin-top: -80px; /* Adjusts spacing below header */
-    margin-left: 1150px;
-    display: inline-block;
-    margin-bottom: 10px;
+    position: absolute;
+    top: 140px;
+    right: 20px;
+    margin-right: 25px;
     
 }
 
