@@ -131,8 +131,8 @@ function UserProfile() {
           <h3>{currentUser.username}</h3>
           <p>{currentUser.rollnum}</p>
           <p>{currentUser.email}</p>
-          <button className="edit-profile">Edit Profile</button>
-        </div>
+          <button className="edit-profile" onClick={() => setIsModalOpen(true)}>Edit Profile</button>
+                  </div>
         <br />
         <div className="quick-links">
           <h4 className="text-center bold">Quick Links</h4>
