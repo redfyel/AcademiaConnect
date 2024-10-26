@@ -1,13 +1,33 @@
-.footer{
-    padding : 30px;
+.footer {
+    padding: 30px;
     background-color: #172d66;
     text-align: center;
-    color: #ebebff ;
-    /* font-family: "Handjet", sans-serif; */
+    color: #ebebff;
     font-family: "Playwrite GB S", cursive;
     font-optical-sizing: auto;
 }
 
-.footer h2{
+.footer h2 {
     font-size: 1.3rem;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .footer {
+        padding: 20px; /* Reduce padding */
+    }
+
+    .footer h2 {
+        font-size: 1.1rem; /* Reduce font size */
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 15px; /* Further reduce padding */
+    }
+
+    .footer h2 {
+        font-size: 1rem; /* Further reduce font size */
+    }
 }

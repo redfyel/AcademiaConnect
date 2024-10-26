@@ -7,7 +7,7 @@ const ExamCorner = () => {
     { title: 'TimeTable', imgSrc: 'https://media.istockphoto.com/id/1392979115/vector/deadline-and-time-management-vector-art.jpg?s=612x612&w=0&k=20&c=aXE2fJUqsnFaJbIJ-DTzRDXuSNay1M9Hp3UHuYnz1hc=', link: '/time-table' },
     { title: 'Syllabus', imgSrc: 'https://static.vecteezy.com/system/resources/previews/006/801/573/non_2x/project-life-cycle-illustration-vector.jpg', link: '/syllabus' },
     { title: 'Tutorials', imgSrc: 'https://st4.depositphotos.com/34031690/39333/v/450/depositphotos_393337694-stock-illustration-vector-illustration-young-woman-filling.jpg', link: '/tutorials' },
-    { title: 'PYQs', imgSrc: 'https://static.vecteezy.com/system/resources/previews/006/584/666/non_2x/graphic-cartoon-character-of-checklist-vector.jpg', link: '/pyqs' },
+    { title: 'Past Papers', imgSrc: 'https://static.vecteezy.com/system/resources/previews/006/584/666/non_2x/graphic-cartoon-character-of-checklist-vector.jpg', link: '/pyqs' },
   ];
 
   return (

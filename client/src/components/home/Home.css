@@ -84,3 +84,140 @@
     text-align:center;
 }
 
+/* Right side title */
+.right h1 {
+    font-size: 5rem;
+    color: #172d66;
+    margin-top: 200px;
+    transition: all 0.4s ease;
+    text-align: center;
+}
+
+/* Hover effect */
+.right h1:hover {
+    font-size: 4.2rem;
+    background: -webkit-linear-gradient(#cb0980, #29b1db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "Playwrite GB S", cursive;
+    font-optical-sizing: auto;
+    transition: all 0.3s ease;
+}
+
+/* After hover (active) effect */
+.right h1:active {
+    color: #cb0980;
+    transition: all 0.4s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .right h1 {
+        font-size: 4rem;
+        margin-top: 150px;
+    }
+
+    .right h1:hover {
+        font-size: 3.5rem;
+    }
+
+    .right h1:active {
+        font-size: 3.6rem; /* Slight change for active effect */
+    }
+}
+
+@media (max-width: 768px) {
+    .right h1 {
+        font-size: 3rem;
+        margin-top: 100px;
+    }
+
+    .right h1:hover {
+        font-size: 2.7rem;
+    }
+
+    .right h1:active {
+        font-size: 2.8rem; /* Active effect */
+    }
+}
+
+@media (max-width: 480px) {
+    .right h1 {
+        font-size: 2.5rem;
+        margin-top: 50px;
+    }
+
+    .right h1:hover {
+        font-size: 2.3rem;
+    }
+
+    .right h1:active {
+        font-size: 2.4rem; /* Active effect */
+    }
+}
+
+
+  
+  /* Responsive Lottie animation container */
+  .lottie-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Responsive animation dimensions */
+  .lottie-container .lottie {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Media queries for responsiveness */
+  @media (max-width: 1024px) {
+    .lottie-container {
+      max-width: 80%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .lottie-container {
+      max-width: 60%;
+    }
+  
+    .right h1 {
+      font-size: 2.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .lottie-container {
+      max-width: 100%;
+    }
+  
+    .right h1 {
+      font-size: 2rem;
+      margin-top: 20px;
+    }
+  }
+  
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on larger screens */
+    gap: 20px;
+    justify-items: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  @media (max-width: 1024px) {
+    .cards-container {
+      grid-template-columns: repeat(1, 1fr); /* 1 column on medium screens */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .cards-container {
+      grid-template-columns: 1fr; /* Stacks in a single column on smaller screens */
+    }
+  }
+  
+  

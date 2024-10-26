@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Tutorials.css';
 
 const Tutorials = () => {
@@ -7,16 +8,15 @@ const Tutorials = () => {
   const [filteredTutorials, setFilteredTutorials] = useState([]);
   const [selectedSemester, setSelectedSemester] = useState('');
   const [semesters, setSemesters] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
+  const [menuVisible, setMenuVisible] = useState(false);
 
   useEffect(() => {
     const fetchTutorials = async () => {
       try {
         const response = await fetch(`http://localhost:4000/exam-api/tutorials`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+        if (!response.ok) throw new Error('Network response was not ok');
+        
         const data = await response.json();
-
         const allTutorials = data.flatMap(item =>
           item.tutorials.map(link => {
             const videoId = new URLSearchParams(new URL(link).search).get('v');
@@ -25,7 +25,7 @@ const Tutorials = () => {
               subject: item.subjectName,
               link: link,
               thumbnail: videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null,
-              semno: item.semno
+              semno: item.semno,
             };
           })
         );
@@ -35,8 +35,6 @@ const Tutorials = () => {
         );
 
         const filteredTutorialsWithThumbnails = uniqueTutorials.filter(tutorial => tutorial.thumbnail);
-
-        // Sort the tutorials alphabetically by title
         const sortedData = filteredTutorialsWithThumbnails.sort((a, b) =>
           a.title.localeCompare(b.title)
         );
@@ -66,9 +64,26 @@ const Tutorials = () => {
     setFilteredTutorials(filtered);
   };
 
+  const toggleMenu = () => setMenuVisible(!menuVisible);
+
   return (
     <div className="tutorials-container">
       <h1 className="tutorials-header">Master any subject with clear, step-by-step lecture tutorials!</h1>
+      
+      {/* Hamburger Icon */}
+      <button className="tutorials-hamburger-icon" onClick={toggleMenu}>
+        &#9776; {/* Unicode for hamburger icon */}
+      </button>
+
+      {/* Dropdown Menu */}
+      {menuVisible && (
+        <div className="tutorials-menu">
+          <Link to="/syllabus">Syllabus</Link>
+          <a href="/pyqs">Past Papers</a>
+          <a href="/time-table">Timetable</a>
+        </div>
+      )}
+
       <div className="tutorials-search-container">
         <form className="tutorials-search-form" onSubmit={handleSearch}>
           <div className="tutorials-search-icon-container">

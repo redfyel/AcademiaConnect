@@ -1,32 +1,88 @@
+/* Header container */
 .header {
-  background-color:#ebebff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ebebff;
+  padding: 10px 20px;
 }
-.logo-imge .logo-img{
-  width : 130px;
+
+/* Logo styling */
+.logo-imge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.logo-imge h1{
+
+.logo-imge .logo-img {
+  width: 130px;
+}
+
+.logo-imge h1 {
   background: -webkit-linear-gradient(#cb0980, #29b1db);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 1.5rem;
-  margin: auto;
   text-shadow: #ebebff;
   text-decoration: none;
   font-family: "Playwrite GB S", cursive;
+  margin: 0;
 }
-.header .links a{
-  color : #172d66;
+
+/* Links styling */
+.header .links {
+  display: flex;
+  gap: 15px;
+}
+
+.header .links a {
+  color: #172d66;
   text-decoration: none;
   font-size: 1.3rem;
   padding: 5px;
   font-weight: 500;
 }
 
-.header .links a:hover{
-  color : #ffffff;
-  font-size: 1.3rem;
+.header .links a:hover {
+  color: #ffffff;
   background-color: #172d66;
-  padding: 5px;
   border-radius: 10px;
   transition: all 0.2s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+
+  .links {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+  }
+
+  /* Toggle menu open */
+  .header.open .links {
+      display: flex;
+  }
+}
+
+/* Smaller screen adjustments */
+@media (max-width: 480px) {
+  .logo-imge .logo-img {
+      width: 100px;
+  }
+
+  .logo-imge h1 {
+      font-size: 1.2rem;
+  }
+
+  .header .links a {
+      font-size: 1.1rem;
+      padding: 8px;
+  }
 }

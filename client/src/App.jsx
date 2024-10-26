@@ -57,7 +57,7 @@ function App() {
         },
         {
           path: '/user-profile',
-          element: <UserProfile />,
+          element: <UserProfile />
         },
         {
           path: '/time-table',

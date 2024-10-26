@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import { Link } from 'react-router-dom'; // Import Link for navigation
 import './Pyqs.css';
 
 const romanize = (num) => {
@@ -33,6 +34,7 @@ const Pyqs = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredPyqs, setFilteredPyqs] = useState([]);
     const [selectedSemester, setSelectedSemester] = useState('All');
+    const [menuVisible, setMenuVisible] = useState(false); // State for menu visibility
 
     useEffect(() => {
         async function fetchPyqs() {
@@ -93,10 +95,26 @@ const Pyqs = () => {
 
     const groupedPyqs = filterPyqs();
 
+    const toggleMenu = () => setMenuVisible(!menuVisible); // Toggle menu visibility
+
     return (
         <div className="pyqs-container">
-            {/* Heading */}
-            <h1 className="pyqs-heading">Previous Years' Examination Papers</h1>
+            <div className="pyqs-header">
+                <h1 className="pyqs-heading">Previous Years' Examination Papers</h1>
+                {/* Hamburger Icon */}
+                <button className="pyqs-hamburger-icon" onClick={toggleMenu}>
+                    &#9776; {/* Unicode for hamburger icon */}
+                </button>
+            </div>
+
+            {/* Dropdown Menu */}
+            {menuVisible && (
+                <div className="pyqs-menu">
+                    <Link to="/syllabus">Syllabus</Link>
+                    <Link to="/tutorials">Tutorials</Link>
+                    <Link to="/time-table">Timetable</Link>
+                </div>
+            )}
 
             {/* Search and Filters */}
             <div className="pyqs-filter-container">

@@ -9,6 +9,7 @@ import ProfileImage from '../user-profile/ProfileImage'; // Import the ProfileIm
 function Header() {
   let { logoutUser, userLoginStatus, currentUser } = useContext(userLoginContext); 
 
+
   return (
     <div className='header d-flex justify-content-between align-items-center'>
       
