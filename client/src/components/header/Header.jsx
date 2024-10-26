@@ -8,6 +8,12 @@ import ProfileImage from '../user-profile/ProfileImage'; // Import the ProfileIm
 
 function Header() {
   let { logoutUser, userLoginStatus, currentUser } = useContext(userLoginContext); 
+const toggleButton = document.querySelector('.menu-toggle');
+const header = document.querySelector('.header');
+
+toggleButton.addEventListener('click', () => {
+    header.classList.toggle('open');
+});
 
   return (
     <div className='header d-flex justify-content-between align-items-center'>
