@@ -3,6 +3,7 @@ import { userLoginContext } from '../../contexts/userLoginContext';
 import Lottie from 'lottie-react';
 import animationData from '../../assets/animations/student.json';
 import { useNavigate } from 'react-router-dom';
+import ProfileImage from '../user-profile/ProfileImage';
 import './StudentCorner.css';
 
 const StudentCorner = () => {
@@ -11,19 +12,24 @@ const StudentCorner = () => {
     const [postContent, setPostContent] = useState('');
     const [error, setError] = useState('');
     const [activeTab, setActiveTab] = useState('doubts');
+    const [showMenu, setShowMenu] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         if (userLoginStatus) {
             fetchPosts();
         }
-    }, [userLoginStatus]);
+    }, [userLoginStatus, activeTab]);
 
     const fetchPosts = async () => {
         try {
-            const response = await fetch('http://localhost:4000/student-corner-api/post');
+            const endpoint = activeTab === 'myPosts' 
+                ? `http://localhost:4000/student-corner-api/post?username=${currentUser.username}`
+                : 'http://localhost:4000/student-corner-api/post';
+
+            const response = await fetch(endpoint);
             const data = await response.json();
-            setPosts(data);
+            setPosts(data.filter(post => activeTab === 'myPosts' ? post.username === currentUser.username : post.type === activeTab));
         } catch (err) {
             console.error('Error fetching posts:', err);
             setError('Error fetching posts');
@@ -57,44 +63,22 @@ const StudentCorner = () => {
         }
     };
 
-    const handleReplySubmit = async (postId, replyContent, setReplyContent) => {
-        if (!userLoginStatus) {
-            setError('You must be logged in to reply.');
-            return;
-        }
-
-        try {
-            const response = await fetch(`http://localhost:4000/student-corner-api/post/${postId}/reply`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: replyContent, username: currentUser.username }),
-            });
-
-            if (response.ok) {
-                setReplyContent(''); // Reset reply for this post
-                fetchPosts(); // Reload posts after a successful reply
-            } else {
-                const errorData = await response.json();
-                setError(errorData.message);
-            }
-        } catch (err) {
-            console.error('Error replying:', err);
-            setError('An error occurred while replying.');
-        }
-    };
-
-    const filteredPosts = posts.filter(post => post.type === activeTab);
-
     return (
         <div className="student-corner">
-            <div className="animation-container">
-                <div className="text-section">
-                    <h2>Student Corner</h2>
-                    <p>Share your thoughts, clarify your doubts, and make your voice heard!</p>
-                </div>
-                {/* <Lottie animationData={animationData} loop={true} autoplay /> */}
+            <div className="text-section">
+                <h2>Student Corner</h2>
+                <p>Share your thoughts, clarify your doubts, and make your voice heard!</p>
+                <button className="hamburger-button" onClick={() => setShowMenu(!showMenu)}>☰</button>
+                {showMenu && (
+                    <div className="hamburger-menu">
+                        <button onClick={() => setActiveTab('doubts')}>Doubts</button>
+                        <button onClick={() => setActiveTab('complaints')}>Complaints</button>
+                        <button onClick={() => setActiveTab('myPosts')}>My Posts</button>
+                    </div>
+                )}
             </div>
 
+            {/* Tab Bar for Navigation */}
             <div className="tab-bar">
                 <button
                     className={`tab-button ${activeTab === 'doubts' ? 'active' : ''}`}
@@ -107,6 +91,12 @@ const StudentCorner = () => {
                     onClick={() => setActiveTab('complaints')}
                 >
                     Complaints
+                </button>
+                <button
+                    className={`tab-button ${activeTab === 'myPosts' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('myPosts')}
+                >
+                    My Posts
                 </button>
             </div>
 
@@ -131,11 +121,10 @@ const StudentCorner = () => {
             </div>
 
             <div className="posts-container">
-                {filteredPosts.map(post => (
+                {posts.map(post => (
                     <PostCard 
                         key={post._id} 
                         post={post} 
-                        handleReplySubmit={handleReplySubmit} 
                     />
                 ))}
             </div>
@@ -143,58 +132,95 @@ const StudentCorner = () => {
     );
 };
 
-const PostCard = ({ post, handleReplySubmit }) => {
-    const [replyContent, setReplyContent] = useState(''); // Local reply content for this post
-    const [isExpanded, setIsExpanded] = useState(false); // State to toggle post expansion
-    const [likes, setLikes] = useState(post.likes || 0); // Local state for likes
+const PostCard = ({ post }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [replies, setReplies] = useState([]);
+    const [newReply, setNewReply] = useState('');
 
     const toggleExpand = () => {
-        setIsExpanded(prev => !prev);
+        if (!isExpanded) fetchReplies(); // Fetch replies only when expanding
+        setIsExpanded((prev) => !prev);
     };
 
-    const handleLike = () => {
-        setLikes(likes + 1); // Increase likes by 1
-        // You might want to also send this update to your server
+    const fetchReplies = async () => {
+        try {
+            console.log(`Fetching replies for post ID: ${post._id}`);
+            const response = await fetch(`http://localhost:4000/student-corner-api/reply/${post._id}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch replies');
+            }
+            const data = await response.json();
+            console.log('Replies received:', data); // Log the data received
+            setReplies(data);
+        } catch (err) {
+            console.error('Error fetching replies:', err);
+        }
+    };
+
+    const handleReplySubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`http://localhost:4000/student-corner-api/reply`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ postId: post._id, content: newReply }),
+            });
+
+            if (response.ok) {
+                setNewReply('');
+                fetchReplies();
+            }
+        } catch (err) {
+            console.error('Error posting reply:', err);
+        }
     };
 
     return (
-        <div className={`post-card ${isExpanded ? 'expanded' : ''}`}>
+        <div className={`post-cards ${isExpanded ? 'expanded' : ''}`}>
+            <div className="post-header">
+                <ProfileImage email={post.email || 'default@domain.com'} />
+                <div className="post-user-info">
+                    <p className="post-author">{post.username}</p>
+                </div>
+                <div className="post-time">
+                    <p>{new Date(post.createdAt).toLocaleString()}</p>
+                </div>
+            </div>
+
             <div className="post-content-overlay" onClick={toggleExpand}>
                 <h3>{post.content}</h3>
-                <p className="post-author">Posted by: {post.username}</p>
-                <p className="post-likes">Likes: {likes}</p>
+                <div className="post-actions">
+                    <button className="like-button">👍 {post.likes || 0}</button>
+                    <button className="comments-button" onClick={toggleExpand}>
+                        {isExpanded ? "Hide Comments" : "Show Comments"}
+                    </button>
+                </div>
             </div>
 
             {isExpanded && (
-                <>
-                    <div className="thread-section">
-                        <form onSubmit={(e) => {
-                            e.preventDefault();
-                            handleReplySubmit(post._id, replyContent, setReplyContent);
-                        }}>
-                            <input
-                                type="text"
-                                className="reply-input"
-                                value={replyContent}
-                                onChange={(e) => setReplyContent(e.target.value)}
-                                placeholder="Reply..."
-                                required
-                            />
-                            <button type="submit" className="reply-button">Reply</button>
-                        </form>
-                    </div>
-
-                    <div className="replies-container">
-                        {post.replies && post.replies.map((reply, index) => (
-                            <div key={index} className="reply-card">
+                <div className="replies-section">
+                    <h4>Replies</h4>
+                    {replies.length === 0 ? (
+                        <p>No replies yet. Be the first to reply!</p>
+                    ) : (
+                        replies.map(reply => (
+                            <div key={reply._id} className="reply">
+                                <p className="reply-username">{reply.username}</p>
                                 <p className="reply-content">{reply.content}</p>
-                                <p className="reply-author">Replied by: {reply.username}</p>
                             </div>
-                        ))}
-                    </div>
-
-                    <button onClick={handleLike} className="like-button">Like</button>
-                </>
+                        ))
+                    )}
+                    <form onSubmit={handleReplySubmit} className="reply-form">
+                        <input
+                            type="text"
+                            value={newReply}
+                            onChange={(e) => setNewReply(e.target.value)}
+                            placeholder="Write a reply..."
+                            required
+                        />
+                        <button type="submit" className="submit-reply-button">Reply</button>
+                    </form>
+                </div>
             )}
         </div>
     );
