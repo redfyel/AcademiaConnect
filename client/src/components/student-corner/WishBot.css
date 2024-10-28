@@ -270,6 +270,71 @@
     color : #172d66;
     
 }
+.wish-bot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.wish-bot-icon {
+    font-size: 24px;
+    padding: 10px;
+    border: none;
+  
+   background-color: #cb0980;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.wish-bot-icon:hover {
+    transform: scale(1.1);
+}
+
+.wish-bot {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.wish-bot-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.wish-bot textarea {
+    resize: none;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.wish-bot-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.send-wish-button, .minimize-wish-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.send-wish-button:hover, .minimize-wish-button:hover {
+    background-color: #2980b9;
+}
+
 
 .wish-bot-form:hover {
     transform: translateY(-5px);
