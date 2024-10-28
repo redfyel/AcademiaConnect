@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './WishBot.css'; // Ensure your CSS file has appropriate styles
+import './WishBot.css';
 
 const WishBot = ({ onWishSubmit }) => {
     const [wishContent, setWishContent] = useState('');
@@ -9,7 +9,7 @@ const WishBot = ({ onWishSubmit }) => {
         e.preventDefault();
         if (wishContent.trim()) {
             onWishSubmit(wishContent);
-            setWishContent('');
+            setWishContent(''); // Clear the input field after submission
             setIsOpen(false); // Close the bot after submission
         }
     };
@@ -33,8 +33,8 @@ const WishBot = ({ onWishSubmit }) => {
                             required
                         />
                         <div className="wish-bot-actions">
-                            <button type="submit">Send</button>
-                            <button type="button" onClick={() => setIsOpen(false)}>Minimize</button>
+                            <button type="submit" className="send-wish-button">Send</button>
+                            <button type="button" className="minimize-wish-button" onClick={() => setIsOpen(false)}>Minimize</button>
                         </div>
                     </form>
                 </div>
