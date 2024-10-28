@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import md5 from "md5";
 import "./UserProfile.css";
 
-function ProfileImage({ email, currentImage, onImageUpload, onClose }) {
-  const [isOpen, setIsOpen] = useState(false);
+function ProfileImage({ email, isOpen, onClose, currentImage, onImageUpload }) {
+  const [isModalOpen, setIsModalOpen] = useState(isOpen || false);
   const [selectedImage, setSelectedImage] = useState(currentImage || null);
-  const emailHash = md5(email.trim().toLowerCase());
+  const [rotation, setRotation] = useState(0);
+  const emailHash = md5(email?.trim().toLowerCase() || "");
   const gravatarUrl = `https://www.gravatar.com/avatar/${emailHash}?d=identicon`;
 
   const styles = {
@@ -24,46 +25,62 @@ function ProfileImage({ email, currentImage, onImageUpload, onClose }) {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
-      onImageUpload(file); // Pass image file to parent if needed
+      onImageUpload(file);
     }
   };
 
+  const handleRotateLeft = () => setRotation((prevRotation) => prevRotation - 90);
+  const handleRotateRight = () => setRotation((prevRotation) => prevRotation + 90);
+  const handleReset = () => {
+    setSelectedImage(currentImage || null);
+    setRotation(0);
+  };
+
   const handleSave = () => {
-    setIsOpen(false);
+    setIsModalOpen(false);
+    if (onClose) onClose();
   };
 
   return (
     <>
+      {/* Profile icon that opens the modal */}
       <img
         src={selectedImage || gravatarUrl}
         alt="Profile"
         style={styles.profileIcon}
-        onClick={() => setIsOpen(true)}
+       
       />
 
-      {isOpen && (
+      {/* Modal for editing profile image */}
+      {isModalOpen && (
         <div className="modal-overlay1">
           <div className="modal-container1">
             <h2>Edit Profile</h2>
-            <form>
-              <label>
-                Profile Image:
-                <input type="file" accept="image/*" onChange={handleImageChange} />
-              </label>
-              <div className="image-preview-container">
-                {selectedImage ? (
-                  <img src={selectedImage} alt="Avatar Preview" className="avatar-preview" />
-                ) : (
-                  <div className="placeholder-preview">No image selected</div>
-                )}
-              </div>
-              <button type="button" className="modbuts" onClick={handleSave}>
-                Save
-              </button>
-              <button type="button" className="modbuts" onClick={() => setIsOpen(false)}>
-                Cancel
-              </button>
-            </form>
+            <div className="image-preview-container">
+              {selectedImage ? (
+                <img
+                  src={selectedImage}
+                  alt="Avatar Preview"
+                  className="avatar-preview"
+                  style={{ transform: `rotate(${rotation}deg)` }}
+                />
+              ) : (
+                <div className="placeholder-preview">No image selected</div>
+              )}
+            </div>
+            <div className="edit-buttons">
+              <button type="button" onClick={handleRotateLeft}>⟲</button>
+              <button type="button" onClick={handleRotateRight}>⟳</button>
+              <button type="button" onClick={handleReset}>Reset</button>
+            </div>
+            <label className="choose-image">
+              Choose Image
+              <input type="file" accept="image/*" onChange={handleImageChange} style={{ display: 'none' }} />
+            </label>
+            <div className="button-container">
+              <button type="button" className="modbuts" onClick={handleSave}>Save</button>
+              <button type="button" className="modbuts" onClick={() => setIsModalOpen(false)}>Cancel</button>
+            </div>
           </div>
         </div>
       )}

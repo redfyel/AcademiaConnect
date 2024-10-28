@@ -112,8 +112,26 @@ function UserProfile() {
   const emailHash = md5(currentUser.email.trim().toLowerCase());
   const gravatarUrl = `https://www.gravatar.com/avatar/${emailHash}?d=identicon`;
 
-  if (!userLoginStatus) {
-    return null;
+  if (!userLoginStatus || !currentUser) {
+    return (
+      <div className="auth-error-message">
+        <h3>
+          Please{" "}
+          <a
+            href="/auth"
+            className="btn btn-lg active"
+            role="button"
+            aria-pressed="true"
+          >
+            Sign Up / Login
+          </a>{" "}
+          to continue
+        </h3>
+        <p>
+          You need to create an account or log in to view your dashboard.
+        </p>
+      </div>
+    )
   }
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [uploadedImage, setUploadedImage] = useState(null); // Changed to hold image URL
@@ -125,6 +143,7 @@ function UserProfile() {
 
   return (
     <div className="profile-page">
+        
       <div className="sidebar">
         <div className="profile-box">
           <img src={gravatarUrl || uploadedImage}  alt="Profile" className="profile-image" />
