@@ -1,0 +1,276 @@
+/* WishBot.css */
+.wish-bot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 300px;
+    transition: transform 0.3s ease;
+    transform: translateY(100%);
+}
+
+.wish-bot.open {
+    transform: translateY(0);
+}
+
+.wish-bot-toggle {
+    background-color: #8BC34A;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
+
+.wish-bot-form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.wish-bot-form textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.wish-bot-form button {
+    background-color: #2E865F;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px;
+    cursor: pointer;
+}
+/* WishBot.css */
+
+.wish-bot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.wish-bot-toggle {
+    background-color: #29b1db; /* Button color */
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.wish-bot-toggle:hover {
+    transform: scale(1.1); /* Scale up on hover */
+    background-color: #172d66; /* Darker shade on hover */
+}
+
+.wish-bot-form {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 70px; /* Position the form above the button */
+    right: 0;
+    width: 250px; /* Width of the form */
+    background-color: #fff6e9; /* Light background for the form */
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    transition: opacity 0.3s ease;
+    animation: slideIn 0.3s ease; /* Slide-in animation */
+}
+
+.wish-bot-form textarea {
+    resize: none;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #cb0980; /* Border color */
+    border-radius: 4px;
+}
+
+.wish-bot-form button {
+    background-color: #cb0980; /* Send button color */
+    color: #fff;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.wish-bot-form button:hover {
+    background-color: #29b1db; /* Lighter shade on hover */
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+/* WishBot.css */
+
+.wish-bot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.wish-bot-toggle {
+    background-color: #29b1db; /* Button color */
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.wish-bot-toggle:hover {
+    transform: scale(1.1); /* Scale up on hover */
+    background-color: #172d66; /* Darker shade on hover */
+}
+
+.wish-bot-form {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 70px; /* Position the form above the button */
+    right: 0;
+    width: 250px; /* Width of the form */
+    background-color: #fff6e9; /* Light background for the form */
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    transition: opacity 0.3s ease;
+    animation: slideIn 0.3s ease; /* Slide-in animation */
+}
+
+.wish-bot-form textarea {
+    resize: none;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #cb0980; /* Border color */
+    border-radius: 4px;
+}
+
+.wish-bot-form button {
+    background-color: #cb0980; /* Send button color */
+    color: #fff;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.wish-bot-form button:hover {
+    background-color: #29b1db; /* Lighter shade on hover */
+}
+
+.close-button {
+    background-color: #ff4d4d; /* Minimize button color */
+    margin-top: 0.5rem;
+}
+
+.close-button:hover {
+    background-color: #c72a2a; /* Darker shade on hover */
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.wish-bot-container {
+    position: fixed; /* Adjust as needed */
+    bottom: 20px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    z-index: 1000;
+}
+
+.wish-bot-icon {
+    font-size: 50px; /* Adjust size of the icon */
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.wish-bot {
+    background: #fff; /* Background color of the bot */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 300px; /* Adjust width as needed */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.wish-bot-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.wish-bot-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.wish-bot textarea {
+    resize: none;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc; /* Customize border color */
+}
+
+.wish-bot button {
+    background-color: #29b1db; /* Customize button color */
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.wish-bot button:hover {
+    background-color: #2191b0; /* Darker shade for hover effect */
+}
+.wish-bot-form {
+  
+    background: linear-gradient(135deg, rgba(203, 9, 128, 0.2), rgba(0, 184, 255, 0.2));
+    
+    color : #172d66;
+    
+}
+
+.wish-bot-form:hover {
+    transform: translateY(-5px);
+}
