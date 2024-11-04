@@ -13,7 +13,7 @@ const Tutorials = () => {
   useEffect(() => {
     const fetchTutorials = async () => {
       try {
-        const response = await fetch(`http://backend-url/exam-api/tutorials`);
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/exam-api/tutorials`);
         if (!response.ok) throw new Error('Network response was not ok');
         
         const data = await response.json();
