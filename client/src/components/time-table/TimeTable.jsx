@@ -15,7 +15,7 @@ const TimeTable = () => {
     // Fetch data from timeTableAPI
     const fetchTableData = async () => {
       try {
-        const response = await fetch(`https://academiaconnect-x5a6.onrender.comtimeTable-api/syllabus`);
+        const response = await fetch(`https://academiaconnect-x5a6.onrender.com/timeTable-api/syllabus`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
