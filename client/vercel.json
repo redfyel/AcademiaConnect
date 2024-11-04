@@ -5,12 +5,6 @@
         "source": "client",
         "buildCommand": "npm run build",
         "outputDirectory": "build"
-      },
-      {
-        "name": "backend",
-        "source": "backend",
-        "buildCommand": "npm install",
-        "outputDirectory": ""
       }
     ]
   }
