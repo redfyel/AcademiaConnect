@@ -9,7 +9,8 @@ require('dotenv').config();
 const cors = require('cors');
 const allowedOrigins = [
     'http://localhost:5173',  
-    'https://academia-connect.vercel.app'  
+    'https://academia-connect.vercel.app' ,
+    'http://localhost:4000' 
   ];
   
   app.use(cors({

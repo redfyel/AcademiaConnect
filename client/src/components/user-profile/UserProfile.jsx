@@ -40,7 +40,7 @@ function UserProfile() {
 
         if (!token || !rollnum) return;
 
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/user-api/attendance/${rollnum}`, {
+        const response = await fetch(`https://academiaconnect-x5a6.onrender.com/user-api/attendance/${rollnum}`, {
           headers: { 'Authorization': `Bearer ${token}` },
         });
 

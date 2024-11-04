@@ -8,7 +8,7 @@ function UserLoginStore({ children }) {
 
   async function loginUser(userCred) {
     try {
-      let res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/user-api/login`, {
+      let res = await fetch(`https://academiaconnect-x5a6.onrender.com/user-api/login`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(userCred),

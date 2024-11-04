@@ -28,7 +28,7 @@ function Tracker() {
         const token = sessionStorage.getItem('token');
         if (!token || !rollnum) return;
   
-        const response =  await fetch(`${process.env.REACT_APP_API_BASE_URL}/user-api/attendance/${rollnum}`, {
+        const response =  await fetch(`https://academiaconnect-x5a6.onrender.com/user-api/attendance/${rollnum}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           }
@@ -89,7 +89,7 @@ function Tracker() {
       if (!token) throw new Error("Please login to save attendance");
 
       const response = await fetch(
-       `${process.env.REACT_APP_API_BASE_URL}/user-api/save-attendance`,
+       `https://academiaconnect-x5a6.onrender.com/user-api/save-attendance`,
         {
           method: "POST",
           headers: {

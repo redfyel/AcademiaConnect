@@ -10,12 +10,17 @@ const Tutorials = () => {
   const [semesters, setSemesters] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
   const [menuVisible, setMenuVisible] = useState(false);
 
+
+
+
   useEffect(() => {
     const fetchTutorials = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/exam-api/tutorials`);
-        if (!response.ok) throw new Error('Network response was not ok');
+        const apiUrl = 'https://academiaconnect-x5a6.onrender.com' || 'http://localhost:4000';
+        const response = await fetch(`${apiUrl}/exam-api/tutorials`);
         
+        if (!response.ok) throw new Error('Network response was not ok');
+    
         const data = await response.json();
         const allTutorials = data.flatMap(item =>
           item.tutorials.map(link => {
@@ -29,22 +34,23 @@ const Tutorials = () => {
             };
           })
         );
-
+    
         const uniqueTutorials = allTutorials.filter((tutorial, index, self) =>
           index === self.findIndex(t => t.link === tutorial.link)
         );
-
+    
         const filteredTutorialsWithThumbnails = uniqueTutorials.filter(tutorial => tutorial.thumbnail);
         const sortedData = filteredTutorialsWithThumbnails.sort((a, b) =>
           a.title.localeCompare(b.title)
         );
-
+    
         setTutorials(sortedData);
         setFilteredTutorials(sortedData);
       } catch (error) {
         console.error('Error fetching tutorials:', error);
       }
     };
+    
 
     fetchTutorials();
   }, []);

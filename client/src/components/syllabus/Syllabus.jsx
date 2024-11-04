@@ -13,7 +13,7 @@ const Syllabus = () => {
     useEffect(() => {
         const fetchSyllabus = async () => {
             try {
-                const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/exam-api/syllabus`);
+                const res = await fetch(`https://academiaconnect-x5a6.onrender.com/exam-api/syllabus`);
                 if (!res.ok) throw new Error('Failed to fetch syllabus');
                 const data = await res.json();
                 const uniqueData = Array.from(new Map(data.map(item => [item.subjectName, item])).values());
