@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { userLoginContext } from '../../contexts/userLoginContext';
-import Lottie from 'lottie-react';
-import animationData from '../../assets/animations/student.json';
 import { useNavigate } from 'react-router-dom';
 import ProfileImage from '../user-profile/ProfileImage';
 import Carousel from 'react-bootstrap/Carousel';

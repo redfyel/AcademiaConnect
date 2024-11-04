@@ -39,7 +39,7 @@ const Pyqs = () => {
     useEffect(() => {
         async function fetchPyqs() {
             try {
-                const res = await fetch('http://localhost:4000/exam-api/pyqs');
+                const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/exam-api/pyqs`);
                 const data = await res.json();
                 if (res.ok) {
                     setPyqsList(data);
