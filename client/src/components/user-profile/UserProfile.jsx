@@ -40,7 +40,7 @@ function UserProfile() {
 
         if (!token || !rollnum) return;
 
-        const response = await fetch(`http://localhost:4000/user-api/attendance/${rollnum}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/user-api/attendance/${rollnum}`, {
           headers: { 'Authorization': `Bearer ${token}` },
         });
 

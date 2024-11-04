@@ -15,7 +15,7 @@ function EventCalendar() {
 
   useEffect(() => {
     async function fetchEvents() {
-      let res = await fetch("http://localhost:4000/events-api/events");
+      let res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/events-api/events`);
       const data = await res.json();
       setEvents(data);
     }

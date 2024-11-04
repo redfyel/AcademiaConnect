@@ -7,7 +7,7 @@ function Register({ onRegisterSuccess }) {
 
   async function onUserRegister(newUser) {
     try {
-      let res = await fetch("http://localhost:4000/user-api/user", {
+      let res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/user-api/user`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(newUser),

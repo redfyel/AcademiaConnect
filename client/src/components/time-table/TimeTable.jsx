@@ -15,7 +15,7 @@ const TimeTable = () => {
     // Fetch data from timeTableAPI
     const fetchTableData = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/timeTable-api/syllabus`); // Replace 'timeTableAPI' with your actual API endpoint
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/timeTable-api/syllabus`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
