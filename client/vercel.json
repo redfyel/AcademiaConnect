@@ -1,26 +1,6 @@
 {
   "name": "academia-connect",
-  "builds": [
-    {
-      "src": "client/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "client/build"
-      }
-    },
-    {
-      "src": "backend/index.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/backend/server.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/client/build/$1"
-    }
-  ]
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "framework": "create-react-app" 
 }
