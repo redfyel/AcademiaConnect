@@ -131,3 +131,12 @@
     font-size: 20px; /* Adjust title size for mobile */
   }
 }
+.exam-done {
+  background-color: #b0dab0; /* Light green for done exams */
+}
+
+.nearest-exam {
+  background-color: #ffecb3; /* Light yellow for nearest upcoming exam */
+  font-weight: bold; /* Optionally make it bold */
+}
+
