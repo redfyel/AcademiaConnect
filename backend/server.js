@@ -1,5 +1,6 @@
 // Import express module
 const exp = require('express');
+const express = require("express");
 const app = exp(); // app contains express application object
 
 // Import environment variables
@@ -67,6 +68,9 @@ app.use('/events-api', eventsApp);
 
 const studentCornerApp = require('./APIs/student-cornerAPI');
 app.use('/student-corner-api', studentCornerApp);
+const path = require("path"); // make sure path is imported
+app.use('/uploads', express.static(path.join(__dirname, './uploads')));
+console.log('Uploads directory:', path.join(__dirname, './uploads'));
 
 // Error handling middleware
 app.use((err, req, res, next) => {
