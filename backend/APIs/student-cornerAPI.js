@@ -41,7 +41,7 @@ studentCornerApp.post("/post", upload.single('image'), expressAsyncHandler(async
         username,
         createdAt: new Date(),
         replies: [],
-        imageUrl: req.file ? `/uploads/${req.file.filename}` : null // Store the full relative URL
+        imageUrl: req.file ? `/uploads/${req.file.filename}` : null // Store the image URL if provided
     };
 
     // Insert post into the database
@@ -64,6 +64,14 @@ studentCornerApp.get("/post", expressAsyncHandler(async (req, res) => {
 
     const posts = await studentCornerCollection.find().toArray();
     res.status(200).json(posts);
+}));
+
+// GET: Retrieve only 'wish' type posts
+studentCornerApp.get("/post/wish", expressAsyncHandler(async (req, res) => {
+    const studentCornerCollection = req.app.get("postsCollection");
+
+    const wishes = await studentCornerCollection.find({ type: 'wish' }).toArray();
+    res.status(200).json(wishes);
 }));
 
 // POST: Add a reply to a specific post
