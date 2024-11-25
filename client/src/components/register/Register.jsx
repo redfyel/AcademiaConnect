@@ -7,7 +7,7 @@ function Register({ onRegisterSuccess }) {
 
   async function onUserRegister(newUser) {
     try {
-      let res = await fetch(`https://academiaconnect-x5a6.onrender.comuser-api/user-api/user`, {
+      let res = await fetch(`https://academiaconnect-x5a6.onrender.com`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(newUser),
