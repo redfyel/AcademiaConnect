@@ -40,3 +40,5 @@ Academia Connect is built using the MERN stack, a popular combination of technol
 ## Conclusion
 
 Academia Connect represents a commitment to leveraging technology to empower students and enhance their academic journey. The application's intuitive design, comprehensive features, and robust technology stack make it an invaluable tool for students seeking to thrive in their academic pursuits. 
+
+![Contributor Pie Chart](contributor-pie.png)
